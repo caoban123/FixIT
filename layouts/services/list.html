@@ -1,0 +1,36 @@
+{{ define "main" }}
+<section class="section">
+  <div class="wrap">
+    <h1>{{ .Title }}</h1>
+    <p class="lead muted">{{ .Params.short }}</p>
+
+    <div class="filters" id="filters">
+      <input id="q" type="search" placeholder="Tìm theo tên hoặc từ khoá (python, git, chậm…)" aria-label="Tìm dịch vụ">
+      <div class="chips" role="group" aria-label="Lọc theo nhóm">
+        <button class="chip-btn active" type="button" data-cat="all">Tất cả</button>
+        <button class="chip-btn" type="button" data-cat="software">Software</button>
+        <button class="chip-btn" type="button" data-cat="development">Development</button>
+        <button class="chip-btn" type="button" data-cat="hardware">Hardware</button>
+      </div>
+      <select id="price" aria-label="Lọc theo giá">
+        <option value="all">Mọi mức giá</option>
+        <option value="0-29999">Dưới 30.000đ</option>
+        <option value="30000-59999">30.000đ – 59.999đ</option>
+        <option value="60000-999999">Từ 60.000đ</option>
+      </select>
+      <select id="sort" aria-label="Sắp xếp">
+        <option value="default">Mặc định</option>
+        <option value="asc">Giá tăng dần</option>
+        <option value="desc">Giá giảm dần</option>
+      </select>
+    </div>
+
+    <p id="result-count" class="muted" aria-live="polite"></p>
+    <div id="grid" class="grid-cards">
+      {{ range .Pages.ByWeight }}{{ partial "service-card.html" . }}{{ end }}
+    </div>
+    <p id="empty" class="empty" hidden>Chưa có dịch vụ khớp. Thử <a href="{{ "find-your-fix/" | relURL }}">Find your fix</a> nhé!</p>
+  </div>
+</section>
+{{ end }}
+{{ define "scripts" }}<script src="{{ "js/search.js" | relURL }}"></script>{{ end }}

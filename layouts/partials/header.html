@@ -1,0 +1,21 @@
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="{{ "" | relURL }}" aria-label="FixIT Student – trang chủ">
+      <img src="{{ "img/logo.svg" | relURL }}" alt="" width="36" height="36">
+      <span class="brand-text"><b>FixIT</b> Student</span>
+    </a>
+    <nav id="nav" class="nav" aria-label="Menu chính">
+      {{ $cur := . }}
+      {{ range site.Menus.main }}
+        <a href="{{ .URL | relURL }}" class="{{ if or ($cur.IsMenuCurrent "main" .) ($cur.HasMenuCurrent "main" .) }}active{{ end }}">{{ .Name }}</a>
+      {{ end }}
+    </nav>
+    <div class="header-actions">
+      <button id="theme-toggle" class="icon-btn" type="button" aria-label="Đổi giao diện sáng/tối" title="Sáng / tối">🌓</button>
+      <a class="icon-btn cart-link" href="{{ "cart/" | relURL }}" aria-label="Giỏ hàng">
+        🛒<span id="cart-badge" class="badge">0</span>
+      </a>
+      <button id="nav-toggle" class="icon-btn hamburger" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="nav">☰</button>
+    </div>
+  </div>
+</header>

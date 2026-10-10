@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.Locale }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ if .IsHome }}{{ site.Title }} · {{ site.Params.slogan }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ with .Params.short }}{{ . }}{{ else }}{{ site.Params.tagline }}{{ end }}">
+  <meta name="theme-color" content="#059669">
+  <link rel="icon" href="{{ "img/logo.svg" | relURL }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ "css/main.css" | relURL }}">
+  <script>
+    window.FIXIT = { base: "{{ "" | relURL }}" };
+    try { var t = localStorage.getItem('fixit_theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+</head>
+<body class="page-{{ .Type }}{{ if .IsHome }} is-home{{ end }}">
+  <a class="skip" href="#main">Bỏ qua điều hướng</a>
+  {{ partial "header.html" . }}
+  <main id="main">
+    {{ block "main" . }}{{ end }}
+  </main>
+  {{ partial "footer.html" . }}
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="{{ "js/theme.js" | relURL }}"></script>
+  <script src="{{ "js/cart.js" | relURL }}"></script>
+  {{ block "scripts" . }}{{ end }}
+</body>
+</html>

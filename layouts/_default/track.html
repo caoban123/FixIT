@@ -1,0 +1,14 @@
+{{ define "main" }}
+<section class="section">
+  <div class="wrap narrow">
+    <h1>{{ .Title }}</h1>
+    <p class="lead muted">{{ .Params.short }}</p>
+    <form id="track-form" class="card pad form-row">
+      <label for="track-code" class="sr">Mã đơn</label>
+      <input id="track-code" placeholder="Nhập mã đơn, ví dụ FIX-DEMO" autocomplete="off">
+      <button class="btn" type="submit">Kiểm tra</button>
+    </form>
+    <div id="track-result"></div>
+  </div>
+</section>
+{{ end }}

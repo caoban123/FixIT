@@ -1,0 +1,24 @@
+{{ $p := . }}
+<article class="card service-card"
+  data-cat="{{ $p.Params.category }}"
+  data-price="{{ $p.Params.price }}"
+  data-name="{{ $p.Title | lower }}"
+  data-tags="{{ delimit $p.Params.tags " " | lower }}">
+  <a class="card-img" href="{{ $p.RelPermalink }}">
+    <img src="{{ $p.Params.image | relURL }}" alt="Minh hoạ dịch vụ {{ $p.Title }}" loading="lazy" width="640" height="400">
+    <span class="chip cat-{{ $p.Params.category }}">{{ $p.Params.category | title }}</span>
+  </a>
+  <div class="card-body">
+    <h3><a href="{{ $p.RelPermalink }}">{{ $p.Params.icon }} {{ $p.Title }}</a></h3>
+    <p class="muted">{{ $p.Params.short }}</p>
+    <div class="card-meta">
+      <span class="price">{{ $p.Params.price | lang.FormatNumber 0 }}đ</span>
+      <span class="muted">⏱ {{ $p.Params.duration }}</span>
+    </div>
+    <div class="card-actions">
+      <a class="btn btn-ghost" href="{{ $p.RelPermalink }}">Chi tiết</a>
+      <button class="btn add-to-cart" type="button"
+        data-id="{{ $p.Params.id }}" data-name="{{ $p.Title }}" data-price="{{ $p.Params.price }}">Thêm vào giỏ</button>
+    </div>
+  </div>
+</article>

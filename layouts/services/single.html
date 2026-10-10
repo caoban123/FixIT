@@ -1,0 +1,52 @@
+{{ define "main" }}
+{{ $p := . }}
+<section class="section">
+  <div class="wrap detail">
+    <div class="detail-media">
+      <img src="{{ .Params.image | relURL }}" alt="Minh hoạ dịch vụ {{ .Title }}" width="640" height="400">
+    </div>
+    <div class="detail-info">
+      <a class="muted" href="{{ "services/" | relURL }}">← Tất cả dịch vụ</a>
+      <span class="chip cat-{{ .Params.category }}">{{ .Params.category | title }}</span>
+      <h1>{{ .Params.icon }} {{ .Title }}</h1>
+      <p class="lead">{{ .Params.short }}</p>
+      <div class="card-meta big-meta">
+        <span class="price">{{ .Params.price | lang.FormatNumber 0 }}đ</span>
+        <span class="muted">⏱ {{ .Params.duration }}</span>
+      </div>
+      <div class="card-actions">
+        {{ partial "add-to-cart-btn.html" . }}
+        <a class="btn btn-ghost" href="{{ "cart/" | relURL }}">Đến giỏ hàng</a>
+      </div>
+      <p class="muted small">Thanh toán là bản demo. Hẹn gặp tại sảnh trường hoặc hỗ trợ từ xa.</p>
+    </div>
+  </div>
+  <div class="wrap narrow prose">
+    {{ .Content }}
+  </div>
+
+  {{ with .Params.reviews }}
+  <div class="wrap narrow">
+    <h2>Đánh giá <span class="muted small">(bình luận mẫu cho bản demo)</span></h2>
+    <div class="reviews">
+      {{ range . }}
+      <figure class="card pad review">
+        <div class="stars" aria-label="{{ .stars }} trên 5 sao">{{ strings.Repeat .stars "★" }}{{ strings.Repeat (sub 5 .stars) "☆" }}</div>
+        <blockquote>{{ .text }}</blockquote>
+        <figcaption class="muted">— {{ .name }}</figcaption>
+      </figure>
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+
+  <div class="wrap">
+    <h2>Dịch vụ liên quan</h2>
+    <div class="grid-cards">
+      {{ range first 3 (where (where (site.GetPage "/services").Pages "Params.category" $p.Params.category) "Params.id" "ne" $p.Params.id) }}
+        {{ partial "service-card.html" . }}
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}

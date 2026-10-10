@@ -1,0 +1,9 @@
+{{ define "main" }}
+<section class="section">
+  <div class="wrap narrow prose">
+    <h1>{{ .Title }}</h1>
+    {{ with .Params.short }}<p class="lead muted">{{ . }}</p>{{ end }}
+    {{ .Content }}
+  </div>
+</section>
+{{ end }}

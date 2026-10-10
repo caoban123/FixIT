@@ -1,0 +1,28 @@
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <div class="brand footer-brand">
+        <img src="{{ "img/logo.svg" | relURL }}" alt="" width="32" height="32">
+        <span class="brand-text"><b>FixIT</b> Student</span>
+      </div>
+      <p class="muted">{{ site.Params.slogan }}</p>
+    </div>
+    <div>
+      <h4>Khám phá</h4>
+      <a href="{{ "services/" | relURL }}">Dịch vụ</a>
+      <a href="{{ "find-your-fix/" | relURL }}">Find your fix</a>
+      <a href="{{ "student-pack/" | relURL }}">Student Pack</a>
+      <a href="{{ "track/" | relURL }}">Theo dõi đơn</a>
+      <a href="{{ "faq/" | relURL }}">Câu hỏi thường gặp</a>
+    </div>
+    <div>
+      <h4>Liên hệ</h4>
+      <span>{{ site.Params.email }}</span>
+      <span>{{ site.Params.hours }}</span>
+      <span>Hẹn tại: {{ site.Params.meetingPoint }}</span>
+    </div>
+  </div>
+  <div class="wrap demo-note">
+    Đây là sản phẩm học tập (Đồ án 1 – CSC00006). Giỏ hàng và thanh toán chỉ là <b>DEMO</b>, không thu tiền hay thông tin cá nhân thật.
+  </div>
+</footer>

@@ -1,0 +1,26 @@
+{{ define "main" }}
+<section class="section">
+  <div class="wrap narrow">
+    <h1>{{ .Title }}</h1>
+    <div class="prose">{{ .Content }}</div>
+
+    <h2 class="mt">Đội ngũ</h2>
+    <div class="team">
+      {{ range .Params.team }}
+      <div class="card pad member">
+        <div class="avatar" aria-hidden="true">{{ .initial }}</div>
+        <h3>{{ .name }}</h3>
+        <p class="role">{{ .role }}</p>
+        <p class="muted">{{ .bio }}</p>
+      </div>
+      {{ end }}
+    </div>
+
+    <h2 class="mt">Chúng mình dùng AI vào việc gì?</h2>
+    <ul class="ai-list">
+      {{ range .Params.ai }}<li>{{ . }}</li>{{ end }}
+    </ul>
+    <p class="muted small">Các thành viên đều đọc, chỉnh sửa và hiểu nội dung do AI hỗ trợ trước khi đưa vào sản phẩm.</p>
+  </div>
+</section>
+{{ end }}

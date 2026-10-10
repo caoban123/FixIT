@@ -1,0 +1,53 @@
+baseURL = "https://fixit-student.pages.dev/"
+locale = "vi"
+defaultContentLanguage = "vi"
+title = "FixIT Student"
+enableRobotsTXT = true
+disableKinds = ["taxonomy", "term"]
+
+[params]
+  slogan = "LỖI CÔNG NGHỆ? ĐỂ FIXIT LO."
+  tagline = "Dịch vụ cài đặt, sửa lỗi và tư vấn công nghệ dành cho sinh viên, giá sinh viên."
+  email = "fixit.student@example.com"
+  zalo = "Zalo FixIT Student (demo)"
+  facebook = "facebook.com/fixit.student (demo)"
+  hours = "Thứ 2 – Thứ 6: 17:00 – 21:00 · Thứ 7: 08:00 – 12:00"
+  meetingPoint = "Sảnh trường (hẹn trước qua Zalo)"
+  packPrice = 149000
+
+# Trang chủ xuất thêm services.json để Find your fix / giỏ hàng dùng
+[outputFormats]
+  [outputFormats.ServicesJSON]
+    mediaType = "application/json"
+    baseName = "services"
+    isPlainText = true
+    notAlternative = true
+
+[outputs]
+  home = ["HTML", "ServicesJSON"]
+
+[menu]
+  [[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    name = "Services"
+    url = "/services/"
+    weight = 2
+  [[menu.main]]
+    name = "Find your fix"
+    url = "/find-your-fix/"
+    weight = 3
+  [[menu.main]]
+    name = "Student Pack"
+    url = "/student-pack/"
+    weight = 4
+  [[menu.main]]
+    name = "About"
+    url = "/about/"
+    weight = 5
+  [[menu.main]]
+    name = "Contact"
+    url = "/contact/"
+    weight = 6

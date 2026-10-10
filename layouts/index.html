@@ -1,0 +1,75 @@
+{{ define "main" }}
+{{ $services := (site.GetPage "/services").Pages.ByWeight }}
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Dịch vụ công nghệ cho sinh viên</p>
+      <h1>LỖI CÔNG NGHỆ?<br><span class="grad">ĐỂ FIXIT LO.</span></h1>
+      <p class="lead">Không cần biết lỗi tên gì. Chỉ cần nói bạn đang gặp vấn đề gì, FixIT đề xuất đúng dịch vụ, giá từ <b>9.000đ</b>.</p>
+      <div class="hero-cta">
+        <a class="btn btn-lg" href="{{ "find-your-fix/" | relURL }}">🔍 Find your fix</a>
+        <a class="btn btn-lg btn-ghost" href="{{ "services/" | relURL }}">Xem 8 dịch vụ</a>
+      </div>
+    </div>
+    <div class="terminal" id="terminal" aria-label="Mô phỏng terminal: gặp lỗi rồi được FixIT sửa">
+      <div class="term-bar"><i></i><i></i><i></i><span>terminal</span></div>
+      <pre id="term-out" class="term-out">$ python main.py
+Traceback (most recent call last):
+  File "main.py", line 1
+ModuleNotFoundError: No module named 'numpy'
+
+$ fixit --help
+✔ Đã fix. Chạy lại thôi!</pre>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2 class="section-title">Vấn đề FixIT giải quyết</h2>
+    <div class="grid-3">
+      <div class="card pad"><div class="big">😵</div><h3>Mất hàng giờ cài đặt</h3><p class="muted">Cài Python, C/C++, Git… tưởng 10 phút mà mất cả buổi tối.</p></div>
+      <div class="card pad"><div class="big">🤷</div><h3>Không biết lỗi tên gì</h3><p class="muted">Gõ lỗi lên mạng ra cả trăm kết quả, không biết cái nào đúng với máy mình.</p></div>
+      <div class="card pad"><div class="big">💸</div><h3>Tiệm sửa máy quá đắt</h3><p class="muted">Một lần cài đặt đơn giản cũng bị tính giá không dành cho túi tiền sinh viên.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <h2 class="section-title">Cách hoạt động</h2>
+    <ol class="steps">
+      <li><b>1</b><span>Gặp vấn đề</span></li>
+      <li><b>2</b><span>Find your fix</span></li>
+      <li><b>3</b><span>Đặt dịch vụ</span></li>
+      <li><b>4</b><span>Được fix xong</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title">8 dịch vụ, giá sinh viên</h2>
+      <a href="{{ "services/" | relURL }}">Xem tất cả →</a>
+    </div>
+    <div class="grid-cards">
+      {{ range $services }}{{ partial "service-card.html" . }}{{ end }}
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap pack-teaser">
+    <div>
+      <p class="eyebrow">Student Pack</p>
+      <h2>6 dịch vụ cần nhất, chỉ {{ site.Params.packPrice | lang.FormatNumber 0 }}đ</h2>
+      <p class="muted">Mua lẻ 204.000đ, mua pack chỉ 149.000đ, tiết kiệm 55.000đ.</p>
+      <a class="btn btn-lg" href="{{ "student-pack/" | relURL }}">Xem Student Pack</a>
+    </div>
+    <img src="{{ "img/student-pack.svg" | relURL }}" alt="Hộp Student Pack" width="640" height="400" loading="lazy">
+  </div>
+</section>
+{{ end }}
+
+{{ define "scripts" }}<script src="{{ "js/terminal.js" | relURL }}"></script>{{ end }}

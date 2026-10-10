@@ -1,0 +1,33 @@
+{{ define "main" }}
+<section class="section">
+  <div class="wrap contact-grid">
+    <div>
+      <h1>{{ .Title }}</h1>
+      <p class="lead muted">{{ .Params.short }}</p>
+      <ul class="contact-list">
+        <li>✉️ <b>Email</b><span>{{ site.Params.email }}</span></li>
+        <li>💬 <b>Zalo</b><span>{{ site.Params.zalo }}</span></li>
+        <li>📘 <b>Facebook</b><span>{{ site.Params.facebook }}</span></li>
+        <li>🕒 <b>Giờ làm việc</b><span>{{ site.Params.hours }}</span></li>
+        <li>📍 <b>Địa điểm hẹn</b><span>{{ site.Params.meetingPoint }}</span></li>
+      </ul>
+      <p class="muted small">Thông tin liên hệ trên trang là bản demo. Nhóm không công khai địa chỉ nhà riêng.</p>
+    </div>
+    <form id="contact-form" class="card pad form">
+      <h2>Gửi tin nhắn</h2>
+      <div class="demo-banner small">Demo: form này không gửi dữ liệu đi đâu cả.</div>
+      <label>Tên (nhập tên giả cũng được)<input name="name" placeholder="Bạn A"></label>
+      <label>Bạn cần hỗ trợ gì?<textarea name="msg" rows="4" placeholder="Mô tả ngắn vấn đề…"></textarea></label>
+      <button class="btn" type="submit">Gửi</button>
+      <p id="contact-ok" class="ok" hidden>✔ Đã gửi! (demo, chưa gửi thật)</p>
+    </form>
+  </div>
+</section>
+{{ end }}
+{{ define "scripts" }}
+<script>
+  document.getElementById('contact-form').addEventListener('submit', function (e) {
+    e.preventDefault(); this.reset(); document.getElementById('contact-ok').hidden = false;
+  });
+</script>
+{{ end }}
