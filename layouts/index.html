@@ -1,75 +1,303 @@
 {{ define "main" }}
 {{ $services := (site.GetPage "/services").Pages.ByWeight }}
-<section class="hero">
-  <div class="wrap hero-grid">
+<section class="hero hero-enhanced">
+  <!-- 3D Morphing Ball Video Layer from prompt.md -->
+  <div class="hero-video-wrapper" aria-hidden="true">
+    <video class="hero-video-bg" autoplay loop muted playsinline>
+      <source src="https://strvid.nyc3.cdn.digitaloceanspaces.com/motionsite/bg-red-ball.mp4" type="video/mp4">
+    </video>
+    <div class="hero-video-tint"></div>
+  </div>
+
+  <canvas id="particle-canvas" class="hero-canvas" aria-hidden="true"></canvas>
+  <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+  <div class="hero-vignette" aria-hidden="true"></div>
+
+  <div class="wrap hero-layout">
+    <!-- Left Column: Headline & Action -->
     <div class="hero-copy">
-      <p class="eyebrow">Dịch vụ công nghệ cho sinh viên</p>
-      <h1>LỖI CÔNG NGHỆ?<br><span class="grad">ĐỂ FIXIT LO.</span></h1>
-      <p class="lead">Không cần biết lỗi tên gì. Chỉ cần nói bạn đang gặp vấn đề gì, FixIT đề xuất đúng dịch vụ, giá từ <b>9.000đ</b>.</p>
-      <div class="hero-cta">
-        <a class="btn btn-lg" href="{{ "find-your-fix/" | relURL }}">🔍 Find your fix</a>
-        <a class="btn btn-lg btn-ghost" href="{{ "services/" | relURL }}">Xem 8 dịch vụ</a>
+      <div class="hero-badge">
+        <span class="badge-pulse"></span>
+        <span>STARTUP DỊCH VỤ CÔNG NGHỆ SINH VIÊN</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="hero-title-main">LỖI CÔNG NGHỆ?</span>
+        <span class="hero-glow-text">ĐỂ FIXIT LO.</span>
+      </h1>
+      <p class="hero-lead">
+        Không cần biết lỗi tên gì. Chỉ cần nói bạn đang gặp sự cố gì, FixIT chẩn đoán và khắc phục tận tay tại sảnh trường, giá sinh viên từ <b>30.000đ</b>.
+      </p>
+      <div class="hero-actions">
+        <a class="btn-glow-pill" href="{{ "find-your-fix/" | relURL }}">
+          <span>🔍 Chẩn đoán lỗi ngay</span>
+          <svg class="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </a>
+        <a class="btn-glass-pill" href="{{ "services/" | relURL }}">
+          <span>Xem 8 dịch vụ</span>
+          <span class="arrow-right">→</span>
+        </a>
+      </div>
+      <div class="hero-trust">
+        <span class="trust-pill">⚡ Xử lý trong ngày</span>
+        <span class="trust-pill">🛡️ Bảo hành 7 ngày</span>
+        <span class="trust-pill">🎓 Giá túi tiền sinh viên</span>
       </div>
     </div>
-    <div class="terminal" id="terminal" aria-label="Mô phỏng terminal: gặp lỗi rồi được FixIT sửa">
-      <div class="term-bar"><i></i><i></i><i></i><span>terminal</span></div>
-      <pre id="term-out" class="term-out">$ python main.py
+
+    <!-- Right Column: Live Terminal & Feature Stack -->
+    <div class="hero-features">
+      <div class="terminal terminal-glass" id="terminal" aria-label="Mô phỏng terminal: gặp lỗi rồi được FixIT sửa">
+        <div class="term-bar">
+          <div class="term-dots">
+            <i class="dot-red"></i><i class="dot-yellow"></i><i class="dot-green"></i>
+          </div>
+          <span class="term-title">bash — fixit-engine</span>
+          <span class="term-status">online</span>
+        </div>
+        <pre id="term-out" class="term-out">$ python main.py
 Traceback (most recent call last):
   File "main.py", line 1
 ModuleNotFoundError: No module named 'numpy'
 
 $ fixit --help
 ✔ Đã fix. Chạy lại thôi!</pre>
+      </div>
+
+      <div class="feature-stack">
+        <div class="feature-card">
+          <div class="feat-head">
+            <span class="feat-num">01</span>
+            <span class="feat-tag">TRỰC TIẾP</span>
+          </div>
+          <h3 class="feat-title">Hẹn gặp tại sảnh</h3>
+          <p class="feat-desc">Hẹn trước qua Zalo, nhận máy và hỗ trợ ngay tại sảnh trường, kiểm tra kỹ lưỡng trước khi nhận.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feat-head">
+            <span class="feat-num">02</span>
+            <span class="feat-tag">MINH BẠCH</span>
+          </div>
+          <h3 class="feat-title">Giá chuẩn sinh viên</h3>
+          <p class="feat-desc">Từ 30k – 70k trọn gói. Báo giá rõ ràng từ đầu, không vẽ thêm bệnh hay phát sinh chi phí bất ngờ.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feat-head">
+            <span class="feat-num">03</span>
+            <span class="feat-tag">AN TÂM</span>
+          </div>
+          <h3 class="feat-title">Bảo hành 7 ngày</h3>
+          <p class="feat-desc">Hỗ trợ sửa lại 100% miễn phí nếu lỗi cũ tái phát hoặc gặp sự cố phát sinh sau khi bàn giao.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="section">
+<!-- Section: Vấn đề sinh viên thường gặp -->
+<section class="section section-problems">
   <div class="wrap">
-    <h2 class="section-title">Vấn đề FixIT giải quyết</h2>
-    <div class="grid-3">
-      <div class="card pad"><div class="big">😵</div><h3>Mất hàng giờ cài đặt</h3><p class="muted">Cài Python, C/C++, Git… tưởng 10 phút mà mất cả buổi tối.</p></div>
-      <div class="card pad"><div class="big">🤷</div><h3>Không biết lỗi tên gì</h3><p class="muted">Gõ lỗi lên mạng ra cả trăm kết quả, không biết cái nào đúng với máy mình.</p></div>
-      <div class="card pad"><div class="big">💸</div><h3>Tiệm sửa máy quá đắt</h3><p class="muted">Một lần cài đặt đơn giản cũng bị tính giá không dành cho túi tiền sinh viên.</p></div>
+    <div class="section-center-head">
+      <p class="eyebrow eyebrow-center">VẤN ĐỀ THƯỜNG GẶP</p>
+      <h2 class="section-title">NỖI ÁM ẢNH CÔNG NGHỆ CỦA SINH VIÊN</h2>
+      <p class="section-subtitle">FixIT ra đời để giải quyết chính xác 3 khó khăn lớn nhất mà sinh viên gặp phải khi học tập.</p>
+    </div>
+    <div class="grid-3 problem-grid">
+      <div class="problem-card">
+        <div class="prob-head">
+          <span class="prob-badge">01 · MẤT THỜI GIAN</span>
+          <div class="prob-icon-wrap prob-icon-time">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+        </div>
+        <h3 class="prob-title">Kẹt Hàng Giờ Cài Môi Trường</h3>
+        <p class="prob-desc">Cài đặt C/C++, Python, Git, VS Code... tưởng 10 phút nhưng vướng lỗi biến môi trường PATH hay xung đột compiler, mất trắng cả buổi tối.</p>
+        <div class="prob-stat">⏱️ ~4.5 giờ lãng phí mỗi đồ án</div>
+      </div>
+
+      <div class="problem-card">
+        <div class="prob-head">
+          <span class="prob-badge">02 · MẤT PHƯƠNG HƯỚNG</span>
+          <div class="prob-icon-wrap prob-icon-bug">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg>
+          </div>
+        </div>
+        <h3 class="prob-title">Không Biết Lỗi Tên Gì Để Tra</h3>
+        <p class="prob-desc">Màn hình xanh, máy treo hoặc terminal báo dòng traceback đỏ lòm. Tìm kiếm Google ra cả trăm kết quả nhưng không cái nào hợp với máy mình.</p>
+        <div class="prob-stat">🔍 78% sinh viên bế tắc khi tự fix</div>
+      </div>
+
+      <div class="problem-card">
+        <div class="prob-head">
+          <span class="prob-badge">03 · CHI PHÍ ĐẮT ĐỎ</span>
+          <div class="prob-icon-wrap prob-icon-price">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+        </div>
+        <h3 class="prob-title">Tiệm Ngoài Tính Giá Quá Cao</h3>
+        <p class="prob-desc">Cài lại Win hay cài app ở tiệm máy tính bên ngoài bị chém 150.000đ – 300.000đ, phải để máy lại qua đêm và lo ngại lộ dữ liệu cá nhân.</p>
+        <div class="prob-stat">💸 Tiết kiệm tới 70% với FixIT</div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="section alt">
+<!-- Section: Cách hoạt động (Cyber Pipeline) -->
+<section class="section section-pipeline">
   <div class="wrap">
-    <h2 class="section-title">Cách hoạt động</h2>
-    <ol class="steps">
-      <li><b>1</b><span>Gặp vấn đề</span></li>
-      <li><b>2</b><span>Find your fix</span></li>
-      <li><b>3</b><span>Đặt dịch vụ</span></li>
-      <li><b>4</b><span>Được fix xong</span></li>
-    </ol>
+    <div class="section-center-head">
+      <p class="eyebrow eyebrow-center">QUY TRÌNH TINH GỌN</p>
+      <h2 class="section-title">4 BƯỚC KHẮC PHỤC NHANH CHÓNG</h2>
+      <p class="section-subtitle">Chỉ mất 2 phút đặt lịch, hẹn trực tiếp tại trường và kiểm tra máy ngay tại chỗ.</p>
+    </div>
+    <div class="pipeline-flow">
+      <div class="pipeline-step">
+        <div class="pipe-num-badge">01</div>
+        <div class="pipe-node"><span class="node-ring"></span></div>
+        <h4 class="pipe-title">Mô Tả Vấn Đề</h4>
+        <p class="pipe-desc">Gặp lỗi phần mềm, máy chậm hoặc cần chuẩn bị môi trường nộp bài tập lớn.</p>
+      </div>
+
+      <div class="pipeline-step">
+        <div class="pipe-num-badge">02</div>
+        <div class="pipe-node"><span class="node-ring"></span></div>
+        <h4 class="pipe-title">Find Your Fix</h4>
+        <p class="pipe-desc">Dùng công cụ chẩn đoán tương tác để nhận ngay giải pháp đúng và mức giá cố định.</p>
+      </div>
+
+      <div class="pipeline-step">
+        <div class="pipe-num-badge">03</div>
+        <div class="pipe-node"><span class="node-ring"></span></div>
+        <h4 class="pipe-title">Hẹn Gặp Tại Sảnh</h4>
+        <p class="pipe-desc">Gặp kỹ thuật viên FixIT vào giờ giải lao tại sảnh trường, sửa máy tận mắt, không giữ máy.</p>
+      </div>
+
+      <div class="pipeline-step">
+        <div class="pipe-num-badge">04</div>
+        <div class="pipe-node"><span class="node-ring"></span></div>
+        <h4 class="pipe-title">Nghiệm Thu & Bảo Hành</h4>
+        <p class="pipe-desc">Test máy chạy mượt mà hài lòng mới thanh toán, cam kết bảo hành hỗ trợ 7 ngày miễn phí.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="section">
+<!-- Section: 8 Dịch vụ, giá sinh viên -->
+<section class="section section-services">
   <div class="wrap">
-    <div class="section-head">
-      <h2 class="section-title">8 dịch vụ, giá sinh viên</h2>
-      <a href="{{ "services/" | relURL }}">Xem tất cả →</a>
+    <div class="section-center-head reveal">
+      <p class="eyebrow eyebrow-center">DANH MỤC DỊCH VỤ</p>
+      <h2 class="section-title">8 DỊCH VỤ CÔNG NGHỆ CHUYÊN BIỆT</h2>
+      <p class="section-subtitle">Chẩn đoán chuẩn xác, khắc phục lấy liền tại sảnh trường với mức giá sinh viên minh bạch chỉ từ 9.000đ.</p>
     </div>
     <div class="grid-cards">
       {{ range $services }}{{ partial "service-card.html" . }}{{ end }}
     </div>
+    <div class="services-footer-action reveal">
+      <a class="btn-glow-pill" href="{{ "services/" | relURL }}">
+        <span>Xem tất cả 8 dịch vụ & bảng giá chi tiết</span>
+        <svg class="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </a>
+    </div>
   </div>
 </section>
 
-<section class="section alt">
-  <div class="wrap pack-teaser">
-    <div>
-      <p class="eyebrow">Student Pack</p>
-      <h2>6 dịch vụ cần nhất, chỉ {{ site.Params.packPrice | lang.FormatNumber 0 }}đ</h2>
-      <p class="muted">Mua lẻ 204.000đ, mua pack chỉ 149.000đ, tiết kiệm 55.000đ.</p>
-      <a class="btn btn-lg" href="{{ "student-pack/" | relURL }}">Xem Student Pack</a>
+<!-- Section: Student Pack Teaser -->
+<section class="section section-pack">
+  <div class="wrap">
+    <div class="section-center-head reveal">
+      <p class="eyebrow eyebrow-center">GÓI COMBO ĐẶC QUYỀN</p>
+      <h2 class="section-title">STUDENT PACK ALL-IN-ONE</h2>
+      <p class="section-subtitle">Gói cứu cánh toàn diện cho sinh viên năm nhất & kỳ làm đồ án công nghệ, tiết kiệm đến 27% chi phí.</p>
     </div>
-    <img src="{{ "img/student-pack.svg" | relURL }}" alt="Hộp Student Pack" width="640" height="400" loading="lazy">
+    <div class="pack-glass-card reveal">
+      <div class="pack-content">
+        <span class="pack-hot-badge">🔥 COMBO TIẾT KIỆM 55.000đ</span>
+        <h3 class="pack-title">TRỌN BỘ 6 GIẢI PHÁP THIẾT YẾU</h3>
+        <p class="pack-desc">
+          Cài đặt trọn bộ VS Code, Python, C/C++, Git/GitHub, dọn dẹp tăng tốc Windows và sao lưu dữ liệu. Hỗ trợ trực tiếp tại sảnh trường ĐH KHTN.
+        </p>
+        <div class="pack-price-box">
+          <span class="pack-price-now">{{ site.Params.packPrice | lang.FormatNumber 0 }}đ</span>
+          <span class="pack-price-old">204.000đ</span>
+          <span class="pack-discount">-27%</span>
+        </div>
+        <div class="pack-actions">
+          <a class="btn-glow-pill" href="{{ "student-pack/" | relURL }}">
+            <span>Khám phá Student Pack</span>
+            <span class="arrow-right">→</span>
+          </a>
+          <span class="pack-note">✨ Tặng kèm buổi hướng dẫn Git căn bản</span>
+        </div>
+      </div>
+      <div class="pack-visual">
+        <img src="{{ "img/student-pack.svg" | relURL }}" alt="Hộp Student Pack" width="540" height="360" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section: FAQ Preview (PHASE 2) -->
+<section class="section section-home-faq">
+  <div class="wrap narrow">
+    <div class="section-center-head reveal">
+      <p class="eyebrow eyebrow-center">THẮC MẮC PHỔ BIẾN</p>
+      <h2 class="section-title">CÂU HỎI THƯỜNG GẶP TẠI FIXIT</h2>
+      <p class="section-subtitle">Giải đáp nhanh những băn khoăn về quy trình gặp mặt tại trường, chi phí và bảo hành của FixIT Student.</p>
+    </div>
+    <div class="home-faq-grid">
+      {{ $faqData := (site.GetPage "/faq").Params.faq }}
+      {{ range $index, $item := first 4 $faqData }}
+      <details class="home-faq-item reveal" {{ if eq $index 0 }}open{{ end }}>
+        <summary class="home-faq-summary">
+          <div class="home-faq-q-left">
+            <span class="home-faq-num">Q{{ add $index 1 }}</span>
+            <span class="home-faq-q-text">{{ $item.q }}</span>
+          </div>
+          <svg class="home-faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="home-faq-body">
+          <p>{{ $item.a }}</p>
+        </div>
+      </details>
+      {{ end }}
+    </div>
+    <div class="home-faq-footer reveal">
+      <a class="home-faq-more-link" href="{{ "faq/" | relURL }}">
+        <span>Xem tất cả câu hỏi thường gặp</span>
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Section: Final High-Converting CTA Banner (PHASE 2) -->
+<section class="section section-home-cta">
+  <div class="wrap">
+    <div class="home-cta-box reveal">
+      <span class="home-cta-badge">⚡ SẴN SÀNG HỖ TRỢ BẠN</span>
+      <h2 class="home-cta-title">ĐỪNG ĐỂ LỖI VẶT LÀM CHẬM TIẾN ĐỘ ĐỒ ÁN!</h2>
+      <p class="home-cta-subtitle">
+        Không cần mày mò tự sửa suốt nhiều giờ. Hẹn gặp ngay kỹ thuật viên sinh viên FixIT tại sảnh trường để test máy và xử lý tận mắt, an tâm 100%.
+      </p>
+      <div class="home-cta-actions">
+        <a class="btn-glow-pill" href="{{ "find-your-fix/" | relURL }}">
+          <span>🔍 Chẩn đoán sự cố ngay</span>
+          <svg class="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </a>
+        <a class="btn-glass-pill" href="{{ "contact/" | relURL }}">
+          <span>💬 Đặt lịch hẹn tại trường</span>
+          <span class="arrow-right">→</span>
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 {{ end }}
 
-{{ define "scripts" }}<script src="{{ "js/terminal.js" | relURL }}"></script>{{ end }}
+{{ define "scripts" }}
+<script src="{{ "js/particles.js" | relURL }}"></script>
+<script src="{{ "js/terminal.js" | relURL }}"></script>
+{{ end }}

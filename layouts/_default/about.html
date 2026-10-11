@@ -1,26 +1,85 @@
 {{ define "main" }}
-<section class="section">
-  <div class="wrap narrow">
-    <h1>{{ .Title }}</h1>
-    <div class="prose">{{ .Content }}</div>
-
-    <h2 class="mt">Đội ngũ</h2>
-    <div class="team">
-      {{ range .Params.team }}
-      <div class="card pad member">
-        <div class="avatar" aria-hidden="true">{{ .initial }}</div>
-        <h3>{{ .name }}</h3>
-        <p class="role">{{ .role }}</p>
-        <p class="muted">{{ .bio }}</p>
-      </div>
-      {{ end }}
+<section class="section page-header-section">
+  <div class="wrap text-center">
+    <div class="page-badge reveal">
+      <span class="badge-pulse"></span>
+      <span>CÂU CHUYỆN KHỞI NGHIỆP SINH VIÊN</span>
     </div>
+    <h1 class="page-title reveal">{{ .Title }}</h1>
+    <p class="lead muted page-subtitle reveal">Dự án môn học Giới thiệu ngành Trí tuệ Nhân tạo (CSC00006) — Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM</p>
+  </div>
 
-    <h2 class="mt">Chúng mình dùng AI vào việc gì?</h2>
-    <ul class="ai-list">
-      {{ range .Params.ai }}<li>{{ . }}</li>{{ end }}
-    </ul>
-    <p class="muted small">Các thành viên đều đọc, chỉnh sửa và hiểu nội dung do AI hỗ trợ trước khi đưa vào sản phẩm.</p>
+  <!-- Story & Mission Grid -->
+  <div class="wrap">
+    <div class="about-story-grid reveal">
+      <div class="story-glass-card">
+        <div class="story-icon">🚀</div>
+        <h3>Câu chuyện của chúng mình</h3>
+        <p>Cả nhóm đều là sinh viên IT, và ai cũng từng ngồi cài Python mất ba tiếng đồng hồ chỉ vì một dòng lỗi lạ. Không phải vì không giỏi, mà vì lỗi cài đặt luôn xuất hiện đúng lúc deadline đang đến gần.</p>
+        <p class="muted">FixIT ra đời từ chính sự đồng cảm sâu sắc với những đêm thức trắng vô ích vì lỗi môi trường của các bạn sinh viên.</p>
+      </div>
+
+      <div class="story-glass-card">
+        <div class="story-icon">🎯</div>
+        <h3>Sứ mệnh của FixIT</h3>
+        <p>FixIT Student giúp sinh viên <b>gỡ rối công nghệ nhanh, dễ hiểu và với mức giá sinh viên</b>, để bạn dành trọn thời gian cho việc học tập thay vì loay hoay với lỗi kỹ thuật.</p>
+        <div class="mission-tags">
+          <span class="pill-tag">⚡ Nhanh chóng</span>
+          <span class="pill-tag">💡 Dễ hiểu</span>
+          <span class="pill-tag">🎓 Đúng giá sinh viên</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team Members Grid (5 Members required by rubric) -->
+  <div class="wrap">
+    <div class="team-section reveal">
+      <div class="section-center-head">
+        <p class="eyebrow eyebrow-center">THÀNH VIÊN DỰ ÁN</p>
+        <h2 class="section-title">ĐỘI NGŨ 5 THÀNH VIÊN</h2>
+        <p class="section-subtitle">Mỗi thành viên phụ trách một mảng chuyên trách để hiện thực hóa đồ án FixIT Student.</p>
+      </div>
+
+      <div class="team-grid">
+        {{ range .Params.team }}
+        <div class="team-member-card">
+          <div class="member-avatar-wrap">
+            <div class="avatar-glow"></div>
+            <div class="avatar-initial">{{ .initial }}</div>
+          </div>
+          <div class="member-info">
+            <span class="member-role-tag">{{ .role }}</span>
+            <h4 class="member-name">{{ .name }}</h4>
+            <p class="member-bio muted">{{ .bio }}</p>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Usage in Project (Key for rubric) -->
+  <div class="wrap">
+    <div class="ai-usage-section reveal">
+      <div class="section-center-head">
+        <p class="eyebrow eyebrow-center">ỨNG DỤNG CÔNG NGHỆ</p>
+        <h2 class="section-title">CHÚNG MÌNH ĐÃ ỨNG DỤNG AI NHƯ THẾ NÀO?</h2>
+        <p class="section-subtitle">Minh bạch về việc ứng dụng các công cụ Trí tuệ Nhân tạo để tăng tốc quy trình phát triển sản phẩm.</p>
+      </div>
+
+      <div class="ai-cards-grid">
+        {{ range $index, $item := .Params.ai }}
+        <div class="ai-step-card">
+          <span class="ai-card-num">0{{ add $index 1 }}</span>
+          <p class="ai-card-text">{{ $item }}</p>
+        </div>
+        {{ end }}
+      </div>
+      <p class="ai-disclaimer muted text-center">
+        💡 <i>Lưu ý: Toàn bộ nội dung và mã nguồn do AI hỗ trợ đều được các thành viên trong nhóm trực tiếp đọc, kiểm thử, tinh chỉnh và nắm vững trước khi đưa vào sản phẩm.</i>
+      </p>
+    </div>
   </div>
 </section>
 {{ end }}

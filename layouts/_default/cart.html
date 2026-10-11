@@ -1,9 +1,43 @@
 {{ define "main" }}
-<section class="section">
+<section class="section page-header-section">
+  <div class="wrap text-center">
+    <div class="page-badge reveal">
+      <span class="badge-pulse"></span>
+      <span>GIỎ HÀNG & ĐẶT LỊCH HẸN</span>
+    </div>
+    <h1 class="page-title reveal">{{ .Title }}</h1>
+    <p class="lead muted page-subtitle reveal">Quy trình đặt lịch hẹn hỗ trợ kỹ thuật tại sảnh trường — Giả lập phục vụ báo cáo đồ án</p>
+    <div class="demo-notice-pill reveal">
+      <span class="notice-icon">⚠️</span>
+      <span>LƯU Ý: Đây là bản demo đồ án môn học. Bạn có thể tự do trải nghiệm đặt lịch mà không phát sinh chi phí thực tế.</span>
+    </div>
+
+    <!-- Booking Journey Steps -->
+    <div class="booking-journey-steps reveal">
+      <div class="journey-step-pill step-completed">
+        <span class="step-num">✓</span>
+        <span class="step-label">1. Chọn dịch vụ</span>
+      </div>
+      <div class="journey-step-divider"></div>
+      <div class="journey-step-pill step-active">
+        <span class="step-num">2</span>
+        <span class="step-label">2. Đặt lịch & Xác nhận</span>
+      </div>
+      <div class="journey-step-divider"></div>
+      <div class="journey-step-pill">
+        <span class="step-num">3</span>
+        <span class="step-label">3. Vé hẹn & Theo dõi</span>
+      </div>
+    </div>
+  </div>
+
   <div class="wrap">
-    <div class="demo-banner">⚠️ DEMO ONLY – không thanh toán thật, không nhập thông tin cá nhân thật.</div>
-    <h1>{{ .Title }}</h1>
-    <div id="cart-root" class="cart-grid">Đang tải giỏ hàng…</div>
+    <div id="cart-root" class="cart-root-container reveal">
+      <div class="loading-spinner">Đang tải giỏ hàng của bạn...</div>
+    </div>
   </div>
 </section>
+{{ end }}
+{{ define "scripts" }}
+<script src="{{ "js/cart.js" | relURL }}"></script>
 {{ end }}

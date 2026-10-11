@@ -7,10 +7,17 @@
   <meta name="description" content="{{ with .Params.short }}{{ . }}{{ else }}{{ site.Params.tagline }}{{ end }}">
   <meta name="theme-color" content="#059669">
   <link rel="icon" href="{{ "img/logo.svg" | relURL }}" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ "css/main.css" | relURL }}">
   <script>
     window.FIXIT = { base: "{{ "" | relURL }}" };
-    try { var t = localStorage.getItem('fixit_theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+    try {
+      var t = localStorage.getItem('fixit_theme');
+      if (!t) { t = 'dark'; localStorage.setItem('fixit_theme', 'dark'); }
+      document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
   </script>
 </head>
 <body class="page-{{ .Type }}{{ if .IsHome }} is-home{{ end }}">
@@ -23,6 +30,7 @@
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="{{ "js/theme.js" | relURL }}"></script>
   <script src="{{ "js/cart.js" | relURL }}"></script>
+  <script src="{{ "js/scroll-reveal.js" | relURL }}"></script>
   {{ block "scripts" . }}{{ end }}
 </body>
 </html>

@@ -1,19 +1,43 @@
 {{ define "main" }}
-<section class="section">
-  <div class="wrap narrow">
-    <h1>{{ .Title }}</h1>
-    <p class="lead muted">{{ .Params.short }}</p>
+<section class="section page-header-section">
+  <div class="wrap narrow text-center">
+    <div class="page-badge reveal">
+      <span class="badge-pulse"></span>
+      <span>HỆ THỐNG CHẨN ĐOÁN THÔNG MINH</span>
+    </div>
+    <h1 class="page-title reveal">{{ .Title }}</h1>
+    <p class="lead muted page-subtitle reveal">{{ .Params.short }}</p>
 
-    <div class="card pad fix-card">
-      <div class="progress" aria-hidden="true"><div id="fix-bar"></div></div>
-      <p id="fix-step" class="eyebrow">Bước 1/3</p>
-      <div id="fix-box" aria-live="polite">Đang tải…</div>
-      <noscript>Trang này cần bật JavaScript.</noscript>
+    <!-- Interactive Decision Tree Box -->
+    <div class="fix-glass-container reveal">
+      <div class="fix-header-bar">
+        <div class="progress-wrap">
+          <div class="progress-meta">
+            <span id="fix-step" class="fix-step-pill">BƯỚC 1/3: CHỌN DANH MỤC</span>
+            <span class="fix-status-dot">AI Engine Ready</span>
+          </div>
+          <div class="progress" aria-hidden="true">
+            <div id="fix-bar"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="fix-box" class="fix-content-box" aria-live="polite">
+        <div class="loading-spinner">Đang khởi tạo cây quyết định...</div>
+      </div>
+      <noscript><p class="text-warn">Vui lòng bật JavaScript trên trình duyệt để sử dụng tính năng chẩn đoán tương tác.</p></noscript>
     </div>
 
-    <h2 class="mt">Máy bạn có ổn không?</h2>
-    <p class="muted">Trả lời nhanh 5 câu để biết có nên kiểm tra sức khoẻ laptop.</p>
-    <div class="card pad" id="quiz"></div>
+    <!-- Quick Health Check Quiz -->
+    <div class="quiz-section-wrapper reveal">
+      <div class="quiz-head-box">
+        <span class="quiz-badge">TEST NHANH 30S</span>
+        <h2 class="quiz-title">Máy tính của bạn có đang quá tải?</h2>
+        <p class="muted">Đánh dấu các dấu hiệu bên dưới để nhận ngay đánh giá sức khoẻ laptop của bạn.</p>
+      </div>
+
+      <div class="quiz-glass-card" id="quiz"></div>
+    </div>
   </div>
 </section>
 {{ end }}

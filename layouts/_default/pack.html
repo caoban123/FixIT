@@ -1,42 +1,153 @@
 {{ define "main" }}
 {{ $p := . }}
-<section class="section">
-  <div class="wrap detail">
-    <div class="detail-media"><img src="{{ .Params.image | relURL }}" alt="Hộp Student Pack" width="640" height="400"></div>
-    <div class="detail-info">
-      <span class="chip cat-pack">Student Pack</span>
-      <h1>{{ .Params.icon }} {{ .Title }}</h1>
-      <p class="lead">{{ .Params.short }}</p>
-      <div class="card-meta big-meta">
-        <span class="price">{{ .Params.price | lang.FormatNumber 0 }}đ</span>
-        <span class="old">204.000đ</span>
-        <span class="chip save">Tiết kiệm 55.000đ</span>
+<section class="section page-header-section">
+  <div class="wrap">
+    <div class="pack-hero-banner reveal">
+      <div class="pack-banner-media">
+        <img src="{{ .Params.image | relURL }}" alt="Hộp Student Pack" width="640" height="400">
+        <span class="pack-badge-glow">🔥 TIẾT KIỆM 27%</span>
       </div>
-      <div class="card-actions">{{ partial "add-to-cart-btn.html" . }}</div>
+      <div class="pack-banner-info">
+        <div class="page-badge">
+          <span class="badge-pulse"></span>
+          <span>COMBO TOÀN DIỆN CHO KỲ ĐỒ ÁN</span>
+        </div>
+        <h1 class="pack-hero-title">{{ .Params.icon }} {{ .Title }}</h1>
+        <p class="lead muted pack-lead">{{ .Params.short }}</p>
+
+        <div class="pack-pricing-highlight">
+          <div class="price-col">
+            <span class="price-label">GIÁ COMBO TRỌN GÓI</span>
+            <span class="price-mega">{{ .Params.price | lang.FormatNumber 0 }}đ</span>
+          </div>
+          <div class="price-col-compare">
+            <span class="price-label">GIÁ GỐC MUA LẺ</span>
+            <span class="price-strike">204.000đ</span>
+            <span class="save-pill">Tiết kiệm 55.000đ</span>
+          </div>
+        </div>
+
+        <div class="pack-cta-row">
+          <button class="btn-glow-pill add-to-cart" type="button"
+            data-id="{{ .Params.id }}" data-name="{{ .Title }}" data-price="{{ .Params.price }}">
+            <span>🛒 Đặt mua Student Pack (149k)</span>
+          </button>
+          <a class="btn-glass-pill" href="{{ "cart/" | relURL }}">Xem giỏ hàng →</a>
+        </div>
+
+        <div class="pack-perks">
+          <span>🎓 Sử dụng linh hoạt cả kỳ</span>
+          <span>🛡️ Bảo hành 7 ngày mỗi lần sửa</span>
+          <span>⚡ Hẹn gặp trực tiếp tại sảnh</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6 In-Pack Services Showcase (PHASE 5) -->
+  <div class="wrap">
+    <div class="pack-services-section reveal">
+      <div class="section-center-head">
+        <p class="eyebrow eyebrow-center">CHI TIẾT COMBO 6-IN-1</p>
+        <h2 class="section-title">6 DỊCH VỤ BAO GỒM TRONG STUDENT PACK</h2>
+        <p class="section-subtitle">Chỉ 1 lần đăng ký trọn gói 149.000đ, bạn được hỗ trợ toàn diện cả 6 giải pháp thiết yếu nhất cho kỳ đồ án.</p>
+      </div>
+
+      <div class="pack-services-grid">
+        {{ range (where (site.GetPage "/services").Pages "Params.inpack" true).ByWeight }}
+        <div class="pack-service-mini-card">
+          <div class="mini-card-head">
+            <span class="mini-card-icon">{{ .Params.icon }}</span>
+            <span class="mini-card-badge">ĐÃ BAO GỒM</span>
+          </div>
+          <h3 class="mini-card-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          <p class="mini-card-desc">{{ .Params.short }}</p>
+          <div class="mini-card-footer">
+            <span class="mini-card-retail">Mua lẻ: <del>{{ .Params.price | lang.FormatNumber 0 }}đ</del></span>
+            <span class="mini-card-duration">⏱ {{ .Params.duration }}</span>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Comparison Section -->
+  <div class="wrap">
+    <div class="pack-comparison-section reveal">
+      <div class="section-center-head">
+        <p class="eyebrow eyebrow-center">SO SÁNH CHI PHÍ</p>
+        <h2 class="section-title">NÊN MUA LẺ TỪNG DỊCH VỤ HAY CHỌN PACK?</h2>
+        <p class="section-subtitle">Chỉ với 149.000đ, bạn sở hữu trọn vẹn 6 dịch vụ quan trọng nhất mà mọi sinh viên IT đều cần.</p>
+      </div>
+
+      <div class="compare-grid">
+        <!-- Card Mua Lẻ -->
+        <div class="compare-card compare-card-retail">
+          <div class="compare-card-head">
+            <span class="compare-tag">MUA TỪNG DỊCH VỤ</span>
+            <h3>Mua Lẻ Khi Cần</h3>
+            <p class="muted">Thích hợp nếu bạn chỉ gặp 1 vấn đề duy nhất</p>
+          </div>
+          <div class="compare-table-wrap">
+            <table class="compare-table">
+              <tbody>
+                {{ range (where (site.GetPage "/services").Pages "Params.inpack" true).ByWeight }}
+                <tr>
+                  <td>{{ .Params.icon }} {{ .Title }}</td>
+                  <td class="table-price">{{ .Params.price | lang.FormatNumber 0 }}đ</td>
+                </tr>
+                {{ end }}
+              </tbody>
+              <tfoot>
+                <tr class="table-total-row">
+                  <td><b>Tổng chi phí mua lẻ:</b></td>
+                  <td class="table-price-total">204.000đ</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+        <!-- Card Mua Pack (Best Value) -->
+        <div class="compare-card compare-card-pack">
+          <div class="best-value-ribbon">⭐ LỰA CHỌN TỐI ƯU NHẤT</div>
+          <div class="compare-card-head">
+            <span class="compare-tag pack-tag">GÓI SINH VIÊN ALL-IN-ONE</span>
+            <h3>Student Pack</h3>
+            <p class="muted">Bao trọn cả 6 dịch vụ trên trong suốt học kỳ</p>
+          </div>
+
+          <div class="pack-card-price-display">
+            <span class="price-huge">149.000đ</span>
+            <span class="price-subtext">Tiết kiệm ngay 55.000đ (~27%)</span>
+          </div>
+
+          <ul class="pack-feature-checklist">
+            <li><span class="check-icon">✓</span> Cài đặt & Tối ưu VS Code + C/C++ + Python</li>
+            <li><span class="check-icon">✓</span> Cấu hình Git & GitHub SSH không lo mất code</li>
+            <li><span class="check-icon">✓</span> Dọn dẹp máy & Kiểm tra sức khỏe toàn diện Laptop</li>
+            <li><span class="check-icon">✓</span> Hướng dẫn sao lưu dữ liệu tự động lên Google Drive</li>
+            <li><span class="check-icon">✓</span> Đặt lịch linh hoạt bất kỳ khi nào phát sinh lỗi trong kỳ</li>
+          </ul>
+
+          <div class="pack-card-action">
+            <button class="btn-glow-pill w-full add-to-cart" type="button"
+              data-id="{{ .Params.id }}" data-name="{{ .Title }}" data-price="{{ .Params.price }}">
+              <span>🛒 Thêm Student Pack vào giỏ</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="wrap narrow">
-    <h2>Mua lẻ hay mua Pack?</h2>
-    <div class="compare">
-      <div class="card pad">
-        <h3>Mua lẻ</h3>
-        <table class="tbl">
-          {{ range (where (site.GetPage "/services").Pages "Params.inpack" true).ByWeight }}
-          <tr><td>{{ .Title }}</td><td class="r">{{ .Params.price | lang.FormatNumber 0 }}đ</td></tr>
-          {{ end }}
-          <tr class="total"><td>Tổng</td><td class="r">204.000đ</td></tr>
-        </table>
-      </div>
-      <div class="card pad best">
-        <h3>Student Pack ⭐</h3>
-        <p class="price big">149.000đ</p>
-        <p>Gồm cả 6 dịch vụ trên.</p>
-        <p class="muted">Dùng trong cả học kỳ, đặt lịch từng dịch vụ khi cần.</p>
-        {{ partial "add-to-cart-btn.html" . }}
+    <div class="pack-prose-card reveal">
+      <div class="prose">
+        {{ .Content }}
       </div>
     </div>
-    <div class="prose">{{ .Content }}</div>
   </div>
 </section>
 {{ end }}

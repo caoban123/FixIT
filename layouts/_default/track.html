@@ -1,14 +1,50 @@
 {{ define "main" }}
-<section class="section">
-  <div class="wrap narrow">
-    <h1>{{ .Title }}</h1>
-    <p class="lead muted">{{ .Params.short }}</p>
-    <form id="track-form" class="card pad form-row">
-      <label for="track-code" class="sr">Mã đơn</label>
-      <input id="track-code" placeholder="Nhập mã đơn, ví dụ FIX-DEMO" autocomplete="off">
-      <button class="btn" type="submit">Kiểm tra</button>
-    </form>
-    <div id="track-result"></div>
+<section class="section page-header-section">
+  <div class="wrap narrow text-center">
+    <div class="page-badge reveal">
+      <span class="badge-pulse"></span>
+      <span>HỆ THỐNG THEO DÕI TIẾN ĐỘ THỜI GIAN THỰC</span>
+    </div>
+    <h1 class="page-title reveal">{{ .Title }}</h1>
+    <p class="lead muted page-subtitle reveal">{{ .Params.short }}</p>
+
+    <!-- Track Lookup Glass Card -->
+    <div class="track-lookup-card reveal">
+      <form id="track-form" class="track-form-cyber">
+        <div class="track-input-group">
+          <svg class="track-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input id="track-code" placeholder="Nhập mã đơn, ví dụ FIX-DEMO hoặc FIX-1234" autocomplete="off" spellcheck="false">
+          <button class="btn-glow-pill track-submit-btn" type="submit">
+            <span>Tra cứu</span>
+          </button>
+        </div>
+      </form>
+
+      <div class="track-quick-demo">
+        <span class="muted small">Chưa có mã đơn?</span>
+        <button type="button" id="btn-try-demo" class="quick-code-pill">
+          ⚡ Thử ngay mã mẫu FIX-DEMO
+        </button>
+      </div>
+    </div>
+
+    <!-- Live Result Area -->
+    <div id="track-result" class="track-result-wrapper reveal"></div>
+
+    <!-- Helpful Bottom Card -->
+    <div class="track-help-footer reveal">
+      <div class="help-box-content">
+        <span class="help-icon">💡</span>
+        <div>
+          <h4>Cần hỗ trợ gấp hoặc đổi lịch hẹn?</h4>
+          <p class="muted small">Bạn có thể nhắn tin trực tiếp qua Zalo hoặc gặp chúng mình tại sảnh trường ĐH KHTN CS1/CS2.</p>
+        </div>
+        <a class="btn-glass-pill" href="{{ "contact/" | relURL }}">Liên hệ FixIT →</a>
+      </div>
+    </div>
   </div>
 </section>
+{{ end }}
+{{ define "scripts" }}
+<script src="{{ "js/cart.js" | relURL }}"></script>
 {{ end }}

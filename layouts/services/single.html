@@ -1,51 +1,102 @@
 {{ define "main" }}
 {{ $p := . }}
-<section class="section">
-  <div class="wrap detail">
-    <div class="detail-media">
-      <img src="{{ .Params.image | relURL }}" alt="Minh hoạ dịch vụ {{ .Title }}" width="640" height="400">
-    </div>
-    <div class="detail-info">
-      <a class="muted" href="{{ "services/" | relURL }}">← Tất cả dịch vụ</a>
+<section class="section service-detail-section">
+  <div class="wrap">
+    <div class="breadcrumb-nav reveal">
+      <a class="back-link" href="{{ "services/" | relURL }}">← Quay lại tất cả dịch vụ</a>
       <span class="chip cat-{{ .Params.category }}">{{ .Params.category | title }}</span>
-      <h1>{{ .Params.icon }} {{ .Title }}</h1>
-      <p class="lead">{{ .Params.short }}</p>
-      <div class="card-meta big-meta">
-        <span class="price">{{ .Params.price | lang.FormatNumber 0 }}đ</span>
-        <span class="muted">⏱ {{ .Params.duration }}</span>
+    </div>
+
+    <div class="detail-hero-card reveal">
+      <div class="detail-media">
+        <img src="{{ .Params.image | relURL }}" alt="Minh hoạ dịch vụ {{ .Title }}" width="640" height="400">
+        <div class="media-glow-overlay"></div>
       </div>
-      <div class="card-actions">
-        {{ partial "add-to-cart-btn.html" . }}
-        <a class="btn btn-ghost" href="{{ "cart/" | relURL }}">Đến giỏ hàng</a>
+      <div class="detail-info">
+        <h1 class="detail-title">{{ .Params.icon }} {{ .Title }}</h1>
+        <p class="lead muted detail-short">{{ .Params.short }}</p>
+
+        <div class="detail-meta-box">
+          <div class="price-wrap">
+            <span class="meta-label">MỨC GIÁ SINH VIÊN</span>
+            <span class="price-large">{{ .Params.price | lang.FormatNumber 0 }}đ</span>
+          </div>
+          <div class="duration-wrap">
+            <span class="meta-label">THỜI GIAN XỬ LÝ</span>
+            <span class="duration-badge">⏱ {{ .Params.duration }}</span>
+          </div>
+        </div>
+
+        <div class="detail-actions">
+          <button class="btn-glow-pill add-to-cart" type="button"
+            data-id="{{ .Params.id }}" data-name="{{ .Title }}" data-price="{{ .Params.price }}">
+            <span>🛒 Thêm vào giỏ ngay</span>
+          </button>
+          <a class="btn-glass-pill" href="{{ "cart/" | relURL }}">Xem giỏ hàng →</a>
+        </div>
+
+        <div class="detail-guarantees">
+          <span>⚡ Không giữ máy qua đêm</span>
+          <span>🛡️ Bảo hành 7 ngày miễn phí</span>
+          <span>☕ Hẹn trực tiếp tại sảnh</span>
+        </div>
       </div>
-      <p class="muted small">Thanh toán là bản demo. Hẹn gặp tại sảnh trường hoặc hỗ trợ từ xa.</p>
     </div>
   </div>
-  <div class="wrap narrow prose">
-    {{ .Content }}
+
+  <div class="wrap narrow">
+    <div class="service-content-card reveal">
+      <h2 class="content-heading">Chi tiết dịch vụ & Quy trình</h2>
+      <div class="prose">
+        {{ .Content }}
+      </div>
+    </div>
   </div>
 
   {{ with .Params.reviews }}
   <div class="wrap narrow">
-    <h2>Đánh giá <span class="muted small">(bình luận mẫu cho bản demo)</span></h2>
-    <div class="reviews">
-      {{ range . }}
-      <figure class="card pad review">
-        <div class="stars" aria-label="{{ .stars }} trên 5 sao">{{ strings.Repeat .stars "★" }}{{ strings.Repeat (sub 5 .stars) "☆" }}</div>
-        <blockquote>{{ .text }}</blockquote>
-        <figcaption class="muted">— {{ .name }}</figcaption>
-      </figure>
-      {{ end }}
+    <div class="reviews-section reveal">
+      <div class="section-center-head">
+        <p class="eyebrow eyebrow-center">PHẢN HỒI THỰC TẾ</p>
+        <h2 class="section-title">ĐÁNH GIÁ TỪ SINH VIÊN</h2>
+        <p class="section-subtitle">Phản hồi thực tế từ các bạn sinh viên đã trực tiếp trải nghiệm dịch vụ tại sảnh trường.</p>
+      </div>
+      <div class="reviews-grid">
+        {{ range . }}
+        <div class="review-glass-card">
+          <div class="review-head">
+            <div class="review-avatar">{{ substr .name 0 1 }}</div>
+            <div>
+              <h4 class="review-author">{{ .name }}</h4>
+              <div class="stars" aria-label="{{ .stars }} trên 5 sao">{{ strings.Repeat .stars "★" }}{{ strings.Repeat (sub 5 .stars) "☆" }}</div>
+            </div>
+          </div>
+          <blockquote class="review-quote">"{{ .text }}"</blockquote>
+        </div>
+        {{ end }}
+      </div>
     </div>
   </div>
   {{ end }}
 
   <div class="wrap">
-    <h2>Dịch vụ liên quan</h2>
-    <div class="grid-cards">
-      {{ range first 3 (where (where (site.GetPage "/services").Pages "Params.category" $p.Params.category) "Params.id" "ne" $p.Params.id) }}
-        {{ partial "service-card.html" . }}
-      {{ end }}
+    <div class="related-section reveal">
+      <div class="section-center-head">
+        <p class="eyebrow eyebrow-center">DỊCH VỤ TƯƠNG TỰ</p>
+        <h2 class="section-title">CÓ THỂ BẠN CŨNG CẦN</h2>
+        <p class="section-subtitle">Các dịch vụ liên quan thường được sinh viên kết hợp yêu cầu hỗ trợ cùng lúc.</p>
+      </div>
+      <div class="grid-cards">
+        {{ range first 3 (where (where (site.GetPage "/services").Pages "Params.category" $p.Params.category) "Params.id" "ne" $p.Params.id) }}
+          {{ partial "service-card.html" . }}
+        {{ end }}
+      </div>
+      <div class="services-footer-action">
+        <a class="btn-glass-pill" href="{{ "services/" | relURL }}">
+          <span>Xem tất cả 8 dịch vụ</span>
+          <span class="arrow-right">→</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>

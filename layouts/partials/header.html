@@ -1,21 +1,25 @@
-<header class="site-header">
+<header class="site-header" role="banner">
   <div class="wrap header-inner">
-    <a class="brand" href="{{ "" | relURL }}" aria-label="FixIT Student – trang chủ">
-      <img src="{{ "img/logo.svg" | relURL }}" alt="" width="36" height="36">
+    <a class="brand" href="{{ "" | relURL }}" aria-label="FixIT Student – Về trang chủ">
+      <img src="{{ "img/logo.svg" | relURL }}" alt="Logo FixIT Student" width="34" height="34">
       <span class="brand-text"><b>FixIT</b> Student</span>
     </a>
-    <nav id="nav" class="nav" aria-label="Menu chính">
+    <nav id="nav" class="nav" aria-label="Điều hướng chính">
       {{ $cur := . }}
       {{ range site.Menus.main }}
-        <a href="{{ .URL | relURL }}" class="{{ if or ($cur.IsMenuCurrent "main" .) ($cur.HasMenuCurrent "main" .) }}active{{ end }}">{{ .Name }}</a>
+        {{ $isActive := or ($cur.IsMenuCurrent "main" .) ($cur.HasMenuCurrent "main" .) }}
+        <a href="{{ .URL | relURL }}" class="{{ if $isActive }}active{{ end }}" {{ if $isActive }}aria-current="page"{{ end }}>{{ .Name }}</a>
       {{ end }}
     </nav>
     <div class="header-actions">
-      <button id="theme-toggle" class="icon-btn" type="button" aria-label="Đổi giao diện sáng/tối" title="Sáng / tối">🌓</button>
-      <a class="icon-btn cart-link" href="{{ "cart/" | relURL }}" aria-label="Giỏ hàng">
-        🛒<span id="cart-badge" class="badge">0</span>
+      <button id="theme-toggle" class="icon-btn theme-btn" type="button" aria-label="Chuyển đổi giao diện sáng/tối" title="Chuyển đổi giao diện">🌓</button>
+      <a class="icon-btn cart-link" href="{{ "cart/" | relURL }}" aria-label="Xem giỏ hàng dịch vụ">
+        <span aria-hidden="true">🛒</span>
+        <span id="cart-badge" class="badge" aria-label="Số lượng dịch vụ trong giỏ">0</span>
       </a>
-      <button id="nav-toggle" class="icon-btn hamburger" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="nav">☰</button>
+      <button id="nav-toggle" class="icon-btn hamburger" type="button" aria-label="Mở menu điều hướng" aria-expanded="false" aria-controls="nav">
+        <span class="hamburger-icon" aria-hidden="true">☰</span>
+      </button>
     </div>
   </div>
 </header>

@@ -1,33 +1,192 @@
 {{ define "main" }}
-<section class="section">
-  <div class="wrap contact-grid">
-    <div>
-      <h1>{{ .Title }}</h1>
-      <p class="lead muted">{{ .Params.short }}</p>
-      <ul class="contact-list">
-        <li>✉️ <b>Email</b><span>{{ site.Params.email }}</span></li>
-        <li>💬 <b>Zalo</b><span>{{ site.Params.zalo }}</span></li>
-        <li>📘 <b>Facebook</b><span>{{ site.Params.facebook }}</span></li>
-        <li>🕒 <b>Giờ làm việc</b><span>{{ site.Params.hours }}</span></li>
-        <li>📍 <b>Địa điểm hẹn</b><span>{{ site.Params.meetingPoint }}</span></li>
-      </ul>
-      <p class="muted small">Thông tin liên hệ trên trang là bản demo. Nhóm không công khai địa chỉ nhà riêng.</p>
+<section class="section page-header-section">
+  <div class="wrap text-center">
+    <div class="page-badge reveal">
+      <span class="badge-pulse"></span>
+      <span>TRẠM KẾT NỐI FIXIT STUDENT · ĐH KHTN</span>
     </div>
-    <form id="contact-form" class="card pad form">
-      <h2>Gửi tin nhắn</h2>
-      <div class="demo-banner small">Demo: form này không gửi dữ liệu đi đâu cả.</div>
-      <label>Tên (nhập tên giả cũng được)<input name="name" placeholder="Bạn A"></label>
-      <label>Bạn cần hỗ trợ gì?<textarea name="msg" rows="4" placeholder="Mô tả ngắn vấn đề…"></textarea></label>
-      <button class="btn" type="submit">Gửi</button>
-      <p id="contact-ok" class="ok" hidden>✔ Đã gửi! (demo, chưa gửi thật)</p>
-    </form>
+    <h1 class="page-title reveal">Liên hệ & Đặt lịch hỗ trợ</h1>
+    <p class="lead muted page-subtitle reveal">
+      Gặp trực tiếp tại sảnh trường ĐH KHTN (CS1 & CS2) hoặc hỗ trợ từ xa qua UltraViewer / Google Meet.
+    </p>
+    <div class="contact-quick-stats reveal">
+      <span class="c-stat-pill">⚡ Phản hồi trong 5 – 15 phút</span>
+      <span class="c-stat-pill">📍 Trực tại CS1 Nguyễn Văn Cừ & CS2 Thủ Đức</span>
+      <span class="c-stat-pill">🛡️ Kiểm tra ưng ý mới gửi phí</span>
+    </div>
+  </div>
+
+  <div class="wrap contact-container">
+    <div class="contact-grid-modern">
+      <!-- Cột Trái: Các kênh hỗ trợ & Địa điểm sảnh trường -->
+      <div class="contact-channels-column reveal">
+        <div class="channels-head">
+          <span class="eyebrow">KÊNH HỖ TRỢ TRỰC TIẾP</span>
+          <h2>Gặp tụi mình ở đâu?</h2>
+          <p class="muted">Chúng mình là nhóm sinh viên IT trường ĐH KHTN. Bạn có thể nhắn tin online để chẩn đoán lỗi trước, hoặc hẹn gặp trực tiếp tại trường.</p>
+        </div>
+
+        <div class="channels-list">
+          <!-- Kênh 1: Zalo Official (Ưu tiên) -->
+          <a href="https://zalo.me" target="_blank" rel="noopener" class="channel-card highlight-channel">
+            <div class="channel-icon-box zalo-icon">
+              <span>💬</span>
+            </div>
+            <div class="channel-info">
+              <div class="channel-header-row">
+                <span class="channel-label">Zalo Official Demo</span>
+                <span class="fast-tag">Phản hồi 5-10p</span>
+              </div>
+              <strong class="channel-val">{{ site.Params.zalo | default "0987.654.321 (Demo)" }}</strong>
+              <span class="channel-hint">Nhắn tin gửi ảnh lỗi chụp màn hình để nhận chẩn đoán ngay</span>
+            </div>
+            <span class="channel-arrow">↗</span>
+          </a>
+
+          <!-- Kênh 2: Điểm hẹn Sảnh CS1 -->
+          <div class="channel-card campus-channel">
+            <div class="channel-icon-box location-icon">
+              <span>🏢</span>
+            </div>
+            <div class="channel-info">
+              <span class="channel-label">Cơ sở 1 · Quận 5</span>
+              <strong class="channel-val">Sảnh Tòa Nhà A / Căn tin trường</strong>
+              <span class="channel-hint">227 Nguyễn Văn Cừ, P.4, Quận 5, TP.HCM</span>
+            </div>
+          </div>
+
+          <!-- Kênh 3: Điểm hẹn Sảnh CS2 -->
+          <div class="channel-card campus-channel">
+            <div class="channel-icon-box location-icon">
+              <span>🌳</span>
+            </div>
+            <div class="channel-info">
+              <span class="channel-label">Cơ sở 2 · Thủ Đức</span>
+              <strong class="channel-val">Sảnh Thư viện / Khuôn viên KHTN</strong>
+              <span class="channel-hint">Khu đô thị ĐHQG-HCM, P. Linh Trung, TP. Thủ Đức</span>
+            </div>
+          </div>
+
+          <!-- Kênh 4: Khung giờ trực -->
+          <div class="channel-card time-channel">
+            <div class="channel-icon-box time-icon">
+              <span>⏰</span>
+            </div>
+            <div class="channel-info">
+              <span class="channel-label">Khung giờ trực hẹn</span>
+              <strong class="channel-val">17:00 – 21:00 (Thứ 2 – Thứ 7)</strong>
+              <span class="channel-hint">Linh hoạt theo giờ tan học của sinh viên các ca</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Box Cam kết bảo vệ quyền riêng tư & dữ liệu -->
+        <div class="safety-box">
+          <div class="safety-icon">🛡️</div>
+          <div class="safety-text">
+            <strong>Bảo vệ tuyệt đối dữ liệu sinh viên:</strong>
+            <p class="muted small">Bạn luôn được ngồi trực tiếp quan sát toàn bộ quá trình xử lý máy tính. Tụi mình cam kết không sao chép, không truy cập bất kỳ dữ liệu cá nhân hay bài tập nào của bạn.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cột Phải: Form gửi lời nhắn / Đặt lịch tư vấn kỹ thuật -->
+      <div class="contact-form-column reveal reveal-delay-2">
+        <div class="contact-form-card">
+          <div class="form-header">
+            <div class="form-badge-pill">
+              <span class="badge-pulse"></span>
+              <span>TƯ VẤN MIỄN PHÍ</span>
+            </div>
+            <h3>Gửi thông tin sự cố công nghệ</h3>
+            <p class="muted small">Điền mô tả lỗi để đội ngũ FixIT chuẩn bị sẵn giải pháp và công cụ trước khi gặp bạn.</p>
+          </div>
+
+          <form id="contact-form" class="cyber-form">
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="contact-name">Họ tên hoặc Biệt danh <span class="req">*</span></label>
+                <input id="contact-name" name="name" required placeholder="VD: Hoàng Long (tên giả cũng được)" autocomplete="name">
+              </div>
+              <div class="form-group">
+                <label for="contact-channel">Kênh liên hệ lại (Zalo / SĐT) <span class="req">*</span></label>
+                <input id="contact-channel" name="channel" required placeholder="VD: 0912 345 678 hoặc nick Zalo" autocomplete="tel">
+              </div>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="contact-campus">Địa điểm mong muốn gặp</label>
+                <select id="contact-campus" name="campus" class="cyber-select">
+                  <option value="cs1">Sảnh CS1 (227 Nguyễn Văn Cừ, Q5)</option>
+                  <option value="cs2">Sảnh CS2 (ĐHQG Thủ Đức)</option>
+                  <option value="remote">Hỗ trợ từ xa Online (UltraViewer / Google Meet)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="contact-time">Khung giờ bạn rảnh nhất</label>
+                <select id="contact-time" name="time" class="cyber-select">
+                  <option value="evening-today">Hôm nay: 17:30 – 19:30 (Sau giờ tan học)</option>
+                  <option value="night-today">Hôm nay: 19:30 – 21:00</option>
+                  <option value="noon-tomorrow">Trưa mai: 11:30 – 13:00</option>
+                  <option value="custom">Giờ khác (ghi trong mô tả)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="contact-topic">Phân loại sự cố bạn đang gặp</label>
+              <select id="contact-topic" name="topic" class="cyber-select">
+                <option value="code">Lỗi môi trường lập trình (Python, C/C++, VS Code, MinGW, Anaconda)</option>
+                <option value="git">Lỗi Git / GitHub (Xung đột nhánh, push rejected, SSH key)</option>
+                <option value="os">Cài Win & Tối ưu máy chuẩn IT (Laptop chạy chậm, giật lag, quạt rú)</option>
+                <option value="student-pack">Tư vấn Gói Combo Student Pack (149k trọn bộ 6 dịch vụ)</option>
+                <option value="other">Sự cố công nghệ hoặc phần mềm đồ án khác</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="contact-msg">Mô tả cụ thể triệu chứng hoặc mã lỗi</label>
+              <textarea id="contact-msg" name="msg" rows="4" placeholder="VD: Em cài pip install thư viện bị báo lỗi Visual C++ 14.0 is required, hoặc máy mở VS Code không nhận trình biên dịch g++..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-glow-pill w-full btn-contact-submit">
+              <span>🚀 Gửi yêu cầu hỗ trợ ngay (Demo)</span>
+            </button>
+
+            <div id="contact-ok" class="form-success-banner" hidden>
+              <div class="success-icon">🎉</div>
+              <div class="success-content">
+                <strong>Đã ghi nhận yêu cầu hỗ trợ! (Mô phỏng Demo)</strong>
+                <p class="small muted">Mã yêu cầu: <span class="ticket-code-tag" id="contact-ticket-id">FIXIT-REQ89</span>. Đội ngũ FixIT đã lưu thông tin và sẽ chuẩn bị sẵn giải pháp cho bạn.</p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 {{ end }}
 {{ define "scripts" }}
 <script>
-  document.getElementById('contact-form').addEventListener('submit', function (e) {
-    e.preventDefault(); this.reset(); document.getElementById('contact-ok').hidden = false;
-  });
+  (function () {
+    var form = document.getElementById('contact-form');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var ok = document.getElementById('contact-ok');
+      var ticketTag = document.getElementById('contact-ticket-id');
+      if (ticketTag) {
+        ticketTag.textContent = 'FIXIT-REQ' + Math.floor(1000 + Math.random() * 9000);
+      }
+      if (ok) ok.hidden = false;
+      if (window.FixitCart && FixitCart.toast) {
+        FixitCart.toast('✔ Đã gửi yêu cầu thành công (Mô phỏng demo)');
+      }
+      form.reset();
+      ok.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  })();
 </script>
 {{ end }}

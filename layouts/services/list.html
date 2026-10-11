@@ -1,35 +1,76 @@
 {{ define "main" }}
-<section class="section">
-  <div class="wrap">
-    <h1>{{ .Title }}</h1>
-    <p class="lead muted">{{ .Params.short }}</p>
+<section class="section page-header-section">
+  <div class="wrap text-center">
+    <div class="page-badge reveal">
+      <span class="badge-pulse"></span>
+      <span>BẢNG GIÁ & DỊCH VỤ CỐ ĐỊNH</span>
+    </div>
+    <h1 class="page-title reveal">{{ .Title }}</h1>
+    <p class="lead muted page-subtitle reveal">{{ .Params.short }}</p>
 
-    <div class="filters" id="filters">
-      <input id="q" type="search" placeholder="Tìm theo tên hoặc từ khoá (python, git, chậm…)" aria-label="Tìm dịch vụ">
-      <div class="chips" role="group" aria-label="Lọc theo nhóm">
-        <button class="chip-btn active" type="button" data-cat="all">Tất cả</button>
-        <button class="chip-btn" type="button" data-cat="software">Software</button>
-        <button class="chip-btn" type="button" data-cat="development">Development</button>
-        <button class="chip-btn" type="button" data-cat="hardware">Hardware</button>
+    <!-- Glass Filter Bar -->
+    <div class="glass-filter-bar reveal" id="filters">
+      <div class="search-input-wrap">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="q" type="search" placeholder="Tìm theo tên dịch vụ, công nghệ (Python, C++, Git, Windows...)" aria-label="Tìm dịch vụ">
       </div>
-      <select id="price" aria-label="Lọc theo giá">
-        <option value="all">Mọi mức giá</option>
-        <option value="0-29999">Dưới 30.000đ</option>
-        <option value="30000-59999">30.000đ – 59.999đ</option>
-        <option value="60000-999999">Từ 60.000đ</option>
-      </select>
-      <select id="sort" aria-label="Sắp xếp">
-        <option value="default">Mặc định</option>
-        <option value="asc">Giá tăng dần</option>
-        <option value="desc">Giá giảm dần</option>
-      </select>
+
+      <div class="chips filter-chips" role="group" aria-label="Lọc theo nhóm">
+        <button class="chip-btn active" type="button" data-cat="all">Tất cả (8)</button>
+        <button class="chip-btn" type="button" data-cat="software">Phần mềm</button>
+        <button class="chip-btn" type="button" data-cat="development">Lập trình & Môi trường</button>
+        <button class="chip-btn" type="button" data-cat="hardware">Phần cứng & Máy tính</button>
+      </div>
+
+      <div class="filter-selects">
+        <select id="price" aria-label="Lọc theo giá" class="glass-select">
+          <option value="all">Mọi mức giá</option>
+          <option value="0-29999">Dưới 30.000đ</option>
+          <option value="30000-59999">30.000đ – 59.999đ</option>
+          <option value="60000-999999">Từ 60.000đ trở lên</option>
+        </select>
+        <select id="sort" aria-label="Sắp xếp" class="glass-select">
+          <option value="default">Sắp xếp: Mặc định</option>
+          <option value="asc">Giá: Thấp đến cao</option>
+          <option value="desc">Giá: Cao đến thấp</option>
+        </select>
+      </div>
     </div>
 
-    <p id="result-count" class="muted" aria-live="polite"></p>
+    <div class="filter-status-row">
+      <span id="result-count" class="result-badge" aria-live="polite">Hiển thị 8/8 dịch vụ</span>
+      <span class="price-note">⚡ Báo giá trọn gói, bảo hành 7 ngày</span>
+    </div>
+
     <div id="grid" class="grid-cards">
       {{ range .Pages.ByWeight }}{{ partial "service-card.html" . }}{{ end }}
     </div>
-    <p id="empty" class="empty" hidden>Chưa có dịch vụ khớp. Thử <a href="{{ "find-your-fix/" | relURL }}">Find your fix</a> nhé!</p>
+
+    <div id="empty" class="empty-state-box" hidden>
+      <div class="empty-icon">🔍</div>
+      <h3>Không tìm thấy dịch vụ phù hợp</h3>
+      <p class="muted">Hãy thử từ khoá khác hoặc sử dụng công cụ chẩn đoán lỗi thông minh để tìm đúng giải pháp.</p>
+      <a class="btn-glow-pill mt-sm" href="{{ "find-your-fix/" | relURL }}">Sử dụng Find your fix →</a>
+    </div>
+
+    <!-- Student Pack Combo Banner (PHASE 3) -->
+    <div class="services-pack-promo reveal">
+      <div class="pack-promo-card">
+        <div class="pack-promo-info">
+          <span class="pack-hot-badge">🔥 TIẾT KIỆM 55.000đ KHI CHỌN COMBO</span>
+          <h3 class="pack-promo-title">Gói Student Pack 6-in-1 Cứu Cánh Toàn Diện</h3>
+          <p class="pack-promo-desc">
+            Cần chuẩn bị toàn diện máy tính đầu năm hoặc chuẩn bị kỳ đồ án môn học? Gói Student Pack kết hợp 6 dịch vụ thiết yếu (VS Code, Python, C/C++, Git, dọn dẹp Windows & sao lưu) trọn gói chỉ <b>149.000đ</b> (giá gốc 204.000đ).
+          </p>
+        </div>
+        <div class="pack-promo-action">
+          <a class="btn-glow-pill" href="{{ "student-pack/" | relURL }}">
+            <span>Khám phá gói combo</span>
+            <span class="arrow-right">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 {{ end }}
