@@ -1,0 +1,7 @@
+{{- /* Định dạng số nguyên thành tiền Việt: 80000 -> 80.000đ (hỗ trợ đến 999.999) */ -}}
+{{- $s := printf "%d" . -}}
+{{- $n := len $s -}}
+{{- if gt $n 3 -}}
+  {{- $s = printf "%s.%s" (substr $s 0 (sub $n 3)) (substr $s (sub $n 3)) -}}
+{{- end -}}
+{{- return (printf "%sđ" $s) -}}

@@ -1,0 +1,104 @@
+# Cây câu hỏi của Find your fix (rule-based).
+# `primary` và `also` là slug dịch vụ trong content/services/.
+# Nếu kết quả không có `primary`, trang sẽ gợi ý liên hệ trực tiếp.
+start: q1
+
+nodes:
+  q1:
+    question: "Vấn đề của bạn thuộc nhóm nào?"
+    options:
+      - label: "Phần mềm và Windows"
+        next: q_sw
+      - label: "Lập trình và môi trường học"
+        next: q_dev
+      - label: "Phần cứng và máy tính"
+        next: q_hw
+      - label: "Chưa rõ, hoặc đang định mua máy"
+        result: r_consult
+
+  q_sw:
+    question: "Windows đang gặp tình trạng nào?"
+    options:
+      - label: "Treo, màn hình xanh hoặc không vào được Windows"
+        result: r_win
+      - label: "Chạy chậm, hay đơ, có quảng cáo lạ"
+        result: r_health
+      - label: "Cập nhật Windows lỗi hoặc thiếu driver"
+        result: r_win
+
+  q_dev:
+    question: "Bạn đang cần cài hoặc sửa gì?"
+    options:
+      - label: "Python, pip hoặc lỗi No module named"
+        result: r_py
+      - label: "C/C++ hoặc lỗi g++ is not recognized"
+        result: r_cpp
+      - label: "Git, GitHub hoặc lỗi khi push"
+        result: r_git
+      - label: "VS Code và extension"
+        result: r_vsc
+
+  q_hw:
+    question: "Máy của bạn gặp tình trạng nào?"
+    options:
+      - label: "Chậm, nóng, quạt kêu to hoặc pin tụt nhanh"
+        result: r_health
+      - label: "Sắp cài lại máy, sợ mất file"
+        result: r_backup
+      - label: "Máy không lên, không có đèn"
+        result: r_hw
+
+results:
+  r_win:
+    title: "Nhiều khả năng cần Windows Rescue"
+    text: "Nếu có file quan trọng, hãy sao lưu trước hoặc nói trước để được hướng dẫn sao lưu."
+    primary: windows-rescue
+    also: [data-backup]
+
+  r_health:
+    title: "Nên kiểm tra và dọn dẹp máy"
+    text: "Máy chậm, nóng hoặc có quảng cáo lạ thường do phần mềm khởi động cùng máy, rác hệ thống hoặc phần mềm không cần thiết."
+    primary: laptop-health
+    also: [windows-rescue]
+
+  r_py:
+    title: "Cần dựng lại môi trường Python"
+    text: "Lỗi No module named thường do cài thư viện vào sai môi trường. Virtual environment giúp tránh lỗi này."
+    primary: python-setup
+    also: [vscode-setup]
+
+  r_cpp:
+    title: "Cần cài trình biên dịch C/C++"
+    text: "Lỗi g++ is not recognized nghĩa là trình biên dịch chưa được cài hoặc chưa nằm trong PATH."
+    primary: cpp-setup
+    also: [vscode-setup]
+
+  r_git:
+    title: "Cần cấu hình Git và GitHub"
+    text: "Lỗi xác thực khi push thường do chưa thiết lập SSH hoặc token."
+    primary: git-github
+    also: [vscode-setup]
+
+  r_vsc:
+    title: "Cần cấu hình VS Code"
+    text: "Chọn đúng extension và thiết lập sẵn terminal giúp bạn chạy code ngay trong VS Code."
+    primary: vscode-setup
+    also: [python-setup, cpp-setup]
+
+  r_backup:
+    title: "Nên sao lưu trước khi làm bất cứ việc gì"
+    text: "Một bản sao lưu đã kiểm tra khôi phục là thứ rẻ nhất để tránh mất bài trước hạn nộp."
+    primary: data-backup
+    also: [windows-rescue]
+
+  r_hw:
+    title: "Có thể là lỗi nguồn hoặc phần cứng"
+    text: "Máy không có đèn nào thường liên quan đến nguồn, pin hoặc mainboard. Cần kiểm tra trực tiếp mới kết luận được, nên hãy nhắn trước để hẹn xem máy."
+    contact: true
+    also: [data-backup]
+
+  r_consult:
+    title: "Nên nhờ tư vấn trước"
+    text: "Gửi ngân sách và ngành học, FixIT sẽ gợi ý laptop, phần mềm và cách dựng môi trường học."
+    primary: tech-consultation
+    also: [laptop-health]

@@ -1,0 +1,15 @@
+{{- /* Khung ảnh dùng chung (đội nhóm, gói Student Pack...).
+       Tham số: dict "stem" "images/team/nhom" "alt" "..." "class" "media--wide"
+       Tự tìm static/<stem>.(jpg|jpeg|png|webp). */ -}}
+{{- $found := "" -}}
+{{- range slice "jpg" "jpeg" "png" "webp" -}}
+  {{- $p := printf "%s.%s" $.stem . -}}
+  {{- if and (not $found) (fileExists (printf "static/%s" $p)) -}}{{- $found = $p -}}{{- end -}}
+{{- end -}}
+<div class="media {{ .class }}{{ if not $found }} media--empty{{ end }}">
+  {{- if $found -}}
+    <img src="{{ $found | relURL }}" alt="{{ .alt }}" loading="lazy" decoding="async">
+  {{- else if hugo.IsServer -}}
+    <p class="media-hint">Đặt ảnh tại<br><code>static/{{ $.stem }}.jpg</code></p>
+  {{- end -}}
+</div>

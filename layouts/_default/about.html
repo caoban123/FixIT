@@ -1,85 +1,77 @@
 {{ define "main" }}
-<section class="section page-header-section">
-  <div class="wrap text-center">
-    <div class="page-badge reveal">
-      <span class="badge-pulse"></span>
-      <span>CÂU CHUYỆN KHỞI NGHIỆP SINH VIÊN</span>
+{{ partial "page-hero.html" (dict "title" "Về FixIT Student" "lead" .Params.lead "eyebrow" "About") }}
+{{ $t := site.Data.team }}
+
+<section class="section">
+  <div class="container split-even">
+    <div class="reveal">
+      <h2 class="display-sm">{{ $t.story.title }}</h2>
+      <div class="prose">
+        {{ range $t.story.paragraphs }}<p>{{ . }}</p>{{ end }}
+      </div>
     </div>
-    <h1 class="page-title reveal">{{ .Title }}</h1>
-    <p class="lead muted page-subtitle reveal">Dự án môn học Giới thiệu ngành Trí tuệ Nhân tạo (CSC00006) — Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM</p>
-  </div>
-
-  <!-- Story & Mission Grid -->
-  <div class="wrap">
-    <div class="about-story-grid reveal">
-      <div class="story-glass-card">
-        <div class="story-icon">🚀</div>
-        <h3>Câu chuyện của chúng mình</h3>
-        <p>Cả nhóm đều là sinh viên IT, và ai cũng từng ngồi cài Python mất ba tiếng đồng hồ chỉ vì một dòng lỗi lạ. Không phải vì không giỏi, mà vì lỗi cài đặt luôn xuất hiện đúng lúc deadline đang đến gần.</p>
-        <p class="muted">FixIT ra đời từ chính sự đồng cảm sâu sắc với những đêm thức trắng vô ích vì lỗi môi trường của các bạn sinh viên.</p>
-      </div>
-
-      <div class="story-glass-card">
-        <div class="story-icon">🎯</div>
-        <h3>Sứ mệnh của FixIT</h3>
-        <p>FixIT Student giúp sinh viên <b>gỡ rối công nghệ nhanh, dễ hiểu và với mức giá sinh viên</b>, để bạn dành trọn thời gian cho việc học tập thay vì loay hoay với lỗi kỹ thuật.</p>
-        <div class="mission-tags">
-          <span class="pill-tag">⚡ Nhanh chóng</span>
-          <span class="pill-tag">💡 Dễ hiểu</span>
-          <span class="pill-tag">🎓 Đúng giá sinh viên</span>
-        </div>
-      </div>
+    <div class="reveal">
+      {{ partial "photo.html" (dict "stem" "images/team/nhom" "alt" $t.story.groupAlt "class" "media--wide media--rounded") }}
     </div>
   </div>
+</section>
 
-  <!-- Team Members Grid (5 Members required by rubric) -->
-  <div class="wrap">
-    <div class="team-section reveal">
-      <div class="section-center-head">
-        <p class="eyebrow eyebrow-center">THÀNH VIÊN DỰ ÁN</p>
-        <h2 class="section-title">ĐỘI NGŨ 5 THÀNH VIÊN</h2>
-        <p class="section-subtitle">Mỗi thành viên phụ trách một mảng chuyên trách để hiện thực hóa đồ án FixIT Student.</p>
-      </div>
+<section class="section section--border" aria-labelledby="mission-title">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 id="mission-title">{{ $t.mission.title }}</h2>
+      <p class="section-lead">{{ $t.mission.text }}</p>
+    </div>
+    <ol class="values">
+      {{ range $t.mission.values }}
+      <li class="value reveal">
+        <h3>{{ .title }}</h3>
+        <p>{{ .text }}</p>
+      </li>
+      {{ end }}
+    </ol>
+  </div>
+</section>
 
-      <div class="team-grid">
-        {{ range .Params.team }}
-        <div class="team-member-card">
-          <div class="member-avatar-wrap">
-            <div class="avatar-glow"></div>
-            <div class="avatar-initial">{{ .initial }}</div>
-          </div>
-          <div class="member-info">
-            <span class="member-role-tag">{{ .role }}</span>
-            <h4 class="member-name">{{ .name }}</h4>
-            <p class="member-bio muted">{{ .bio }}</p>
-          </div>
-        </div>
-        {{ end }}
-      </div>
+<section class="section section--border" aria-labelledby="team-title">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 id="team-title">{{ $t.team.title }}</h2>
+      <p class="section-lead">{{ $t.team.note }}</p>
+    </div>
+    <div class="team">
+      {{ range $t.members }}
+      <article class="member reveal">
+        {{ partial "photo.html" (dict "stem" (printf "images/team/%s" .id) "alt" (printf "Ảnh của %s" .name) "class" "media--portrait") }}
+        <h3 class="member-name">{{ .name }}</h3>
+        <p class="member-role">{{ .role }}</p>
+        <p class="member-task">{{ .task }}</p>
+        <p class="member-bio">{{ .bio }}</p>
+      </article>
+      {{ end }}
     </div>
   </div>
+</section>
 
-  <!-- AI Usage in Project (Key for rubric) -->
-  <div class="wrap">
-    <div class="ai-usage-section reveal">
-      <div class="section-center-head">
-        <p class="eyebrow eyebrow-center">ỨNG DỤNG CÔNG NGHỆ</p>
-        <h2 class="section-title">CHÚNG MÌNH ĐÃ ỨNG DỤNG AI NHƯ THẾ NÀO?</h2>
-        <p class="section-subtitle">Minh bạch về việc ứng dụng các công cụ Trí tuệ Nhân tạo để tăng tốc quy trình phát triển sản phẩm.</p>
-      </div>
-
-      <div class="ai-cards-grid">
-        {{ range $index, $item := .Params.ai }}
-        <div class="ai-step-card">
-          <span class="ai-card-num">0{{ add $index 1 }}</span>
-          <p class="ai-card-text">{{ $item }}</p>
-        </div>
-        {{ end }}
-      </div>
-      <p class="ai-disclaimer muted text-center">
-        💡 <i>Lưu ý: Toàn bộ nội dung và mã nguồn do AI hỗ trợ đều được các thành viên trong nhóm trực tiếp đọc, kiểm thử, tinh chỉnh và nắm vững trước khi đưa vào sản phẩm.</i>
-      </p>
+<section class="band band--dark aurora on-dark" aria-labelledby="ai-title">
+  <div class="container band-inner">
+    <div class="reveal">
+      <p class="eyebrow">Minh bạch</p>
+      <h2 class="display-sm" id="ai-title">{{ $t.ai.title }}</h2>
+      <p class="lead">{{ $t.ai.intro }}</p>
     </div>
+    <div class="reveal">
+      <ul class="ai-list">
+        {{ range $t.ai.items }}<li>{{ . }}</li>{{ end }}
+      </ul>
+      <p class="muted-on-dark">{{ $t.ai.closing }}</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow reveal">
+    <p class="muted">Đây là sản phẩm học tập ({{ site.Params.course }}). Giỏ hàng, quy trình hẹn gặp và thanh toán chỉ là mô phỏng, không thu tiền và không lưu thông tin nhạy cảm thật.</p>
   </div>
 </section>
 {{ end }}

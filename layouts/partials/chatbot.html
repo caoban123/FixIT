@@ -1,0 +1,25 @@
+<div class="chat" data-chat data-index="{{ "chatbot-index.json" | relURL }}">
+  <button class="btn btn--primary chat-launcher" type="button" aria-expanded="false" aria-controls="chat-panel" data-chat-toggle>Hỏi FixIT</button>
+
+  <section class="chat-panel" id="chat-panel" role="dialog" aria-labelledby="chat-title" hidden>
+    <header class="chat-head">
+      <div>
+        <h2 class="chat-title" id="chat-title">Trợ lý FixIT</h2>
+        <p class="chat-sub">Trả lời dựa trên nội dung trang web này</p>
+      </div>
+      <button class="btn btn--ghost btn--small chat-close" type="button" data-chat-close>Đóng</button>
+    </header>
+
+    <div class="chat-log" role="log" aria-live="polite" aria-relevant="additions" tabindex="0" aria-label="Nội dung hội thoại" data-chat-log></div>
+
+    <div class="chat-chips" data-chat-chips></div>
+
+    <form class="chat-form" data-chat-form novalidate>
+      <label class="sr-only" for="chat-input">Câu hỏi của bạn</label>
+      <input class="input" id="chat-input" type="text" autocomplete="off" maxlength="200" placeholder="Ví dụ: Python báo No module named?" data-chat-input>
+      <button class="btn btn--primary btn--small" type="submit">Gửi</button>
+    </form>
+
+    <p class="chat-note">Trợ lý tự động, không phải người thật. Cần hỗ trợ trực tiếp, hãy nhắn qua Zalo.</p>
+  </section>
+</div>

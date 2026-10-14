@@ -1,25 +1,25 @@
-<header class="site-header" role="banner">
-  <div class="wrap header-inner">
-    <a class="brand" href="{{ "" | relURL }}" aria-label="FixIT Student – Về trang chủ">
-      <img src="{{ "img/logo.svg" | relURL }}" alt="Logo FixIT Student" width="34" height="34">
-      <span class="brand-text"><b>FixIT</b> Student</span>
-    </a>
-    <nav id="nav" class="nav" aria-label="Điều hướng chính">
-      {{ $cur := . }}
-      {{ range site.Menus.main }}
-        {{ $isActive := or ($cur.IsMenuCurrent "main" .) ($cur.HasMenuCurrent "main" .) }}
-        <a href="{{ .URL | relURL }}" class="{{ if $isActive }}active{{ end }}" {{ if $isActive }}aria-current="page"{{ end }}>{{ .Name }}</a>
-      {{ end }}
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="{{ "/" | relURL }}">FixIT Student</a>
+
+    <nav class="nav" id="site-nav" aria-label="Điều hướng chính">
+      <ul class="nav-list" data-nav-list>
+        {{- $page := . -}}
+        {{- range site.Menus.main -}}
+          {{- $active := and (ne .URL "/") (hasPrefix $page.RelPermalink .URL) -}}
+          <li><a class="nav-link" href="{{ .URL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a></li>
+        {{- end -}}
+      </ul>
     </nav>
+
     <div class="header-actions">
-      <button id="theme-toggle" class="icon-btn theme-btn" type="button" aria-label="Chuyển đổi giao diện sáng/tối" title="Chuyển đổi giao diện">🌓</button>
-      <a class="icon-btn cart-link" href="{{ "cart/" | relURL }}" aria-label="Xem giỏ hàng dịch vụ">
-        <span aria-hidden="true">🛒</span>
-        <span id="cart-badge" class="badge" aria-label="Số lượng dịch vụ trong giỏ">0</span>
-      </a>
-      <button id="nav-toggle" class="icon-btn hamburger" type="button" aria-label="Mở menu điều hướng" aria-expanded="false" aria-controls="nav">
-        <span class="hamburger-icon" aria-hidden="true">☰</span>
-      </button>
+      <div class="theme-switch" role="group" aria-label="Giao diện sáng hoặc tối">
+        <button type="button" data-theme-set="light" aria-pressed="true">Sáng</button>
+        <button type="button" data-theme-set="dark" aria-pressed="false">Tối</button>
+      </div>
+      <a class="btn btn--ghost btn--small" href="{{ "cart/" | relURL }}">Giỏ hàng <span data-cart-count>0</span></a>
+      <a class="btn btn--primary btn--small header-cta" href="{{ "services/" | relURL }}">Đặt lịch</a>
+      <button class="btn btn--ghost btn--small nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>Menu</button>
     </div>
   </div>
 </header>

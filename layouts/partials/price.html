@@ -1,0 +1,4 @@
+{{- /* Giá hiển thị của một dịch vụ: "80.000đ" hoặc "Từ 150.000đ" */ -}}
+{{- $p := partial "vnd.html" .Params.price -}}
+{{- if .Params.priceFrom -}}{{- $p = printf "Từ %s" $p -}}{{- end -}}
+{{- return $p -}}

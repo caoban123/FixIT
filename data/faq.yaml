@@ -1,0 +1,79 @@
+# Câu hỏi thường gặp. Dùng cho trang FAQ và cho chatbot.
+# `keywords`: cụm từ KHÔNG DẤU, chữ thường, giúp chatbot tìm đúng câu trả lời.
+# Trong `a` có thể dùng {hours}, {meetingPoint}, {email}, {zalo} (lấy từ hugo.toml).
+# Nhóm có `chatOnly: true` chỉ dành cho chatbot, không hiện ở trang FAQ.
+groups:
+  - title: "Về FixIT"
+    items:
+      - q: "FixIT Student là gì?"
+        a: "FixIT hỗ trợ cài đặt, sửa lỗi và tư vấn công nghệ cho sinh viên, giá từ 9.000đ."
+        keywords: ["fixit la gi", "fixit student", "gioi thieu", "dich vu gi", "lam gi", "la gi", "ve fixit"]
+      - q: "Mình chưa biết tên lỗi thì làm sao?"
+        a: "Dùng công cụ Find your fix: chọn vấn đề bạn đang gặp, FixIT sẽ gợi ý đúng dịch vụ. Nếu vẫn không chắc, nhắn Zalo mô tả triệu chứng."
+        keywords: ["khong biet loi", "khong ro loi", "chan doan", "tim loi", "find your fix", "loi gi", "bi gi", "khong biet dich vu nao", "chon dich vu nao", "khong biet chon"]
+        link: "/find-your-fix/"
+        linkLabel: "Mở Find your fix"
+      - q: "FixIT hỗ trợ trực tiếp hay từ xa?"
+        a: "Cả hai. Bạn có thể gặp trực tiếp tại sảnh trường hoặc được hỗ trợ từ xa qua cuộc gọi video (UltraViewer hoặc Google Meet)."
+        keywords: ["truc tiep", "tu xa", "online", "goi video", "ultraviewer", "google meet", "remote", "gap o dau", "dia chi", "diem hen", "san truong", "den tan noi", "dia diem", "cs1", "cs2"]
+        link: "/contact/"
+        linkLabel: "Xem cách liên hệ"
+      - q: "Dữ liệu của mình có an toàn không?"
+        a: "FixIT chỉ thao tác trên phần liên quan đến lỗi và không sao chép dữ liệu cá nhân hay bài tập của bạn. Bạn nên sao lưu trước; dịch vụ Data Backup có thể hỗ trợ việc này."
+        keywords: ["du lieu an toan", "bao mat", "rieng tu", "file ca nhan", "xem file", "sao luu", "backup", "an toan khong", "mat du lieu"]
+        link: "/services/data-backup/"
+        linkLabel: "Xem Data Backup"
+
+  - title: "Giá, gói và thanh toán"
+    items:
+      - q: "Student Pack gồm những gì?"
+        a: "Gói 6 dịch vụ: VS Code Setup, Python Environment Setup, C/C++ Development Setup, Git & GitHub Setup, Laptop Health Check và Data Backup. Giá 149.000đ thay vì 204.000đ khi mua lẻ."
+        keywords: ["student pack", "goi", "combo", "tron bo", "6 dich vu", "goi sinh vien", "tiet kiem", "149"]
+        link: "/student-pack/"
+        linkLabel: "Xem Student Pack"
+      - q: "Thanh toán như thế nào?"
+        a: "Đây là bản demo nên không thu tiền thật. Các lựa chọn mô phỏng gồm tiền mặt, chuyển khoản QR và MoMo."
+        keywords: ["thanh toan", "tra tien", "chuyen khoan", "qr", "momo", "tien mat", "tra sau", "ma qr"]
+        link: "/cart/"
+        linkLabel: "Thử giỏ hàng (mô phỏng)"
+      - q: "Có mã giảm giá không?"
+        a: "Có hai mã demo dùng được ở trang giỏ hàng: FIXIT10 giảm 10% và STUDENT15 giảm 15%."
+        keywords: ["ma giam gia", "giam gia", "khuyen mai", "coupon", "voucher", "uu dai", "fixit10", "student15", "code giam"]
+        link: "/cart/"
+        linkLabel: "Mở giỏ hàng"
+
+  - title: "Chỉ dành cho trợ lý"
+    chatOnly: true
+    items:
+      - q: "Giá trên trang đã là giá sinh viên chưa?"
+        a: "Có. Giá hiển thị là giá trọn gói dành cho sinh viên, từ 9.000đ."
+        keywords: ["gia sinh vien", "gia re", "phi an", "phi them", "co dat khong", "bang gia", "bao nhieu tien"]
+        link: "/services/"
+        linkLabel: "Xem bảng giá"
+      - q: "Có bảo hành không?"
+        a: "Có. Bảo hành sửa lại miễn phí 7 ngày, FixIT không giữ máy qua đêm và chỉ thu phí khi bạn đã kiểm tra thấy máy chạy ổn."
+        keywords: ["bao hanh", "loi lai", "hong lai", "sau khi sua", "bi lai", "cam ket", "giu may", "qua dem"]
+      - q: "Đặt lịch như thế nào?"
+        a: "Chọn dịch vụ, thêm vào giỏ, điền thông tin và khung giờ, hoặc gửi yêu cầu ở trang Liên hệ. Lưu ý: giỏ hàng trên website này là mô phỏng."
+        keywords: ["dat lich", "dat hen", "hen lich", "gio hang", "cach dat", "book", "dat dich vu", "dang ky", "order"]
+        link: "/cart/"
+        linkLabel: "Mở giỏ hàng"
+      - q: "FixIT làm việc khi nào?"
+        a: "Giờ trực: {hours}. Điểm hẹn: {meetingPoint}."
+        keywords: ["gio lam viec", "gio truc", "mo cua", "may gio", "thoi gian lam viec", "khi nao", "lich lam viec", "cuoi tuan", "thu bay", "ngay nao"]
+      - q: "Theo dõi đơn ở đâu?"
+        a: "Vào mục Theo dõi đơn và nhập mã đơn dạng FIX-XXXX (thử mã FIX-DEMO). Dữ liệu đơn chỉ lưu trên trình duyệt đã tạo đơn (mô phỏng)."
+        keywords: ["theo doi", "tra cuu", "ma don", "trang thai don", "don hang", "kiem tra don", "fix-demo"]
+        link: "/track/"
+        linkLabel: "Mở trang theo dõi đơn"
+      - q: "Trợ lý chat trả lời dựa trên gì?"
+        a: "Trợ lý là chương trình trả lời tự động, chỉ dựa trên nội dung của trang web này. Trợ lý không phải người thật và không xem được dữ liệu trên máy của bạn."
+        keywords: ["tro ly", "chatbot", "bot", "ban la ai", "ban ten gi", "nguoi that", "tu dong", "ai tra loi", "may tra loi"]
+      - q: "Trợ lý chat có gửi câu hỏi của mình đi đâu không?"
+        a: "Không. Trợ lý chạy ngay trong trình duyệt của bạn, không dùng dịch vụ AI bên ngoài, không gửi câu hỏi tới máy chủ nào và không lưu lại nội dung hội thoại."
+        keywords: ["dung api", "dung ai", "api cua toi", "ai ben ngoai", "chatgpt", "openai", "gui di dau", "luu cau hoi", "luu hoi thoai", "gui cau hoi", "may chu", "api", "thong tin ca nhan", "du lieu chatbot", "bao mat chatbot", "chatbot rieng tu", "tro ly rieng tu", "co bi luu"]
+      - q: "Làm sao liên hệ trực tiếp với FixIT?"
+        a: "Nhắn qua Zalo (hẹn trước) hoặc gửi email tới {email}. Giờ trực: {hours}."
+        keywords: ["lien he", "zalo", "email", "mail", "so dien thoai", "sdt", "nhan tin", "goi dien", "hotline", "ho tro", "noi chuyen voi"]
+        link: "/contact/"
+        linkLabel: "Trang liên hệ"

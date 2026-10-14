@@ -1,164 +1,158 @@
-// Find your fix: rule-based, đọc cây câu hỏi từ fix-tree.json
+/* FixIT Student — Find your fix (cây câu hỏi rule-based từ data/fix.yaml) */
 (function () {
-  var box = document.getElementById('fix-box');
-  if (!box) return;
-  var base = (window.FIXIT && FIXIT.base) || '/';
-  var tree, services = {}, path = [];
+  'use strict';
+  var root = document.querySelector('[data-fix-app]');
+  var dataEl = document.getElementById('fix-data');
+  if (!root || !dataEl) return;
 
-  function fmt(n) { return Number(n).toLocaleString('vi-VN') + 'đ'; }
-  function setStep(n) {
-    var stepEl = document.getElementById('fix-step');
-    var barEl = document.getElementById('fix-bar');
-    if (stepEl) {
-      stepEl.textContent = 'BƯỚC ' + n + '/3: ' + (n === 1 ? 'CHỌN NHÓM VẤN ĐỀ' : n === 2 ? 'CHI TIẾT TRIỆU CHỨNG' : 'KẾT QUẢ ĐỀ XUẤT');
-    }
-    if (barEl) {
-      barEl.style.width = (n / 3 * 100) + '%';
-    }
+  var data;
+  try { data = JSON.parse(dataEl.textContent); } catch (e) { return; }
+  var tree = data.tree, services = data.services;
+  var history = []; // các nút đã đi qua, để quay lại
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
   }
 
-  async function init() {
-    try {
-      var r = await Promise.all([
-        fetch(base + 'data/fix-tree.json').then(function (x) { return x.json(); }),
-        fetch(base + 'services.json').then(function (x) { return x.json(); })
-      ]);
-      tree = r[0];
-      r[1].forEach(function (s) { services[s.id] = s; });
-      show('start');
-    } catch (e) {
-      box.innerHTML = '<div class="fix-error-box"><p>Không tải được dữ liệu cây quyết định. Hãy thử tải lại trang nhé.</p></div>';
-    }
-  }
+  function clear() { while (root.firstChild) root.removeChild(root.firstChild); }
 
-  function show(key) {
-    var node = tree[key];
-    if (!node) return;
-    var step = key === 'start' ? 1 : 2;
-    setStep(step);
-    var html = '<h2 class="fix-question">' + node.question + '</h2>' +
-      '<div class="opts fix-opts">' +
-      node.options.map(function (o, i) {
-        return '<button class="opt fix-opt-btn" type="button" data-i="' + i + '">' +
-          '<span class="opt-label">' + o.label + '</span>' +
-          '<span class="opt-arrow">→</span>' +
-        '</button>';
-      }).join('') +
-      '</div>' +
-      (key !== 'start' ? '<div class="fix-back-row"><button class="btn btn-ghost" id="back" type="button">← Quay lại bước trước</button></div>' : '');
+  function focusHeading(h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: false }); }
 
-    box.innerHTML = html;
-    box.querySelectorAll('.opt').forEach(function (b) {
+  function renderQuestion(id) {
+    var node = tree.nodes[id];
+    clear();
+    var box = el('div', 'quiz-step');
+    var stepNo = Math.min(history.length + 1, 3);
+    box.appendChild(el('p', 'quiz-count', 'Bước ' + stepNo + '/3' + (stepNo === 1 ? ': chọn danh mục' : ': chọn tình trạng')));
+    box.appendChild(el('div', 'quiz-bar')).style.setProperty('--p', (stepNo / 3 * 100) + '%');
+    var h = el('h2', 'quiz-question', node.question);
+    box.appendChild(h);
+
+    var list = el('div', 'quiz-options');
+    node.options.forEach(function (opt) {
+      var b = el('button', 'quiz-option', opt.label);
+      b.type = 'button';
       b.addEventListener('click', function () {
-        var o = node.options[b.dataset.i];
-        path.push(key);
-        if (o.next) show(o.next); else result(o);
+        history.push(id);
+        if (opt.result) renderResult(opt.result); else renderQuestion(opt.next);
       });
+      list.appendChild(b);
     });
-    var back = document.getElementById('back');
-    if (back) back.addEventListener('click', function () { show(path.pop() || 'start'); });
-  }
+    box.appendChild(list);
 
-  function result(o) {
-    setStep(3);
-    var items = o.result.map(function (id) { return services[id]; }).filter(Boolean);
-    var sum = items.reduce(function (s, x) { return s + x.price; }, 0);
-    var html = '<div class="fix-result-header">' +
-      '<span class="result-check-badge">✓ CHẨN ĐOÁN HOÀN TẤT</span>' +
-      '<h2 class="fix-result-title">FixIT đề xuất cho bạn</h2>' +
-      '<p class="muted">Dựa trên tình trạng: <b>' + o.label + '</b></p>' +
-      '</div>' +
-      '<div class="result-list">' +
-      items.map(function (s) {
-        return '<div class="fix-result-card">' +
-          '<div class="fix-card-info">' +
-            '<div class="fix-card-title-row">' +
-              '<span class="service-icon">' + s.icon + '</span>' +
-              '<h4><a href="' + s.url + '">' + s.name + '</a></h4>' +
-            '</div>' +
-            '<p class="muted">' + s.short + '</p>' +
-            '<p class="price">' + fmt(s.price) + '</p>' +
-          '</div>' +
-          '<div class="fix-card-actions">' +
-            '<a class="btn btn-ghost btn-sm" href="' + s.url + '">Chi tiết</a>' +
-            '<button class="btn add-to-cart btn-sm" type="button" data-id="' + s.id + '" data-name="' + s.name + '" data-price="' + s.price + '">Thêm vào giỏ</button>' +
-          '</div>' +
-        '</div>';
-      }).join('') + '</div>';
-
-    if (items.length > 1) {
-      html += '<div class="fix-total-box">' +
-        '<span>Tổng mức phí dự kiến: <b class="price">' + fmt(sum) + '</b></span>' +
-        '<button class="btn-glow-pill btn-sm" id="add-all" type="button"><span>Thêm tất cả vào giỏ (' + fmt(sum) + ')</span></button>' +
-      '</div>';
+    if (history.length) {
+      var nav = el('div', 'quiz-nav');
+      var back = el('button', 'btn btn--secondary btn--small', 'Quay lại');
+      back.type = 'button';
+      back.addEventListener('click', function () { renderQuestion(history.pop()); });
+      nav.appendChild(back);
+      box.appendChild(nav);
     }
-    if (sum > 100000 && services['student-pack']) {
-      html += '<div class="fix-pack-tip">' +
-        '💡 <b>Gợi ý tiết kiệm:</b> Bạn đang chọn nhiều dịch vụ, gói <a href="' + services['student-pack'].url + '">Student Pack 149.000đ</a> bao trọn 6 dịch vụ cần nhất có thể giúp bạn tiết kiệm tới 55.000đ.' +
-      '</div>';
+    root.appendChild(box);
+    focusHeading(h);
+  }
+
+  function serviceCard(slug, isPrimary) {
+    var s = services[slug];
+    if (!s) return null;
+    var card = el('div', isPrimary ? 'result-card' : '');
+    card.appendChild(el('h3', null, s.title));
+    card.appendChild(el('p', 'card-text', s.summary));
+    var meta = el('div', 'result-meta');
+    meta.appendChild(el('span', 'card-price', s.priceText));
+    meta.appendChild(el('span', 'muted', s.duration));
+    card.appendChild(meta);
+    var actions = el('div', 'result-actions');
+    var add = el('button', 'btn btn--primary', window.FixCart && window.FixCart.has(slug) ? 'Đã có trong giỏ' : 'Thêm vào giỏ');
+    add.type = 'button';
+    add.addEventListener('click', function () {
+      if (!window.FixCart || window.FixCart.has(slug)) return;
+      window.FixCart.add({ id: slug, title: s.title, price: s.price });
+      add.textContent = 'Đã có trong giỏ';
+      if (window.FixAnnounce) window.FixAnnounce('Đã thêm ' + s.title + ' vào giỏ hàng.');
+    });
+    var more = el('a', 'btn btn--secondary', 'Xem chi tiết');
+    more.href = s.url;
+    actions.appendChild(add);
+    actions.appendChild(more);
+    card.appendChild(actions);
+    return card;
+  }
+
+  function renderResult(rid) {
+    var r = tree.results[rid];
+    clear();
+    var box = el('div', 'quiz-step');
+    box.appendChild(el('p', 'quiz-count', 'Bước 3/3: gợi ý của FixIT'));
+    box.appendChild(el('div', 'quiz-bar')).style.setProperty('--p', '100%');
+    var h = el('h2', 'quiz-question', r.title);
+    box.appendChild(h);
+    box.appendChild(el('p', 'lead', r.text));
+
+    if (r.primary) {
+      var c = serviceCard(r.primary, true);
+      if (c) box.appendChild(c);
     }
-    html += '<div class="fix-restart-row"><button class="btn btn-ghost" id="restart" type="button">↺ Chẩn đoán lại từ đầu</button></div>';
+    if (r.contact) {
+      var cc = el('div', 'result-card');
+      cc.appendChild(el('h3', null, 'Nhắn FixIT để hẹn xem máy'));
+      cc.appendChild(el('p', 'card-text', 'Mô tả ngắn triệu chứng và model máy, FixIT sẽ báo hướng xử lý và chi phí dự kiến trước khi bạn mang máy đến.'));
+      var a = el('a', 'btn btn--primary', 'Đến trang liên hệ');
+      a.href = data.contactUrl;
+      var act = el('div', 'result-actions'); act.appendChild(a); cc.appendChild(act);
+      box.appendChild(cc);
+    }
+    if (r.also && r.also.length) {
+      box.appendChild(el('h3', 'h2-sm', 'Có thể bạn cũng cần'));
+      var ul = el('ul', 'also-list');
+      r.also.forEach(function (slug) {
+        var s = services[slug]; if (!s) return;
+        var li = el('li');
+        var link = el('a', 'text-link', s.title); link.href = s.url;
+        li.appendChild(link);
+        li.appendChild(el('span', 'muted', s.priceText));
+        ul.appendChild(li);
+      });
+      box.appendChild(ul);
+    }
 
-    box.innerHTML = html;
-    var all = document.getElementById('add-all');
-    if (all) all.addEventListener('click', function () {
-      items.forEach(function (s) { FixitCart.add({ id: s.id, name: s.name, price: s.price }); });
-      FixitCart.toast('Đã thêm ' + items.length + ' dịch vụ vào giỏ hàng');
-    });
-    document.getElementById('restart').addEventListener('click', function () { path = []; show('start'); });
+    var nav = el('div', 'quiz-nav');
+    var back = el('button', 'btn btn--secondary btn--small', 'Quay lại');
+    back.type = 'button';
+    back.addEventListener('click', function () { renderQuestion(history.pop()); });
+    var again = el('button', 'btn btn--secondary btn--small', 'Làm lại từ đầu');
+    again.type = 'button';
+    again.addEventListener('click', function () { history = []; renderQuestion(tree.start); });
+    nav.appendChild(back); nav.appendChild(again);
+    box.appendChild(nav);
+
+    root.appendChild(box);
+    focusHeading(h);
   }
 
-  // Tự chẩn đoán 5 câu hỏi laptop
-  var QUIZ = [
-    { title: 'Thời gian khởi động lâu', desc: 'Bấm nút nguồn mở máy mất hơn 1 - 2 phút mới vào được màn hình chính' },
-    { title: 'Quạt gió hú to / Máy nóng ran', desc: 'Chỉ lướt web hoặc mở vài tab nhẹ nhưng máy đã tỏa nhiệt nóng và quạt kêu ồn' },
-    { title: 'Bộ nhớ ổ đĩa bị đầy (Báo đỏ)', desc: 'Ổ đĩa C chứa hệ điều hành còn trống dưới 15%, thường xuyên báo Low Disk Space' },
-    { title: 'Pin tụt nhanh bất thường', desc: 'Rút sạc chỉ dùng được khoảng 1 tiếng, máy tự sập nguồn dù còn pin' },
-    { title: 'Thường xuyên đơ, giật lag', desc: 'Mở VS Code, trình duyệt hoặc phần mềm học tập hay bị Not Responding' }
-  ];
+  renderQuestion(tree.start);
 
-  function quiz() {
-    var el = document.getElementById('quiz');
-    if (!el) return;
-    el.innerHTML = '<div class="quiz-items-grid">' +
-      QUIZ.map(function (q, i) {
-        return '<label class="quiz-item-card" for="q-check-' + i + '">' +
-          '<input type="checkbox" id="q-check-' + i + '" class="quiz-checkbox" data-q="' + i + '">' +
-          '<div class="quiz-item-content">' +
-            '<span class="quiz-item-title">' + q.title + '</span>' +
-            '<span class="quiz-item-desc">' + q.desc + '</span>' +
-          '</div>' +
-        '</label>';
-      }).join('') +
-      '</div>' +
-      '<div class="quiz-action-bar">' +
-        '<button class="btn-glow-pill" id="quiz-go" type="button"><span>Phân tích tình trạng máy</span></button>' +
-      '</div>' +
-      '<div id="quiz-out" class="quiz-result-area" aria-live="polite"></div>';
-
-    document.getElementById('quiz-go').addEventListener('click', function () {
-      var n = el.querySelectorAll('input:checked').length;
-      var out = document.getElementById('quiz-out');
-      var s = services['laptop-health'];
-
-      var statusClass = n <= 1 ? 'status-safe' : n <= 3 ? 'status-warn' : 'status-danger';
-      var title = n <= 1 ? 'Laptop của bạn đang hoạt động khá tốt (' + n + '/5 dấu hiệu)'
-                : n <= 3 ? 'Laptop có ' + n + '/5 dấu hiệu quá tải, cần được tối ưu'
-                : 'Cảnh báo: Laptop đang gặp ' + n + '/5 dấu hiệu xuống cấp nghiêm trọng';
-      var advice = n <= 1 ? 'Chưa cần can thiệp sâu, bạn chỉ cần định kỳ dọn rác trình duyệt và cập nhật Windows.'
-                 : n <= 3 ? 'Máy đang bắt đầu bị nghẽn tài nguyên do rác hệ thống hoặc keo tản nhiệt đã khô. Nên kiểm tra bảo dưỡng sớm.'
-                 : 'Nguy cơ cao bị hỏng phần cứng hoặc mất dữ liệu học tập. Khuyến nghị kiểm tra chuyên sâu ngay trong tuần này.';
-
-      out.innerHTML = '<div class="quiz-result-card ' + statusClass + '">' +
-        '<div class="quiz-res-header">' +
-          '<span class="score-badge">' + n + '/5 TRIỆU CHỨNG</span>' +
-          '<h4>' + title + '</h4>' +
-        '</div>' +
-        '<p class="quiz-res-advice">' + advice + '</p>' +
-        (n >= 2 && s ? '<div class="quiz-res-cta"><a class="btn-glow-pill" href="' + s.url + '"><span>Đặt dịch vụ ' + s.name + ' (' + fmt(s.price) + ')</span></a></div>' : '') +
-      '</div>';
-    });
+  /* Test nhanh 30 giây: đếm dấu hiệu máy quá tải */
+  var qt = document.querySelector('[data-quick-test]');
+  if (qt) {
+    var boxes = qt.querySelectorAll('input[type=checkbox]');
+    var out = qt.querySelector('[data-quick-out]');
+    var update = function () {
+      var n = 0;
+      Array.prototype.forEach.call(boxes, function (b) { if (b.checked) n++; });
+      var msg, slug;
+      if (n === 0) { msg = 'Chưa chọn dấu hiệu nào. Đánh dấu những gì bạn thấy ở máy của mình.'; }
+      else if (n <= 1) { msg = 'Máy của bạn ổn, mới có ' + n + ' dấu hiệu. Nên kiểm tra định kỳ mỗi học kỳ.'; }
+      else if (n <= 3) { msg = 'Có ' + n + ' dấu hiệu: máy đang bắt đầu quá tải. Một lần Laptop Health Check sẽ giúp máy nhẹ hơn.'; slug = 'laptop-health'; }
+      else { msg = 'Có ' + n + ' dấu hiệu: máy quá tải rõ rệt. Nên sao lưu dữ liệu và kiểm tra sớm.'; slug = 'laptop-health'; }
+      while (out.firstChild) out.removeChild(out.firstChild);
+      out.appendChild(el('span', null, msg + ' '));
+      if (slug && services[slug]) { var a = el('a', 'text-link', 'Xem ' + services[slug].title); a.href = services[slug].url; out.appendChild(a); }
+    };
+    Array.prototype.forEach.call(boxes, function (b) { b.addEventListener('change', update); });
+    update();
   }
-
-  document.addEventListener('DOMContentLoaded', function () { init(); quiz(); });
 })();

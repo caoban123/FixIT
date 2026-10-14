@@ -1,8 +1,7 @@
 {{ define "main" }}
+{{ partial "page-hero.html" (dict "title" .Title "lead" .Params.lead) }}
 <section class="section">
-  <div class="wrap narrow prose">
-    <h1>{{ .Title }}</h1>
-    {{ with .Params.short }}<p class="lead muted">{{ . }}</p>{{ end }}
+  <div class="container narrow prose">
     {{ .Content }}
   </div>
 </section>

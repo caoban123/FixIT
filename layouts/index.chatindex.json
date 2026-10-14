@@ -1,0 +1,67 @@
+{{- /* Chỉ mục kiến thức cho chatbot, tạo tự động từ nội dung site */ -}}
+{{- $services := slice -}}
+{{- range (site.GetPage "/services").Pages.ByWeight -}}
+  {{- $services = $services | append (dict
+      "slug" .File.ContentBaseName
+      "title" .Title
+      "url" .RelPermalink
+      "price" .Params.price
+      "priceFrom" (.Params.priceFrom | default false)
+      "priceText" (partial "price.html" .)
+      "duration" .Params.duration
+      "summary" .Params.summary
+      "includes" .Params.includes
+      "suitable" (.Params.suitable | default slice)
+      "notes" (.Params.notes | default "")
+      "triggers" .Params.triggers) -}}
+{{- end -}}
+
+{{- $packPage := site.GetPage "/student-pack" -}}
+{{- $sum := 0 -}}
+{{- $packItems := slice -}}
+{{- range $packPage.Params.includes -}}
+  {{- $s := site.GetPage (printf "/services/%s" .) -}}
+  {{- $sum = add $sum $s.Params.price -}}
+  {{- $packItems = $packItems | append $s.Title -}}
+{{- end -}}
+{{- $pack := dict
+    "title" "Student Pack"
+    "url" $packPage.RelPermalink
+    "price" $packPage.Params.price
+    "priceText" (partial "vnd.html" $packPage.Params.price)
+    "sumText" (partial "vnd.html" $sum)
+    "savedText" (partial "vnd.html" (sub $sum $packPage.Params.price))
+    "lead" $packPage.Params.lead
+    "includes" $packItems
+    "conditions" $packPage.Params.conditions -}}
+
+{{- $faq := slice -}}
+{{- range site.Data.faq.groups -}}
+  {{- range .items -}}
+    {{- $link := "" -}}
+    {{- with .link -}}{{- $link = . | relURL -}}{{- end -}}
+    {{- $faq = $faq | append (dict
+        "q" .q
+        "a" (partial "fill.html" .a)
+        "keywords" .keywords
+        "link" $link
+        "linkLabel" (.linkLabel | default "")) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $site := dict
+    "name" site.Title
+    "email" site.Params.email
+    "zalo" site.Params.zalo
+    "hours" site.Params.hours
+    "meetingPoint" site.Params.meetingPoint
+    "links" (dict
+        "services" ("services/" | relURL)
+        "fix" ("find-your-fix/" | relURL)
+        "pack" ("student-pack/" | relURL)
+        "faq" ("faq/" | relURL)
+        "cart" ("cart/" | relURL)
+        "track" ("track/" | relURL)
+        "contact" ("contact/" | relURL)) -}}
+
+{{- dict "site" $site "services" $services "pack" $pack "faq" $faq | jsonify -}}

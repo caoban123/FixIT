@@ -1,28 +1,29 @@
 ---
 title: "Windows Rescue"
-id: "windows-rescue"
-weight: 1
-category: "software"
+weight: 10
 price: 79000
-duration: "60–90 phút"
-image: "/img/windows-rescue.svg"
-icon: "🪟"
-short: "Cứu laptop Windows bị treo, báo lỗi, không lên hình hoặc cần cài lại sạch sẽ."
-tags: ["windows", "cài win", "lỗi", "treo", "bsod", "driver"]
-inpack: false
+duration: "60 – 90 phút"
+group: "software"
+groupLabel: "Phần mềm"
+summary: "Khôi phục laptop Windows bị treo, báo lỗi, mất hình hoặc cần cài lại sạch."
+triggers: ["windows", "win 10", "win 11", "cai win", "cai lai may", "cai lai windows", "reset may", "format may", "driver", "man hinh xanh", "bsod", "khong khoi dong", "khong len", "treo logo", "loi windows", "boot", "windows update", "cap nhat windows", "may cham"]
+includes:
+  - "Chẩn đoán lỗi Windows: treo, màn hình xanh, cập nhật thất bại, thiếu driver"
+  - "Sửa lỗi hoặc cài lại sạch hệ điều hành, thiết lập phù hợp việc học"
+  - "Cài driver cần thiết, bật cập nhật và bảo mật cơ bản"
+  - "Hướng dẫn 3 mẹo để hạn chế lỗi tái diễn"
+suitable:
+  - "Laptop không vào được Windows hoặc khởi động rất chậm"
+  - "Màn hình xanh thường xuyên hoặc Windows Update liên tục lỗi"
+  - "Muốn cài Windows mới trước khi vào học kỳ mới"
+notes: "Hãy sao lưu dữ liệu trước khi mang máy đến. Dịch vụ Data Backup có thể hỗ trợ việc này."
 reviews:
-  - { name: "Bạn A, năm 1", stars: 5, text: "Máy cứ xanh màn hình mỗi tối, được fix xong chạy mượt luôn." }
-  - { name: "Bạn B, năm 2", stars: 4, text: "Cài lại Windows kèm driver đầy đủ, hẹn ở sảnh trường rất tiện." }
+  - who: "Bạn A, năm 1"
+    score: "5/5"
+    text: "Máy treo liên tục mỗi tối, sau khi xử lý chạy mượt trở lại."
+  - who: "Bạn B, năm 2"
+    score: "4/5"
+    text: "Cài lại đủ driver, hẹn gặp ở trường rất tiện."
 ---
-### Bạn sẽ nhận được
-- Chẩn đoán nguyên nhân lỗi Windows (treo, màn hình xanh, update lỗi, thiếu driver)
-- Sửa lỗi hoặc cài lại / cấu hình hệ điều hành theo nhu cầu học tập
-- Cài driver cần thiết, bật cập nhật và bảo mật cơ bản
-- Hướng dẫn 3 mẹo để máy không dễ lỗi lại
 
-### Phù hợp khi
-- Máy không vào được Windows hoặc khởi động rất chậm
-- Hay gặp màn hình xanh, Windows Update lỗi mãi
-- Muốn cài lại Windows sạch trước khi vào học kỳ mới
-
-> Nên sao lưu dữ liệu trước. Cần giúp? Xem **Data Backup**.
+Máy Windows của bạn treo, báo lỗi hoặc cần cài lại sạch? Windows Rescue chẩn đoán, sửa hoặc cài lại và bàn giao ngay tại sảnh trường.

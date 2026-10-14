@@ -1,44 +1,43 @@
 {{ define "main" }}
-<section class="section page-header-section">
-  <div class="wrap narrow text-center">
-    <div class="page-badge reveal">
-      <span class="badge-pulse"></span>
-      <span>HỆ THỐNG CHẨN ĐOÁN THÔNG MINH</span>
-    </div>
-    <h1 class="page-title reveal">{{ .Title }}</h1>
-    <p class="lead muted page-subtitle reveal">{{ .Params.short }}</p>
+{{ partial "page-hero.html" (dict "title" .Title "lead" .Params.lead "eyebrow" "Chẩn đoán nhanh") }}
+{{ $services := (site.GetPage "/services").Pages.ByWeight }}
 
-    <!-- Interactive Decision Tree Box -->
-    <div class="fix-glass-container reveal">
-      <div class="fix-header-bar">
-        <div class="progress-wrap">
-          <div class="progress-meta">
-            <span id="fix-step" class="fix-step-pill">BƯỚC 1/3: CHỌN DANH MỤC</span>
-            <span class="fix-status-dot">AI Engine Ready</span>
-          </div>
-          <div class="progress" aria-hidden="true">
-            <div id="fix-bar"></div>
-          </div>
-        </div>
-      </div>
-
-      <div id="fix-box" class="fix-content-box" aria-live="polite">
-        <div class="loading-spinner">Đang khởi tạo cây quyết định...</div>
-      </div>
-      <noscript><p class="text-warn">Vui lòng bật JavaScript trên trình duyệt để sử dụng tính năng chẩn đoán tương tác.</p></noscript>
-    </div>
-
-    <!-- Quick Health Check Quiz -->
-    <div class="quiz-section-wrapper reveal">
-      <div class="quiz-head-box">
-        <span class="quiz-badge">TEST NHANH 30S</span>
-        <h2 class="quiz-title">Máy tính của bạn có đang quá tải?</h2>
-        <p class="muted">Đánh dấu các dấu hiệu bên dưới để nhận ngay đánh giá sức khoẻ laptop của bạn.</p>
-      </div>
-
-      <div class="quiz-glass-card" id="quiz"></div>
+<section class="section section--tight">
+  <div class="container narrow">
+    <div class="quiz" data-fix-app aria-live="polite">
+      <noscript>
+        <p>Trang này cần JavaScript để chạy bài chẩn đoán. Bạn vẫn có thể xem <a class="text-link" href="{{ "services/" | relURL }}">danh sách dịch vụ</a> hoặc <a class="text-link" href="{{ "contact/" | relURL }}">liên hệ trực tiếp</a>.</p>
+      </noscript>
     </div>
   </div>
 </section>
+
+<section class="section section--tight section--border">
+  <div class="container narrow">
+    <div class="quick reveal" data-quick-test>
+      <p class="eyebrow-dark">Test nhanh 30 giây</p>
+      <h2 class="h2-sm">Máy tính của bạn có đang quá tải?</h2>
+      <p class="muted">Đánh dấu các dấu hiệu bạn thấy để nhận đánh giá sức khỏe laptop.</p>
+      <div class="quick-list">
+        <label class="check"><input type="checkbox"><span>Khởi động mất hơn 2 phút</span></label>
+        <label class="check"><input type="checkbox"><span>Quạt kêu to dù chỉ làm việc nhẹ</span></label>
+        <label class="check"><input type="checkbox"><span>Ổ đĩa còn trống dưới 15%</span></label>
+        <label class="check"><input type="checkbox"><span>Pin tụt nhanh bất thường</span></label>
+        <label class="check"><input type="checkbox"><span>Trình duyệt hiện quảng cáo lạ</span></label>
+        <label class="check"><input type="checkbox"><span>Treo khi mở nhiều ứng dụng cùng lúc</span></label>
+      </div>
+      <p class="quick-out" data-quick-out aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+
+{{ $map := dict }}
+{{ range $services }}
+  {{ $map = merge $map (dict (.File.ContentBaseName) (dict "title" .Title "url" .RelPermalink "price" .Params.price "priceText" (partial "price.html" .) "summary" .Params.summary "duration" .Params.duration)) }}
 {{ end }}
-{{ define "scripts" }}<script src="{{ "js/fix.js" | relURL }}"></script>{{ end }}
+<script type="application/json" id="fix-data">{{ dict "tree" site.Data.fix "services" $map "contactUrl" ("contact/" | relURL) | jsonify | safeJS }}</script>
+{{ end }}
+
+{{ define "scripts" }}
+<script src="{{ "js/fix.js" | relURL }}" defer></script>
+{{ end }}

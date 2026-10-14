@@ -1,0 +1,7 @@
+{{- /* Thay {hours}, {meetingPoint}, {email}, {zalo} bằng giá trị trong hugo.toml */ -}}
+{{- $s := . -}}
+{{- $s = replace $s "{hours}" site.Params.hours -}}
+{{- $s = replace $s "{meetingPoint}" site.Params.meetingPoint -}}
+{{- $s = replace $s "{email}" site.Params.email -}}
+{{- $s = replace $s "{zalo}" site.Params.zalo -}}
+{{- return $s -}}

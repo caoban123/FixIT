@@ -1,36 +1,41 @@
 <!DOCTYPE html>
-<html lang="{{ site.Language.Locale }}">
+<html lang="vi">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ if .IsHome }}{{ site.Title }} · {{ site.Params.slogan }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
-  <meta name="description" content="{{ with .Params.short }}{{ . }}{{ else }}{{ site.Params.tagline }}{{ end }}">
-  <meta name="theme-color" content="#059669">
-  <link rel="icon" href="{{ "img/logo.svg" | relURL }}" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
+  <link rel="icon" href="data:,">
+  <link rel="canonical" href="{{ .Permalink }}">
   <link rel="stylesheet" href="{{ "css/main.css" | relURL }}">
   <script>
-    window.FIXIT = { base: "{{ "" | relURL }}" };
-    try {
-      var t = localStorage.getItem('fixit_theme');
-      if (!t) { t = 'dark'; localStorage.setItem('fixit_theme', 'dark'); }
+    document.documentElement.classList.add('js');
+    (function () {
+      var t = 'light';
+      try {
+        var s = window.localStorage.getItem('fixit_theme');
+        t = (s === 'dark' || s === 'light') ? s : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      } catch (e) { /* giữ giao diện sáng */ }
       document.documentElement.setAttribute('data-theme', t);
-    } catch (e) {}
+    })();
   </script>
 </head>
-<body class="page-{{ .Type }}{{ if .IsHome }} is-home{{ end }}">
-  <a class="skip" href="#main">Bỏ qua điều hướng</a>
+{{- $tone := .Params.tone -}}
+{{- if not $tone }}{{ with .CurrentSection }}{{ $tone = .Params.tone }}{{ end }}{{ end -}}
+{{- with .Params.group }}{{ if eq . "software" }}{{ $tone = "purple" }}{{ else if eq . "dev" }}{{ $tone = "blue" }}{{ else }}{{ $tone = "mix" }}{{ end }}{{ end -}}
+<body data-tone="{{ $tone | default "dark" }}">
+  <div class="backdrop" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Bỏ qua đến nội dung chính</a>
   {{ partial "header.html" . }}
-  <main id="main">
+  <main id="main" tabindex="-1" class="page">
     {{ block "main" . }}{{ end }}
   </main>
   {{ partial "footer.html" . }}
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="{{ "js/theme.js" | relURL }}"></script>
-  <script src="{{ "js/cart.js" | relURL }}"></script>
-  <script src="{{ "js/scroll-reveal.js" | relURL }}"></script>
+  {{ partial "chatbot.html" . }}
+  <p class="sr-only" role="status" aria-live="polite" data-live></p>
+
+  <script src="{{ "js/main.js" | relURL }}" defer></script>
   {{ block "scripts" . }}{{ end }}
+  <script src="{{ "js/chatbot.js" | relURL }}" defer></script>
 </body>
 </html>

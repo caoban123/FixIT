@@ -1,0 +1,25 @@
+{{- /* Khung ảnh / video của một dịch vụ.
+       Tham số: dict "page" <trang dịch vụ> "wide" <bool>
+       - wide=false (card ngoài danh sách): luôn hiện ảnh.
+       - wide=true (trang chi tiết): hiện video nếu có, không thì hiện ảnh. */ -}}
+{{- $p := .page -}}
+{{- $img := partial "service-image.html" $p -}}
+{{- $video := "" -}}
+{{- if .wide }}{{ $video = partial "service-video.html" $p }}{{ end -}}
+
+{{- if $video -}}
+<div class="media media--wide media--video">
+  <video controls playsinline preload="metadata"{{ with $img }} poster="{{ . | relURL }}"{{ end }} aria-label="Video giới thiệu dịch vụ {{ $p.Title }}">
+    <source src="{{ $video | relURL }}" type="{{ if strings.HasSuffix $video ".webm" }}video/webm{{ else }}video/mp4{{ end }}">
+    <p>Trình duyệt của bạn không phát được video này. <a class="text-link" href="{{ $video | relURL }}">Tải video về xem</a>.</p>
+  </video>
+</div>
+{{- else -}}
+<div class="media{{ if .wide }} media--wide{{ end }}{{ if not $img }} media--empty{{ end }}">
+  {{- if $img -}}
+    <img src="{{ $img | relURL }}" alt="{{ $p.Params.imageAlt }}" loading="{{ if .wide }}eager{{ else }}lazy{{ end }}" decoding="async">
+  {{- else if hugo.IsServer -}}
+    <p class="media-hint">{{ if .wide }}Đặt video tại<br><code>static/video/services/{{ $p.File.ContentBaseName }}.mp4</code>{{ else }}Đặt ảnh tại<br><code>static/images/services/{{ $p.File.ContentBaseName }}.jpg</code>{{ end }}</p>
+  {{- end -}}
+</div>
+{{- end -}}

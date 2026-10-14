@@ -1,83 +1,28 @@
 {{ define "main" }}
-<section class="section page-header-section">
-  <div class="wrap narrow text-center">
-    <div class="page-badge reveal">
-      <span class="badge-pulse"></span>
-      <span>GIẢI ĐÁP MỌI THẮC MẮC (FAQ)</span>
+{{ partial "page-hero.html" (dict "title" .Title "lead" .Params.lead "eyebrow" "Hỏi và đáp") }}
+<section class="section section--tight">
+  <div class="container narrow">
+    <div class="field">
+      <label for="faq-filter">Tìm trong câu hỏi</label>
+      <input class="input" id="faq-filter" type="search" autocomplete="off" placeholder="Ví dụ: bảo hành, thanh toán, giờ làm việc" data-faq-filter>
     </div>
-    <h1 class="page-title reveal">{{ .Title }}</h1>
-    <p class="lead muted page-subtitle reveal">Tất cả thông tin minh bạch về quy trình xử lý, chi phí và bảo hành của FixIT Student</p>
+    <p class="muted" data-faq-empty hidden>Không có câu hỏi nào khớp. Hãy thử từ khóa khác hoặc hỏi trợ lý ở góc màn hình.</p>
 
-    <!-- FAQ Search Box -->
-    <div class="faq-search-box reveal">
-      <div class="search-input-wrap">
-        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input id="faq-search" type="search" placeholder="Gõ từ khoá tìm câu hỏi (ví dụ: giá, dữ liệu, bảo hành, Student Pack...)" aria-label="Tìm kiếm câu hỏi">
+    {{ range where site.Data.faq.groups "chatOnly" "ne" true }}
+    <section class="faq-group" data-faq-group>
+      <h2 class="h2-sm">{{ .title }}</h2>
+      <div class="faq-list">
+        {{ range .items }}
+        {{ $item := . }}
+        <details class="faq-item" data-faq-item>
+          <summary>{{ .q }}</summary>
+          <p>{{ partial "fill.html" .a }}</p>
+          {{ with .link }}<p><a class="text-link" href="{{ . | relURL }}">{{ $item.linkLabel | default "Xem thêm" }}</a></p>{{ end }}
+        </details>
+        {{ end }}
       </div>
-    </div>
-
-    <!-- FAQ Accordion List -->
-    <div class="faq-list-wrap reveal" id="faq-list">
-      {{ range $index, $item := .Params.faq }}
-      <details class="faq-accordion-item" data-q="{{ $item.q | lower }}" data-a="{{ $item.a | lower }}">
-        <summary class="faq-summary">
-          <div class="faq-summary-left">
-            <span class="faq-num">Q{{ add $index 1 }}</span>
-            <span class="faq-q-text">{{ $item.q }}</span>
-          </div>
-          <span class="faq-toggle-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </span>
-        </summary>
-        <div class="faq-answer-body">
-          <p>{{ $item.a }}</p>
-        </div>
-      </details>
-      {{ end }}
-    </div>
-
-    <div id="faq-empty" class="empty-state-box" hidden>
-      <div class="empty-icon">💡</div>
-      <h3>Không tìm thấy câu hỏi phù hợp</h3>
-      <p class="muted">Hãy thử từ khoá ngắn gọn hơn hoặc nhắn tin trực tiếp cho đội ngũ FixIT để được giải đáp ngay.</p>
-    </div>
-
-    <!-- Bottom Help CTA -->
-    <div class="faq-bottom-cta reveal">
-      <div class="cta-inner-card">
-        <div class="cta-icon-glow">💬</div>
-        <h3>Vẫn còn câu hỏi chưa được giải đáp?</h3>
-        <p class="muted">Đội ngũ sinh viên hỗ trợ FixIT luôn sẵn sàng lắng nghe và tư vấn miễn phí cho bạn.</p>
-        <div class="cta-btns">
-          <a class="btn-glow-pill" href="{{ "contact/" | relURL }}"><span>Nhắn tin cho tụi mình</span></a>
-          <a class="btn-glass-pill" href="{{ "find-your-fix/" | relURL }}">Chẩn đoán sự cố ngay →</a>
-        </div>
-      </div>
-    </div>
+    </section>
+    {{ end }}
   </div>
 </section>
-{{ end }}
-{{ define "scripts" }}
-<script>
-  (function () {
-    var input = document.getElementById('faq-search');
-    var items = document.querySelectorAll('.faq-accordion-item');
-    var empty = document.getElementById('faq-empty');
-    if (!input) return;
-
-    input.addEventListener('input', function () {
-      var q = input.value.trim().toLowerCase();
-      var visible = 0;
-      items.forEach(function (el) {
-        var match = !q || el.dataset.q.indexOf(q) !== -1 || el.dataset.a.indexOf(q) !== -1;
-        el.hidden = !match;
-        if (match) {
-          visible++;
-          if (q) el.open = true; // Auto expand when searching
-        }
-      });
-      if (empty) empty.hidden = visible > 0;
-    });
-  })();
-</script>
 {{ end }}

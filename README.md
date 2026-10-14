@@ -1,138 +1,90 @@
-# FixIT Student — Dịch Vụ Công Nghệ Sinh Viên
+# FixIT Student (Hugo)
 
-> **Đồ án 1 (CSC00006) — Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM**  
-> Dự án mô phỏng website dịch vụ CNTT hỗ trợ sinh viên: chẩn đoán lỗi, cài đặt môi trường lập trình, cấp cứu Windows và kiểm tra laptop tận nơi tại sảnh trường.
+Website dịch vụ công nghệ cho sinh viên, viết bằng Hugo, toàn bộ nội dung tiếng Việt.
+Sản phẩm học tập (Đồ án 1 – CSC00006): giỏ hàng và thanh toán QR chỉ là mô phỏng.
 
----
+## Chạy thử
 
-## 📌 1. Giới thiệu Dự án
-
-Khi bước vào giảng đường đại học hoặc bắt đầu các học phần lập trình/đồ án, sinh viên thường xuyên gặp phải những rào cản kỹ thuật:
-- **Kẹt môi trường lập trình:** Cài đặt C/C++, Python, Git, VS Code... lỗi PATH hoặc xung đột compiler mất hàng giờ giải quyết.
-- **Bế tắc tra cứu:** Không biết lỗi tên gì để tìm kiếm (màn hình xanh, traceback dài, tràn bộ nhớ...).
-- **Chi phí đắt đỏ:** Các cửa hàng sửa chữa bên ngoài tính phí từ 150.000đ – 300.000đ, phải để máy qua đêm và lo ngại bảo mật dữ liệu.
-
-**FixIT Student** ra đời như một mô hình dịch vụ công nghệ tinh gọn do chính sinh viên IT vận hành: **Chẩn đoán trước — Hẹn gặp giải quyết tại sảnh trường — Giá chuẩn sinh viên (từ 9.000đ – 79.000đ) — Bảo hành 7 ngày**.
-
----
-
-## 🚀 2. Tính năng Nổi bật
-
-### 2.1. Danh mục 8 Dịch vụ Cố định & Gói Student Pack
-- **8 Dịch vụ chuyên biệt:**
-  1. *Cứu hộ laptop Windows (Windows Rescue)* — 79.000đ
-  2. *Thiết lập môi trường Python (Python Setup)* — 29.000đ
-  3. *Cấu hình biên dịch C/C++ (C/C++ Setup)* — 39.000đ
-  4. *Cấu hình Git & GitHub (Git Setup)* — 19.000đ
-  5. *Cài đặt & tối ưu VS Code (VS Code Setup)* — 9.000đ
-  6. *Khám sức khoẻ tổng quát Laptop (Health Check)* — 49.000đ
-  7. *Sao lưu & sắp xếp dữ liệu (Data Backup)* — 59.000đ
-  8. *Tư vấn công nghệ & thiết bị (Tech Consultation)* — 99.000đ
-- **Student Pack All-in-One:** Combo 6 giải pháp thiết yếu nhất cho sinh viên năm nhất và kỳ đồ án với giá ưu đãi **149.000đ** (tiết kiệm 27%).
-
-### 2.2. Find Your Fix (Cây chẩn đoán tương tác)
-- Công cụ tương tác 3 bước ánh xạ triệu chứng lỗi thực tế thành dịch vụ chính xác, kèm thời gian xử lý và báo giá cố định.
-- Tích hợp bài trắc nghiệm kiểm tra sức khỏe máy tính trong 30 giây.
-
-### 2.3. Giỏ hàng & Đặt lịch hẹn Demo (Client-side)
-- Giỏ hàng động lưu trữ qua `localStorage`.
-- Hỗ trợ mã giảm giá sinh viên: `FIXIT10` (giảm 10%), `SINHVIEN` (giảm 15%).
-- Chọn cơ sở hẹn gặp trực tiếp:
-  - **CS1:** Sảnh Tòa Nhà A / Căn tin trường (227 Nguyễn Văn Cừ, Quận 5).
-  - **CS2:** Sảnh Giảng đường A / B (Khu đô thị ĐHQG-HCM, Thủ Đức).
-- Mô phỏng thanh toán chuyển khoản VietQR và ví MoMo.
-
-### 2.4. Hệ thống Tra cứu Tiến độ (Order Tracker)
-- Tra cứu trạng thái xử lý đơn hàng theo mã ticket.
-- Mã demo kiểm tra nhanh: `FIX-DEMO`, `FIX-REQ89`.
-
-### 2.5. Giao diện Hiện đại & Trải nghiệm Người dùng
-- **Thẩm mỹ Cyberpunk / Clean Glassmorphism:** Hiệu ứng kính mờ, viền neon emerald, hạt chuyển động canvas (`particles.js`), mô phỏng terminal trực tiếp.
-- **Dark Mode & Light Mode:** Chuyển đổi giao diện mượt mà, lưu trạng thái người dùng.
-- **Tiêu đề mục đồng bộ & căn giữa:** Toàn bộ tiêu đề các phần được chuẩn hóa căn giữa với badge pill phát sáng và gradient typography.
-- **Responsive & Truy cập qua Mobile:** Hỗ trợ quét mã QR để mở website mượt mà trên điện thoại.
-
----
-
-## 🛠️ 3. Công nghệ Sử dụng
-
-- **Static Site Generator (SSG):** Hugo v0.120+ (Extended / Standard)
-- **Frontend Core:** HTML5 ngữ nghĩa, Vanilla CSS3 (Custom Design Tokens, không phụ thuộc Tailwind hay Bootstrap cồng kềnh)
-- **Client Logic:** Vanilla JavaScript ES6+ (`cart.js`, `fix.js`, `theme.js`, `terminal.js`, `scroll-reveal.js`, `particles.js`)
-- **Typography:** `Be Vietnam Pro` (tiêu đề, hỗ trợ đầy đủ tiếng Việt) & `Plus Jakarta Sans` (nội dung)
-
----
-
-## 📂 4. Cấu trúc Thư mục
-
-```text
-fixit_student/
-├── content/                    # Nội dung Markdown của Hugo
-│   └── services/               # 8 bài viết chi tiết từng dịch vụ
-├── layouts/                    # Bộ khung giao diện HTML
-│   ├── _default/               # Các trang: about, cart, contact, faq, fix, pack, track...
-│   ├── partials/               # Thành phần tái sử dụng: header, footer, service-card...
-│   ├── services/               # Layout danh sách và chi tiết dịch vụ
-│   ├── index.html              # Trang chủ FixIT Student
-│   └── index.servicesjson.json # Template sinh file services.json cho search/cart
-├── static/                     # Tài nguyên tĩnh
-│   ├── css/
-│   │   └── main.css            # Toàn bộ CSS hệ thống thiết kế
-│   ├── data/
-│   │   └── fix-tree.json       # Dữ liệu cây quyết định chẩn đoán Find Your Fix
-│   ├── img/                    # Vector SVG minh họa, logo, QR code
-│   └── js/                     # Các file script xử lý logic
-├── hugo.toml                   # File cấu hình chính của Hugo
-└── README.md                   # Tài liệu hướng dẫn đồ án
-```
-
----
-
-## 💻 5. Hướng dẫn Cài đặt & Chạy Thử
-
-### Yêu cầu môi trường
-- Đã cài đặt [Hugo](https://gohugo.io/) (hoặc môi trường Python có gói `hugo-python-distributions`).
-
-### 5.1. Khởi chạy trên máy tính (Localhost)
 ```bash
-# Chạy máy chủ dev
-hugo server
-
-# Truy cập trình duyệt tại
-http://localhost:1313/
+hugo server        # http://localhost:1313
+hugo --minify      # build ra thư mục public/
 ```
 
-### 5.2. Mở cho Điện thoại quét mã QR cùng mạng Wi-Fi
-Để điện thoại có thể quét mã QR truy cập trang web chạy từ máy tính:
+Cần Hugo extended 0.147 trở lên. Không cần theme ngoài, toàn bộ layout nằm trong `layouts/`.
+
+## Cấu trúc
+
+| Đường dẫn | Nội dung |
+|---|---|
+| `hugo.toml` | Cấu hình site, menu, link video nền, thông tin liên hệ |
+| `content/services/*.md` | 8 dịch vụ (giá, thời gian, mô tả, danh sách bao gồm, `triggers` cho chatbot) |
+| `content/*/_index.md` | Find your fix, Student Pack, About, Contact, Cart, FAQ, Track |
+| `data/fix.yaml` | Cây câu hỏi của Find your fix |
+| `data/faq.yaml` | Câu hỏi thường gặp (dùng cho trang FAQ và chatbot) |
+| `layouts/index.chatindex.json` | Sinh `chatbot-index.json` từ nội dung site cho chatbot |
+| `static/css/main.css` | Toàn bộ giao diện theo DESIGN.md (token màu, chữ, khoảng cách) |
+| `static/js/` | `main.js`, `chatbot.js`, `fix.js`, `cart.js`, `track.js`, `qrcode.js` |
+
+## Ảnh dịch vụ
+
+Mỗi dịch vụ có một khung ảnh (trên card ở trang chủ, trang Dịch vụ và đầu trang chi tiết).
+Chỉ cần chép ảnh vào `static/images/services/` đặt tên theo tên file dịch vụ:
+
+`cai-windows`, `ve-sinh-laptop`, `diet-virus`, `cai-phan-mem`, `cuu-du-lieu`, `nang-cap`, `wifi-mang`, `tu-van-mua-may`
+(đuôi `.jpg`, `.jpeg`, `.png` hoặc `.webp`).
+
+Ví dụ: `static/images/services/cai-windows.jpg`. Chưa có ảnh thì khung hiện nền xám nhạt. Khi chạy
+`hugo server`, khung trống sẽ ghi sẵn đường dẫn cần đặt ảnh. Nên dùng ảnh ngang tỉ lệ khoảng 16:10,
+rộng từ 1200px, dưới 300KB. Muốn mô tả ảnh cho người dùng đọc màn hình, thêm `imageAlt: "..."` vào front matter.
+
+## Font chữ
+
+Be Vietnam Pro (giấy phép SIL OFL), lưu trong `static/fonts/`. Font nằm ngay trong site nên
+không có yêu cầu nào tới Google khi người xem mở trang.
+
+## Video trong trang chi tiết dịch vụ
+
+Ngoài danh sách, card hiện **ảnh**. Khi bấm vào xem chi tiết, trang hiện **video** (nếu có), không có thì hiện lại ảnh.
+Chép video vào `static/video/services/` đặt tên theo dịch vụ, ví dụ `static/video/services/cai-windows.mp4`
+(đuôi `.mp4` hoặc `.webm`). Ảnh cùng dịch vụ sẽ làm ảnh bìa trước khi bấm phát.
+
+Nên nén video trước khi đưa vào (mục tiêu dưới 15MB mỗi video, Cloudflare Pages giới hạn 25MB mỗi file):
+
 ```bash
-# Thay <IP_CUA_MAY> bằng IP Wi-Fi máy bạn (ví dụ: 192.168.1.9)
-hugo server -p 1313 --bind 0.0.0.0 --baseURL http://<IP_CUA_MAY>:1313
+ffmpeg -i video-goc.mp4 -vf scale=1280:-2 -c:v libx264 -crf 28 -preset slow -c:a aac -b:a 96k -movflags +faststart cai-windows.mp4
 ```
-*File mã QR mẫu có sẵn tại: `static/img/qr-site.png`.*
 
-### 5.3. Build sản phẩm tĩnh (Production Build)
-```bash
-hugo --minify
-```
-Mã nguồn tĩnh sẽ được xuất ra thư mục `public/`.
+## Giới thiệu nhóm
 
----
+Sửa nội dung trong `data/team.yaml` (chỗ nào có dấu `[ ]` là chỗ mẫu cần thay). Ảnh đặt trong `static/images/team/`:
+`nhom.jpg` là ảnh cả nhóm, `thanh-vien-1.jpg`... là ảnh từng người (tên file trùng với `id` trong `team.yaml`).
+Ảnh chụp bằng điện thoại thường chứa vị trí GPS trong metadata, nên xóa metadata trước khi đưa lên web.
 
-## ☁️ 6. Hướng dẫn Triển khai (Deploy)
+## Màu và nền động
 
-### 6.1. Cloudflare Pages / Vercel / Netlify
-1. Kết nối kho lưu trữ GitHub chứa dự án.
-2. Thiết lập cấu hình build:
-   - **Framework preset:** `Hugo`
-   - **Build command:** `hugo --minify`
-   - **Output directory:** `public`
-3. Cập nhật thuộc tính `baseURL` trong `hugo.toml` thành URL chính thức của bạn.
+Mỗi trang có một tông màu, đặt bằng `tone:` trong front matter của `content/<trang>/_index.md`
+(`purple`, `blue`, `mix`, `dark`). Màu lấy từ bảng màu của DESIGN.md. Header các trang con có video nền mờ,
+muốn tắt thì đặt `pageHeroVideo = false` trong `hugo.toml` (khi đó chỉ còn nền gradient động).
 
----
+## Đưa website lên mạng để người khác truy cập
 
-## 👥 7. Thông tin Đồ án & Tác giả
+Website là file tĩnh (HTML, CSS, JS), nên đưa lên các dịch vụ hosting tĩnh miễn phí là được.
 
-- **Học phần:** Đồ án 1 (CSC00006)
-- **Đơn vị:** Khoa Công nghệ Thông tin — Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM
-- **Mã sinh viên / Tài khoản GitHub:** `tlmduc7796`
-- **Cam kết liêm chính:** Dự án là sản phẩm học tập mô phỏng, toàn bộ giao dịch thanh toán và đặt lịch là demo giáo dục. Toàn bộ mã nguồn và nội dung ứng dụng AI đều được nhóm sinh viên trực tiếp đọc hiểu, kiểm thử và làm chủ kỹ thuật.
+1. Build: chạy `hugo --minify`, kết quả nằm trong thư mục `public/`.
+2. **Cách nhanh, không cần Git:** Cloudflare Pages có mục "Direct Upload", kéo thả thư mục `public/` lên là có link
+   dạng `https://<tên-dự-án>.pages.dev`. Netlify Drop (app.netlify.com/drop) cũng kéo thả được.
+3. **Cách tự cập nhật:** đưa cả project lên GitHub, rồi nối với Cloudflare Pages (Connect to Git) với
+   Build command `hugo --minify`, Build output directory `public`, biến môi trường `HUGO_VERSION` = `0.147.0`.
+   Mỗi lần đẩy code mới, website tự build lại.
+4. Mở `hugo.toml`, sửa `baseURL` cho đúng địa chỉ thật (ví dụ `https://ten-du-an.pages.dev/`).
+5. Muốn tên miền riêng (ví dụ `fixit.vn`) thì mua tên miền rồi gắn vào mục Custom domains của dịch vụ hosting.
+
+Lưu ý: repo GitHub để công khai thì mã nguồn ai cũng xem được; hãy thay email mẫu và kiểm tra không có thông tin riêng tư trước khi đưa lên.
+
+## Chatbot
+
+Chatbot chạy hoàn toàn trên trình duyệt, không gọi API ngoài. Nó đọc `chatbot-index.json`
+(tự sinh khi build) nên **sửa giá, dịch vụ hoặc FAQ rồi build lại là chatbot tự cập nhật**.
+
+- Thêm từ khóa nhận diện dịch vụ: sửa `triggers` (không dấu, chữ thường) trong `content/services/<tên>.md`.
+- Thêm câu hỏi thường gặp: sửa `data/faq.yaml` (`keywords` không dấu, chữ thường).

@@ -1,0 +1,11 @@
+{{ define "main" }}
+{{ partial "page-hero.html" (dict "title" "Không tìm thấy trang" "lead" "Đường dẫn này không tồn tại hoặc đã được chuyển đi nơi khác.") }}
+<section class="section">
+  <div class="container narrow">
+    <div class="hero-actions">
+      <a class="btn btn--primary" href="{{ "/" | relURL }}">Về trang chủ</a>
+      <a class="btn btn--secondary" href="{{ "services/" | relURL }}">Xem dịch vụ</a>
+    </div>
+  </div>
+</section>
+{{ end }}

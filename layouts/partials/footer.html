@@ -1,48 +1,36 @@
-<footer class="site-footer" role="contentinfo">
-  <div class="wrap footer-grid">
-    <div class="footer-col footer-col-brand">
-      <a class="brand footer-brand" href="{{ "" | relURL }}" aria-label="FixIT Student – Về trang chủ">
-        <img src="{{ "img/logo.svg" | relURL }}" alt="Logo FixIT Student" width="32" height="32">
-        <span class="brand-text"><b>FixIT</b> Student</span>
-      </a>
+{{ $services := (site.GetPage "/services").Pages.ByWeight }}
+<footer class="site-footer on-dark">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <p class="footer-logo">FixIT Student</p>
       <p class="footer-slogan">{{ site.Params.slogan }}</p>
-      <p class="footer-desc">{{ site.Params.tagline }}</p>
+      <p class="footer-text">{{ site.Params.description }}</p>
     </div>
-    <div class="footer-col footer-col-links">
-      <h4 class="footer-title">Khám phá dịch vụ</h4>
-      <ul class="footer-links">
+
+    <nav aria-label="Khám phá dịch vụ">
+      <h2 class="footer-heading">Khám phá dịch vụ</h2>
+      <ul class="footer-list">
         <li><a href="{{ "services/" | relURL }}">Danh mục dịch vụ IT</a></li>
         <li><a href="{{ "find-your-fix/" | relURL }}">Chẩn đoán Find Your Fix</a></li>
         <li><a href="{{ "student-pack/" | relURL }}">Gói Student Pack 6-in-1</a></li>
-        <li><a href="{{ "track/" | relURL }}">Tra cứu lịch hẹn & đơn hỗ trợ</a></li>
+        <li><a href="{{ "track/" | relURL }}">Tra cứu lịch hẹn và đơn hỗ trợ</a></li>
         <li><a href="{{ "about/" | relURL }}">Về đội ngũ sinh viên</a></li>
         <li><a href="{{ "faq/" | relURL }}">Câu hỏi thường gặp</a></li>
       </ul>
-    </div>
-    <div class="footer-col footer-col-contact">
-      <h4 class="footer-title">Kênh kết nối trực tiếp</h4>
-      <ul class="footer-contact-list">
-        <li>
-          <span class="contact-label">Email:</span>
-          <a href="mailto:{{ site.Params.email }}" class="contact-val">{{ site.Params.email }}</a>
-        </li>
-        <li>
-          <span class="contact-label">Giờ trực:</span>
-          <span class="contact-val">{{ site.Params.hours }}</span>
-        </li>
-        <li>
-          <span class="contact-label">Điểm hẹn:</span>
-          <span class="contact-val">{{ site.Params.meetingPoint }}</span>
-        </li>
+    </nav>
+
+    <div>
+      <h2 class="footer-heading">Liên hệ</h2>
+      <ul class="footer-list footer-list--plain">
+        <li><a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a></li>
+        <li>{{ site.Params.zalo }}</li>
+        <li>{{ site.Params.hours }}</li>
+        <li>Điểm hẹn: {{ site.Params.meetingPoint }}</li>
       </ul>
     </div>
   </div>
-  <div class="wrap footer-bottom-wrap">
-    <div class="demo-disclaimer-box">
-      <span class="demo-badge">ĐỒ ÁN HỌC TẬP</span>
-      <p class="demo-text">
-        Đây là sản phẩm học tập (Đồ án 1 – CSC00006). Toàn bộ dữ liệu giỏ hàng, quy trình hẹn gặp và thanh toán là <b>MÔ PHỎNG (DEMO)</b> phục vụ báo cáo môn học, không thu tiền hay lưu trữ thông tin nhạy cảm thật.
-      </p>
-    </div>
+
+  <div class="container footer-legal">
+    <p>Sản phẩm học tập ({{ site.Params.course }}). Giỏ hàng, quy trình hẹn gặp và thanh toán chỉ là mô phỏng, không thu tiền và không lưu thông tin nhạy cảm thật.</p>
   </div>
 </footer>

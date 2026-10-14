@@ -1,25 +1,27 @@
 ---
 title: "Git & GitHub Setup"
-id: "git-github"
-weight: 4
-category: "development"
+weight: 40
 price: 19000
-duration: "20–30 phút"
-image: "/img/git-github.svg"
-icon: "🌿"
-short: "Cấu hình Git, GitHub, SSH và hướng dẫn workflow làm nhóm cơ bản."
-tags: ["git", "github", "ssh", "commit", "push", "branch"]
-inpack: true
+duration: "20 – 30 phút"
+group: "dev"
+groupLabel: "Lập trình & Môi trường"
+summary: "Cấu hình Git, GitHub, SSH và hướng dẫn quy trình làm việc nhóm cơ bản."
+triggers: ["git", "github", "ssh", "push", "pull", "commit", "branch", "pull request", "merge conflict", "repo", "repository", "permission denied", "rejected"]
+includes:
+  - "Cài Git và cấu hình tên, email"
+  - "Kết nối GitHub qua SSH (hoặc HTTPS) và git push thành công"
+  - "Hướng dẫn quy trình nhóm: branch, commit, Pull Request, merge"
+  - "Xử lý nhanh các lỗi thường gặp như merge conflict, push bị từ chối"
+suitable:
+  - "Push hoặc pull báo lỗi xác thực"
+  - "Chưa từng dùng GitHub nhưng phải nộp bài qua repo"
 reviews:
-  - { name: "Bạn G, năm 2", stars: 5, text: "Push code lên GitHub lần đầu không còn bị lỗi permission nữa." }
-  - { name: "Bạn H, năm 2", stars: 5, text: "Nhóm mình học luôn cách chia branch và tạo Pull Request." }
+  - who: "Bạn G, năm 2"
+    score: "5/5"
+    text: "Lần push đầu tiên không còn lỗi permission denied."
+  - who: "Bạn H, năm 2"
+    score: "5/5"
+    text: "Cả nhóm học được cách chia branch và tạo Pull Request."
 ---
-### Bạn sẽ nhận được
-- Git cài và cấu hình đúng tên, email
-- Kết nối GitHub bằng SSH (hoặc HTTPS) và `git push` thành công
-- Hướng dẫn workflow nhóm: branch → commit → Pull Request → merge
-- Cách xử lý nhanh lỗi thường gặp (conflict, rejected push)
 
-### Phù hợp khi
-- Push/pull báo lỗi xác thực
-- Chưa bao giờ dùng GitHub nhưng nhóm yêu cầu nộp qua repo
+Cấu hình Git, GitHub, SSH và nắm quy trình làm việc nhóm cơ bản.

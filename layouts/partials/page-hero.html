@@ -1,0 +1,17 @@
+{{- /* Header của trang con: nền gradient động theo tông màu của trang (body[data-tone]),
+       có thể phủ thêm video nền (site.Params.pageHeroVideo) */ -}}
+<section class="page-hero aurora on-dark">
+  {{- if and site.Params.pageHeroVideo site.Params.videoUrl }}
+  <video class="hero-video hero-video--soft" autoplay muted loop playsinline preload="metadata" aria-hidden="true" data-hero-video>
+    <source src="{{ site.Params.videoUrl }}" type="video/mp4">
+  </video>
+  {{- end }}
+  <div class="container page-hero-inner">
+    {{ with .eyebrow }}<p class="eyebrow">{{ . }}</p>{{ end }}
+    <h1 class="display">{{ .title }}</h1>
+    {{ with .lead }}<p class="lead">{{ . }}</p>{{ end }}
+  </div>
+  {{- if and site.Params.pageHeroVideo site.Params.videoUrl }}
+  <button class="btn btn--outline-dark btn--small hero-toggle" type="button" aria-pressed="false" data-hero-toggle>Tạm dừng video</button>
+  {{- end }}
+</section>

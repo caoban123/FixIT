@@ -1,26 +1,28 @@
 ---
 title: "Tech Consultation"
-id: "tech-consultation"
-weight: 8
-category: "software"
+weight: 80
 price: 99000
 duration: "60 phút"
-image: "/img/tech-consultation.svg"
-icon: "💡"
-short: "Tư vấn chọn laptop, phần mềm, công cụ học tập và dựng môi trường học phù hợp."
-tags: ["tư vấn", "mua laptop", "phần mềm", "công cụ", "không biết"]
-inpack: false
+group: "software"
+groupLabel: "Phần mềm"
+summary: "Tư vấn chọn laptop, phần mềm, công cụ học tập và dựng môi trường học phù hợp."
+triggers: ["tu van", "mua laptop", "mua may", "chon laptop", "cau hinh", "ngan sach", "nganh hoc", "phan mem hoc", "cong cu", "ai tool", "may cu", "nen mua"]
+includes:
+  - "Trao đổi 1-1 về nhu cầu và ngân sách"
+  - "Gợi ý laptop, phần mềm, công cụ phù hợp ngành học"
+  - "Lộ trình dựng môi trường học từng bước"
+  - "Danh sách việc cần làm tiếp, kèm các dịch vụ FixIT liên quan"
+suitable:
+  - "Sắp mua laptop và thấy quá nhiều lựa chọn"
+  - "Chưa biết bắt đầu từ đâu"
+  - "Cần dựng môi trường học cho một ngành mới"
 reviews:
-  - { name: "Bạn P, sinh viên mới", stars: 5, text: "Mình chọn được laptop vừa túi tiền, không bị mua dư cấu hình." }
-  - { name: "Bạn Q, năm 2", stars: 4, text: "Được gợi ý bộ công cụ học AI rõ ràng, tiết kiệm cả tuần mò mẫm." }
+  - who: "Bạn P, tân sinh viên"
+    score: "5/5"
+    text: "Chọn được laptop đúng ngân sách, không mua dư cấu hình."
+  - who: "Bạn Q, năm 2"
+    score: "4/5"
+    text: "Gợi ý công cụ AI giúp tiết kiệm cả tuần mày mò."
 ---
-### Bạn sẽ nhận được
-- Buổi trao đổi 1-1 về nhu cầu và ngân sách
-- Gợi ý laptop / phần mềm / công cụ phù hợp ngành học
-- Kế hoạch setup môi trường học theo từng bước
-- Danh sách việc cần làm tiếp theo, kèm dịch vụ FixIT liên quan
 
-### Phù hợp khi
-- Sắp mua laptop và rối giữa vô số lựa chọn
-- Không biết bắt đầu từ đâu ("Tôi không biết")
-- Cần dựng môi trường học cho ngành mới
+Tư vấn chọn laptop, phần mềm, công cụ học tập và cách dựng môi trường học phù hợp với bạn.

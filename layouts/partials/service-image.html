@@ -1,0 +1,14 @@
+{{- /* Trả về đường dẫn ảnh (tương đối với static/) của một dịch vụ, hoặc chuỗi rỗng.
+       Ưu tiên front matter `image`, sau đó tìm static/images/services/<slug>.(jpg|jpeg|png|webp) */ -}}
+{{- $found := "" -}}
+{{- with .Params.image -}}
+  {{- if fileExists (printf "static/%s" .) -}}{{- $found = . -}}{{- end -}}
+{{- end -}}
+{{- if not $found -}}
+  {{- $slug := .File.ContentBaseName -}}
+  {{- range slice "jpg" "jpeg" "png" "webp" -}}
+    {{- $p := printf "images/services/%s.%s" $slug . -}}
+    {{- if and (not $found) (fileExists (printf "static/%s" $p)) -}}{{- $found = $p -}}{{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $found -}}

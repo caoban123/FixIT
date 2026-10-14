@@ -1,9 +1,0 @@
-{{- $out := slice -}}
-{{- range (site.GetPage "/services").Pages.ByWeight -}}
-  {{- $out = $out | append (dict "id" .Params.id "name" .Title "price" .Params.price "category" .Params.category "icon" .Params.icon "short" .Params.short "duration" .Params.duration "image" (.Params.image | relURL) "url" .RelPermalink "tags" .Params.tags) -}}
-{{- end -}}
-{{- $pack := site.GetPage "/student-pack" -}}
-{{- with $pack -}}
-  {{- $out = $out | append (dict "id" .Params.id "name" .Title "price" .Params.price "category" "pack" "icon" .Params.icon "short" .Params.short "duration" .Params.duration "image" (.Params.image | relURL) "url" .RelPermalink "tags" (slice "pack")) -}}
-{{- end -}}
-{{- $out | jsonify -}}

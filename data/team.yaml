@@ -1,0 +1,65 @@
+# Nội dung trang About, theo cấu trúc trang gốc.
+# Ảnh đặt trong static/images/team/ (đuôi jpg, jpeg, png hoặc webp):
+#   - nhom.jpg : ảnh cả nhóm
+#   - <id>.jpg : ảnh từng thành viên, <id> trùng với trường `id` bên dưới (a, b, c, d, e)
+# Chỗ trong dấu [ ] là chỗ mẫu, hãy thay bằng thông tin thật của nhóm.
+
+story:
+  title: "Câu chuyện của nhóm"
+  groupAlt: "Ảnh cả nhóm FixIT Student"
+  paragraphs:
+    - "Các thành viên của nhóm đều là sinh viên IT. Chúng mình từng mất rất nhiều thời gian để xử lý lỗi cài đặt, và lỗi luôn xuất hiện đúng lúc deadline đang đến gần."
+    - "FixIT Student ra đời từ trải nghiệm đó: một nơi để sinh viên nhờ bạn cùng trường xử lý nhanh những lỗi công nghệ quen thuộc."
+
+mission:
+  title: "Sứ mệnh"
+  text: "Giúp sinh viên xử lý sự cố công nghệ nhanh, dễ hiểu và với giá sinh viên, để tập trung vào việc học."
+  values:
+    - title: "Nhanh chóng"
+      text: "Xử lý trong ngày, không giữ máy qua đêm."
+    - title: "Dễ hiểu"
+      text: "Nói rõ lỗi do đâu và đã làm gì, không dùng thuật ngữ khó."
+    - title: "Đúng giá sinh viên"
+      text: "Giá trọn gói, báo rõ từ đầu, bảo hành sửa lại miễn phí 7 ngày."
+
+team:
+  title: "Đội ngũ"
+  note: "Phần giới thiệu cá nhân của từng thành viên sẽ được bổ sung."
+
+members:
+  - id: a
+    name: "[Họ và tên thành viên A]"
+    role: "Nhóm trưởng"
+    task: "Thiết lập Hugo, deploy và quản lý repo."
+    bio: "[1 đến 2 câu giới thiệu bản thân.]"
+  - id: b
+    name: "[Họ và tên thành viên B]"
+    role: "Giao diện"
+    task: "Layout, CSS, responsive và logo."
+    bio: "[1 đến 2 câu giới thiệu bản thân.]"
+  - id: c
+    name: "[Họ và tên thành viên C]"
+    role: "Công cụ chẩn đoán"
+    task: "Trang Find your fix."
+    bio: "[1 đến 2 câu giới thiệu bản thân.]"
+  - id: d
+    name: "[Họ và tên thành viên D]"
+    role: "Giỏ hàng và ưu đãi"
+    task: "Giỏ hàng, mã giảm giá và Student Pack."
+    bio: "[1 đến 2 câu giới thiệu bản thân.]"
+  - id: e
+    name: "[Họ và tên thành viên E]"
+    role: "Nội dung"
+    task: "Nội dung dịch vụ, About, Contact và hình ảnh."
+    bio: "[1 đến 2 câu giới thiệu bản thân.]"
+
+ai:
+  title: "Chúng mình dùng AI như thế nào"
+  intro: "Nhóm công khai việc có dùng AI hỗ trợ trong quá trình làm sản phẩm này, cho các việc sau:"
+  items:
+    - "Brainstorm ý tưởng và tên gọi"
+    - "Viết và chỉnh sửa nội dung"
+    - "Gợi ý concept hình ảnh"
+    - "Sắp xếp cấu trúc nội dung"
+    - "Kiểm thử luồng người dùng"
+  closing: "Mọi nội dung và mã nguồn có AI hỗ trợ đều được thành viên đọc, kiểm thử và hiểu rõ trước khi đưa vào sản phẩm."

@@ -1,53 +1,58 @@
 baseURL = "https://fixit-student.pages.dev/"
-locale = "vi"
+languageCode = "vi"
 defaultContentLanguage = "vi"
 title = "FixIT Student"
+disableKinds = ["taxonomy", "term", "RSS"]
 enableRobotsTXT = true
-disableKinds = ["taxonomy", "term"]
 
 [params]
-  slogan = "LỖI CÔNG NGHỆ? ĐỂ FIXIT LO."
-  tagline = "Dịch vụ cài đặt, sửa lỗi và tư vấn công nghệ dành cho sinh viên, giá sinh viên."
+  description = "Dịch vụ cài đặt, sửa lỗi và tư vấn công nghệ dành cho sinh viên, giá sinh viên."
+  slogan = "Lỗi công nghệ? Để FixIT lo."
+  school = "Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM"
+  course = "Đồ án 1 – CSC00006"
   email = "fixit.student@example.com"
-  zalo = "Zalo FixIT Student (demo)"
-  facebook = "facebook.com/fixit.student (demo)"
+  zalo = "Hẹn trước qua Zalo"
   hours = "Thứ 2 – Thứ 6: 17:00 – 21:00 · Thứ 7: 08:00 – 12:00"
   meetingPoint = "Sảnh trường (hẹn trước qua Zalo)"
-  packPrice = 149000
+  # true: phủ video nền mờ lên header các trang con (đặt false để chỉ dùng gradient động)
+  pageHeroVideo = true
+  videoUrl = ""   # dán link video nền (mp4) của bạn vào đây nếu muốn dùng video ở hero
 
-# Trang chủ xuất thêm services.json để Find your fix / giỏ hàng dùng
-[outputFormats]
-  [outputFormats.ServicesJSON]
-    mediaType = "application/json"
-    baseName = "services"
-    isPlainText = true
-    notAlternative = true
+[markup.goldmark.renderer]
+  unsafe = true
+
+# Chỉ mục JSON cho chatbot (tạo tự động từ nội dung site)
+[outputFormats.ChatIndex]
+  mediaType = "application/json"
+  baseName = "chatbot-index"
+  isPlainText = true
+  notAlternative = true
 
 [outputs]
-  home = ["HTML", "ServicesJSON"]
+  home = ["HTML", "ChatIndex"]
 
-[menu]
-  [[menu.main]]
+[menus]
+  [[menus.main]]
     name = "Home"
     url = "/"
-    weight = 1
-  [[menu.main]]
-    name = "Services"
-    url = "/services/"
-    weight = 2
-  [[menu.main]]
-    name = "Find your fix"
-    url = "/find-your-fix/"
-    weight = 3
-  [[menu.main]]
-    name = "Student Pack"
-    url = "/student-pack/"
-    weight = 4
-  [[menu.main]]
-    name = "About"
-    url = "/about/"
     weight = 5
-  [[menu.main]]
+  [[menus.main]]
+    name = "Services"
+    pageRef = "/services"
+    weight = 10
+  [[menus.main]]
+    name = "Find your fix"
+    pageRef = "/find-your-fix"
+    weight = 20
+  [[menus.main]]
+    name = "Student Pack"
+    pageRef = "/student-pack"
+    weight = 30
+  [[menus.main]]
+    name = "About"
+    pageRef = "/about"
+    weight = 40
+  [[menus.main]]
     name = "Contact"
-    url = "/contact/"
-    weight = 6
+    pageRef = "/contact"
+    weight = 50

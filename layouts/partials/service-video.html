@@ -1,0 +1,14 @@
+{{- /* Trả về đường dẫn video (tương đối với static/) của một dịch vụ, hoặc chuỗi rỗng.
+       Ưu tiên front matter `video`, sau đó tìm static/video/services/<slug>.(mp4|webm) */ -}}
+{{- $found := "" -}}
+{{- with .Params.video -}}
+  {{- if fileExists (printf "static/%s" .) -}}{{- $found = . -}}{{- end -}}
+{{- end -}}
+{{- if not $found -}}
+  {{- $slug := .File.ContentBaseName -}}
+  {{- range slice "mp4" "webm" -}}
+    {{- $p := printf "video/services/%s.%s" $slug . -}}
+    {{- if and (not $found) (fileExists (printf "static/%s" $p)) -}}{{- $found = $p -}}{{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $found -}}
