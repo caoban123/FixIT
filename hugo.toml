@@ -1,4 +1,4 @@
-baseURL = "https://fixit-student.pages.dev/"
+baseURL = "https://fixit-student-8s3.pages.dev/"
 languageCode = "vi"
 defaultContentLanguage = "vi"
 title = "FixIT Student"
@@ -7,16 +7,16 @@ enableRobotsTXT = true
 
 [params]
   description = "Dịch vụ cài đặt, sửa lỗi và tư vấn công nghệ dành cho sinh viên, giá sinh viên."
-  slogan = "Lỗi công nghệ? Để FixIT lo."
+  slogan = "Fix it fast, built to last"
   school = "Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM"
   course = "Đồ án 1 – CSC00006"
   email = "fixit.student@example.com"
   zalo = "Hẹn trước qua Zalo"
   hours = "Thứ 2 – Thứ 6: 17:00 – 21:00 · Thứ 7: 08:00 – 12:00"
-  meetingPoint = "Sảnh trường (hẹn trước qua Zalo)"
+  meetingPoint = "CS1: Tầng 1 tòa nhà I, 227 Nguyễn Văn Cừ, Q.5. CS2: sảnh Thư viện, Khu đô thị ĐHQG-HCM, TP. Thủ Đức (hẹn trước qua Zalo)"
   # true: phủ video nền mờ lên header các trang con (đặt false để chỉ dùng gradient động)
   pageHeroVideo = true
-  videoUrl = ""   # dán link video nền (mp4) của bạn vào đây nếu muốn dùng video ở hero
+  videoUrl = ""
 
 [markup.goldmark.renderer]
   unsafe = true

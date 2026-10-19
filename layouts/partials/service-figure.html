@@ -9,13 +9,13 @@
 
 {{- if $video -}}
 <div class="media media--wide media--video">
-  <video controls playsinline preload="metadata"{{ with $img }} poster="{{ . | relURL }}"{{ end }} aria-label="Video giới thiệu dịch vụ {{ $p.Title }}">
+  <video controls playsinline preload="auto"{{ with $img }} poster="{{ . | relURL }}"{{ end }} aria-label="Video giới thiệu dịch vụ {{ $p.Title }}">
     <source src="{{ $video | relURL }}" type="{{ if strings.HasSuffix $video ".webm" }}video/webm{{ else }}video/mp4{{ end }}">
     <p>Trình duyệt của bạn không phát được video này. <a class="text-link" href="{{ $video | relURL }}">Tải video về xem</a>.</p>
   </video>
 </div>
 {{- else -}}
-<div class="media{{ if .wide }} media--wide{{ end }}{{ if not $img }} media--empty{{ end }}">
+<div class="media{{ if .wide }} media--wide{{ else }} media--poster{{ end }}{{ if not $img }} media--empty{{ end }}">
   {{- if $img -}}
     <img src="{{ $img | relURL }}" alt="{{ $p.Params.imageAlt }}" loading="{{ if .wide }}eager{{ else }}lazy{{ end }}" decoding="async">
   {{- else if hugo.IsServer -}}

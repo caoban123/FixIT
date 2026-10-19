@@ -1,6 +1,6 @@
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="{{ "/" | relURL }}">FixIT Student</a>
+    <a class="brand" href="{{ "/" | relURL }}" aria-label="FixIT Student, về trang chủ"><img class="brand-mark" src="{{ "images/logo.svg" | relURL }}" alt="" width="36" height="36"><span>FixIT<span class="brand-sub"> Student</span></span></a>
 
     <nav class="nav" id="site-nav" aria-label="Điều hướng chính">
       <ul class="nav-list" data-nav-list>
@@ -17,7 +17,7 @@
         <button type="button" data-theme-set="light" aria-pressed="true">Sáng</button>
         <button type="button" data-theme-set="dark" aria-pressed="false">Tối</button>
       </div>
-      <a class="btn btn--ghost btn--small" href="{{ "cart/" | relURL }}">Giỏ hàng <span data-cart-count>0</span></a>
+      <a class="btn btn--secondary btn--small cart-btn" href="{{ "cart/" | relURL }}">Giỏ hàng <span data-cart-count>0</span></a>
       <a class="btn btn--primary btn--small header-cta" href="{{ "services/" | relURL }}">Đặt lịch</a>
       <button class="btn btn--ghost btn--small nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>Menu</button>
     </div>

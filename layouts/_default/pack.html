@@ -8,7 +8,7 @@
 {{ $price := .Params.price }}
 {{ $saved := sub $sum $price }}
 
-<section class="showcase aurora on-dark" aria-label="Giá Student Pack">
+<section class="showcase showcase--flat band--dark on-dark" aria-label="Giá Student Pack">
   <div class="container showcase-inner">
     <div class="reveal">
       <p class="eyebrow">Giá combo</p>
@@ -16,7 +16,19 @@
       <p class="lead">Thay vì {{ partial "vnd.html" $sum }} nếu đặt lẻ từng dịch vụ. Bạn tiết kiệm {{ partial "vnd.html" $saved }} (khoảng {{ math.Round (div (mul $saved 100.0) $sum) | int }}%) với 6 giải pháp thiết yếu.</p>
     </div>
     <div class="reveal">
-      {{ partial "photo.html" (dict "stem" "images/student-pack" "alt" "Student Pack: gói 6 giải pháp thiết yếu cho sinh viên IT" "class" "media--wide media--rounded") }}
+      {{- $found := "" -}}
+      {{- range slice "jpg" "jpeg" "png" "webp" -}}
+        {{- if and (not $found) (fileExists (printf "static/images/student-pack.%s" .)) -}}{{- $found = . -}}{{- end -}}
+      {{- end -}}
+      {{ if $found }}
+        {{ partial "photo.html" (dict "stem" "images/student-pack" "alt" "Student Pack: gói 6 giải pháp thiết yếu cho sinh viên IT" "class" "media--wide media--rounded") }}
+      {{ else }}
+        <dl class="stat-list">
+          <div class="stat-row"><dt>Số dịch vụ trong gói</dt><dd>{{ len .Params.includes }}</dd></div>
+          <div class="stat-row"><dt>Bạn tiết kiệm</dt><dd>{{ partial "vnd.html" $saved }}</dd></div>
+          <div class="stat-row"><dt>Giảm so với đặt lẻ</dt><dd>{{ math.Round (div (mul $saved 100.0) $sum) | int }}%</dd></div>
+        </dl>
+      {{ end }}
     </div>
   </div>
 </section>

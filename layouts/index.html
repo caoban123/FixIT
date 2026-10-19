@@ -15,16 +15,21 @@
   <div class="container hero-grid">
     <div class="hero-inner">
       <p class="eyebrow">Dịch vụ công nghệ dành cho sinh viên</p>
-      <h1 class="display" id="hero-title" data-split>{{ site.Params.slogan }}</h1>
-      <p class="lead">Cài đặt, sửa lỗi và tư vấn công nghệ cho sinh viên. Giá từ {{ partial "vnd.html" $cheapest.Params.price }}, hẹn gặp trực tiếp tại sảnh trường.</p>
+      <h1 class="slogan" id="hero-title" aria-label="{{ site.Params.slogan }}">
+        {{- range $i, $w := split site.Params.slogan " " -}}
+          {{- $clean := strings.TrimSuffix "," $w -}}
+          <span class="sw{{ if in (slice "fast" "last") $clean }} hl{{ end }}" style="--i:{{ $i }}" aria-hidden="true">{{ $clean }}</span>{{ if strings.HasSuffix $w "," }}<span class="sw cm" style="--i:{{ $i }}" aria-hidden="true">,</span><br>{{ else }} {{ end }}
+        {{- end -}}
+      </h1>
+      <p class="lead">Cài đặt, sửa lỗi và tư vấn công nghệ cho sinh viên. Giá từ {{ partial "vnd.html" $cheapest.Params.price }}, hẹn gặp trực tiếp tại CS1 hoặc CS2.</p>
       <div class="hero-actions">
         <a class="btn btn--on-dark" href="{{ "find-your-fix/" | relURL }}">Chẩn đoán lỗi ngay</a>
         <a class="btn btn--outline-dark" href="{{ "services/" | relURL }}">Xem {{ len $services }} dịch vụ</a>
       </div>
       <ul class="badges" aria-label="Cam kết">
-        <li>Xử lý trong ngày</li>
-        <li>Bảo hành 7 ngày</li>
-        <li>Giá sinh viên</li>
+        <li tabindex="0" aria-describedby="tip-fast">Xử lý trong ngày<span class="tip" id="tip-fast" role="tooltip"><strong>Xử lý trong ngày</strong>Xử lý nhanh gọn trong thời gian không quá 1 tiếng.</span></li>
+        <li tabindex="0" aria-describedby="tip-warranty">Bảo hành 7 ngày<span class="tip" id="tip-warranty" role="tooltip"><strong>Bảo hành 7 ngày</strong>Khách hàng được bảo hành dịch vụ trong vòng 7 ngày kể từ ngày sử dụng dịch vụ. Nếu lỗi phát sinh từ phía khách hàng, FixIT xin phép thu một khoản phí nhỏ cho quá trình sửa chữa. Các lỗi từ phía FixIT được bảo hành hoàn toàn miễn phí.</span></li>
+        <li tabindex="0" aria-describedby="tip-price">Giá sinh viên<span class="tip" id="tip-price" role="tooltip"><strong>Giá sinh viên</strong>Mức giá dành riêng cho sinh viên, từ {{ partial "vnd.html" $cheapest.Params.price }} mỗi dịch vụ, báo rõ trước khi làm.</span></li>
       </ul>
     </div>
     <div class="term" aria-hidden="true">
@@ -51,7 +56,7 @@ Chạy thử chương trình... thành công</span></pre>
       <h2 id="adv-title">Vì sao chọn FixIT</h2>
     </div>
     <div class="adv-grid">
-      <article class="adv reveal"><p class="adv-no">01</p><h3>Trực tiếp</h3><p>Hẹn gặp tại sảnh trường, bạn quan sát toàn bộ quá trình xử lý máy.</p></article>
+      <article class="adv reveal"><p class="adv-no">01</p><h3>Trực tiếp</h3><p>Hẹn gặp tại CS1 hoặc CS2, bạn quan sát toàn bộ quá trình xử lý máy.</p></article>
       <article class="adv reveal"><p class="adv-no">02</p><h3>Minh bạch</h3><p>Báo giá rõ ràng ngay từ đầu, không phát sinh chi phí ẩn.</p></article>
       <article class="adv reveal"><p class="adv-no">03</p><h3>An tâm</h3><p>Bảo hành sửa lại miễn phí 7 ngày sau mỗi lần xử lý.</p></article>
     </div>
@@ -80,7 +85,7 @@ Chạy thử chương trình... thành công</span></pre>
     <ol class="steps steps--4">
       <li class="reveal"><h3>Mô tả vấn đề</h3><p>Cho FixIT biết bạn đang gặp lỗi gì, càng cụ thể càng tốt.</p></li>
       <li class="reveal"><h3>Dùng Find Your Fix</h3><p>Chọn triệu chứng, công cụ gợi ý đúng dịch vụ cho bạn.</p></li>
-      <li class="reveal"><h3>Gặp kỹ thuật viên</h3><p>Hẹn gặp tại sảnh trường và xử lý ngay trước mặt bạn.</p></li>
+      <li class="reveal"><h3>Gặp kỹ thuật viên</h3><p>Hẹn gặp tại CS1 hoặc CS2 và xử lý ngay trước mặt bạn.</p></li>
       <li class="reveal"><h3>Nghiệm thu và bảo hành</h3><p>Kiểm tra máy ổn mới thanh toán, được bảo hành 7 ngày.</p></li>
     </ol>
   </div>

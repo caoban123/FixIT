@@ -116,6 +116,6 @@
 {{ end }}
 
 {{ define "scripts" }}
-<script src="{{ "js/qrcode.js" | relURL }}" defer></script>
-<script src="{{ "js/cart.js" | relURL }}" defer></script>
+<script src="{{ partial "asset.html" "js/qrcode.js" }}" defer></script>
+<script src="{{ partial "asset.html" "js/cart.js" }}" defer></script>
 {{ end }}

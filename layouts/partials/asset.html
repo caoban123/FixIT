@@ -1,0 +1,2 @@
+{{- /* Đường dẫn tới file trong static/ kèm số phiên bản theo lần build, để trình duyệt tự tải lại bản mới sau mỗi lần Hugo dựng lại trang */ -}}
+{{- printf "%s?v=%d" (. | relURL) now.Unix | safeURL -}}

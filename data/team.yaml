@@ -28,27 +28,27 @@ team:
 
 members:
   - id: a
-    name: "[Họ và tên thành viên A]"
+    name: "Nguyễn Duy Phúc"
     role: "Nhóm trưởng"
     task: "Thiết lập Hugo, deploy và quản lý repo."
     bio: "[1 đến 2 câu giới thiệu bản thân.]"
   - id: b
-    name: "[Họ và tên thành viên B]"
+    name: "Nguyễn Nhất Minh Quân"
     role: "Giao diện"
     task: "Layout, CSS, responsive và logo."
     bio: "[1 đến 2 câu giới thiệu bản thân.]"
   - id: c
-    name: "[Họ và tên thành viên C]"
+    name: "Trần Thái Nhân"
     role: "Công cụ chẩn đoán"
     task: "Trang Find your fix."
     bio: "[1 đến 2 câu giới thiệu bản thân.]"
   - id: d
-    name: "[Họ và tên thành viên D]"
+    name: "Nguyễn Cao Bản"
     role: "Giỏ hàng và ưu đãi"
     task: "Giỏ hàng, mã giảm giá và Student Pack."
     bio: "[1 đến 2 câu giới thiệu bản thân.]"
   - id: e
-    name: "[Họ và tên thành viên E]"
+    name: "Trần Lê Minh Đức"
     role: "Nội dung"
     task: "Nội dung dịch vụ, About, Contact và hình ảnh."
     bio: "[1 đến 2 câu giới thiệu bản thân.]"

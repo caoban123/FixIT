@@ -402,3 +402,50 @@
     }
   });
 })();
+
+/* Khi video dịch vụ đang phát: tạm dừng nền động và nền parallax để video phát mượt trên máy yếu */
+(function () {
+  var root = document.documentElement;
+  function bind() {
+    Array.prototype.forEach.call(document.querySelectorAll('.media--video video'), function (v) {
+      v.addEventListener('play', function () { root.classList.add('video-playing'); });
+      v.addEventListener('pause', function () { root.classList.remove('video-playing'); });
+      v.addEventListener('ended', function () { root.classList.remove('video-playing'); });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind); else bind();
+})();
+
+/* Nút Thích ở phần phản hồi: chỉ đổi số tại chỗ, không lưu và không gửi đi đâu */
+(function () {
+  function bind() {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-like]'), function (b) {
+      var base = parseInt(b.getAttribute('data-base'), 10) || 0, n = b.querySelector('[data-like-count]');
+      b.addEventListener('click', function () {
+        var on = b.getAttribute('aria-pressed') !== 'true';
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        n.textContent = String(base + (on ? 1 : 0));
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind); else bind();
+})();
+
+/* Trong khung xem trước (iframe), bấm liên kết email sẽ làm trang bị thoát ra màn hình lỗi.
+   Ở đó, thay vì mở thư, chỉ sao chép địa chỉ email. Ngoài khung xem trước, liên kết mailto hoạt động bình thường. */
+(function () {
+  var framed = false;
+  try { framed = window.self !== window.top; } catch (e) { framed = true; }
+  if (!framed) return;
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href^="mailto:"]') : null;
+    if (!a) return;
+    e.preventDefault();
+    var addr = a.getAttribute('href').replace(/^mailto:/, '');
+    try { navigator.clipboard.writeText(addr); } catch (err) { /* bỏ qua */ }
+    var old = a.getAttribute('data-old') || a.textContent;
+    a.setAttribute('data-old', old);
+    a.textContent = 'Đã sao chép địa chỉ email';
+    window.setTimeout(function () { a.textContent = old; }, 1800);
+  });
+})();

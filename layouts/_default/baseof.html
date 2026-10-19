@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ if .IsHome }}{{ site.Title }} · {{ site.Params.slogan }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
-  <link rel="icon" href="data:,">
+  <link rel="icon" type="image/svg+xml" href="{{ "images/logo.svg" | relURL }}">
+  <link rel="apple-touch-icon" href="{{ "images/logo-180.png" | relURL }}">
   <link rel="canonical" href="{{ .Permalink }}">
-  <link rel="stylesheet" href="{{ "css/main.css" | relURL }}">
+  <link rel="stylesheet" href="{{ partial "asset.html" "css/main.css" }}">
   <script>
     document.documentElement.classList.add('js');
     (function () {
@@ -17,6 +18,7 @@
         t = (s === 'dark' || s === 'light') ? s : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       } catch (e) { /* giữ giao diện sáng */ }
       document.documentElement.setAttribute('data-theme', t);
+      document.documentElement.style.setProperty('--aurora-t', ((Date.now() / 1000) % 1440).toFixed(2));
     })();
   </script>
 </head>
@@ -34,8 +36,8 @@
   {{ partial "chatbot.html" . }}
   <p class="sr-only" role="status" aria-live="polite" data-live></p>
 
-  <script src="{{ "js/main.js" | relURL }}" defer></script>
+  <script src="{{ partial "asset.html" "js/main.js" }}" defer></script>
   {{ block "scripts" . }}{{ end }}
-  <script src="{{ "js/chatbot.js" | relURL }}" defer></script>
+  <script src="{{ partial "asset.html" "js/chatbot.js" }}" defer></script>
 </body>
 </html>

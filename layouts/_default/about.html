@@ -11,7 +11,18 @@
       </div>
     </div>
     <div class="reveal">
-      {{ partial "photo.html" (dict "stem" "images/team/nhom" "alt" $t.story.groupAlt "class" "media--wide media--rounded") }}
+      {{- /* Ưu tiên ảnh cả nhóm (nhom.jpg). Chưa có thì hiện logo thương hiệu, không để khung trống. */ -}}
+      {{- $group := "" -}}
+      {{- range slice "jpg" "jpeg" "png" "webp" -}}
+        {{- if and (not $group) (fileExists (printf "static/images/team/nhom.%s" .)) -}}{{- $group = . -}}{{- end -}}
+      {{- end -}}
+      {{ if $group }}
+        {{ partial "photo.html" (dict "stem" "images/team/nhom" "alt" $t.story.groupAlt "class" "media--wide media--rounded") }}
+      {{ else }}
+        <div class="media media--wide media--rounded logo-panel">
+          <img src="{{ "images/logo.svg" | relURL }}" alt="Logo FixIT Student" width="132" height="132" decoding="async">
+        </div>
+      {{ end }}
     </div>
   </div>
 </section>

@@ -26,4 +26,4 @@ reviews:
     text: "Cài lại đủ driver, hẹn gặp ở trường rất tiện."
 ---
 
-Máy Windows của bạn treo, báo lỗi hoặc cần cài lại sạch? Windows Rescue chẩn đoán, sửa hoặc cài lại và bàn giao ngay tại sảnh trường.
+Máy Windows của bạn treo, báo lỗi hoặc cần cài lại sạch? Windows Rescue chẩn đoán, sửa hoặc cài lại và bàn giao ngay tại CS1 hoặc CS2.

@@ -27,7 +27,7 @@
       <ul class="assure reveal" aria-label="Cam kết">
         <li>Không giữ máy qua đêm</li>
         <li>Bảo hành miễn phí 7 ngày</li>
-        <li>Hẹn trực tiếp tại sảnh trường</li>
+        <li>Hẹn trực tiếp tại CS1 hoặc CS2</li>
       </ul>
 
       <h2 class="h2-sm svc-h">Bạn sẽ nhận được</h2>
@@ -53,21 +53,40 @@
       <h2 class="h2-sm svc-h">Cách diễn ra</h2>
       <ol class="flow4">
         <li class="reveal"><span>1</span><p>Mô tả vấn đề</p></li>
-        <li class="reveal"><span>2</span><p>Hẹn lịch tại sảnh</p></li>
+        <li class="reveal"><span>2</span><p>Hẹn lịch tại CS1 hoặc CS2</p></li>
         <li class="reveal"><span>3</span><p>Xử lý trước mặt bạn</p></li>
         <li class="reveal"><span>4</span><p>Nghiệm thu, rồi thanh toán</p></li>
       </ol>
 
       {{ with .Params.reviews }}
       <h2 class="h2-sm svc-h">Phản hồi từ sinh viên</h2>
-      <div class="reviews">
-        {{ range . }}
-        <figure class="review reveal">
-          <blockquote>{{ .text }}</blockquote>
-          <figcaption><strong>{{ .who }}</strong> <span class="score">{{ .score }}</span></figcaption>
-        </figure>
+      <ul class="comments">
+        {{ range $i, $r := . }}
+        {{ $odd := eq (mod $i 2) 1 }}
+        {{ $name := replace (index (split $r.who ",") 0) "Bạn " "" }}
+        <li class="comment reveal">
+          <span class="avatar" aria-hidden="true">{{ upper (substr $name 0 1) }}</span>
+          <div class="comment-body">
+            <p class="comment-meta"><strong>{{ $r.who }}</strong> <span>{{ $r.time | default (cond $odd "2 tuần trước" "1 tháng trước") }}</span> <span class="score">{{ $r.score }}</span></p>
+            <p class="comment-text">{{ $r.text }}</p>
+            <div class="comment-actions">
+              <button type="button" class="comment-like" aria-pressed="false" data-like data-base="{{ $r.likes | default (cond $odd 1 2) }}">Thích <span data-like-count>{{ $r.likes | default (cond $odd 1 2) }}</span></button>
+              <span class="comment-reply-label">Phản hồi</span>
+            </div>
+            <details class="replies">
+              <summary><span class="replies-open">Xem 1 phản hồi</span><span class="replies-close">Ẩn phản hồi</span></summary>
+              <div class="comment comment--reply">
+                <span class="avatar avatar--shop" aria-hidden="true">F</span>
+                <div class="comment-body">
+                  <p class="comment-meta"><strong>FixIT Student</strong> <span class="badge-owner">Chủ dịch vụ</span> <span>{{ $r.time | default (cond $odd "2 tuần trước" "1 tháng trước") }}</span></p>
+                  <p class="comment-text">{{ $r.reply | default (cond $odd "Cảm ơn bạn đã góp ý, hẹn gặp bạn ở lần hỗ trợ sau nhé." "Cảm ơn bạn đã tin tưởng FixIT Student, chúc bạn học tốt!") }}</p>
+                </div>
+              </div>
+            </details>
+          </div>
+        </li>
         {{ end }}
-      </div>
+      </ul>
       <p class="muted">Phản hồi trong bản demo là nội dung mẫu minh họa, chưa phải đánh giá thật.</p>
       {{ end }}
     </div>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="FixIT Student">
+  <circle cx="512" cy="512" r="512" fill="#F1EFF8"/>
+  <g fill="#1E1B4B">
+    <rect x="290" y="261" width="104" height="502" rx="52"/>
+    <rect x="290" y="261" width="310" height="104" rx="52"/>
+    <rect x="290" y="467" width="207" height="96" rx="48"/>
+    <rect x="630" y="467" width="103" height="296" rx="51.5"/>
+  </g>
+  <circle cx="681.5" cy="320" r="56" fill="#C9A96E"/>
+</svg>

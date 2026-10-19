@@ -15,7 +15,7 @@ includes:
 conditions:
   - "Sử dụng linh hoạt trong cả kỳ"
   - "Bảo hành 7 ngày cho mỗi lần sửa"
-  - "Hẹn gặp trực tiếp tại sảnh trường (hẹn trước qua Zalo)"
+  - "Hẹn gặp trực tiếp tại CS1 hoặc CS2 (hẹn trước qua Zalo)"
 ---
 
 Tặng kèm một buổi hướng dẫn Git cơ bản. Nội dung gói có thể thay đổi ở bản chính thức.
