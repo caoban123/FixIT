@@ -1,5 +1,6 @@
 ---
 title: "Windows Rescue"
+labelVi: "Sửa lỗi và cài lại Windows"
 weight: 10
 price: 79000
 duration: "60 – 90 phút"

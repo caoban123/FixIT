@@ -9,6 +9,16 @@
   <link rel="apple-touch-icon" href="{{ "images/logo-180.png" | relURL }}">
   <link rel="canonical" href="{{ .Permalink }}">
   <link rel="stylesheet" href="{{ partial "asset.html" "css/main.css" }}">
+  <link rel="stylesheet" href="{{ partial "asset.html" "css/studio.css" }}">
+  {{ if in (slice "services" "find-your-fix" "student-pack" "about" "contact" "cart" "track") .Section }}
+  <link rel="stylesheet" href="{{ partial "asset.html" "css/studio-pages.css" }}">
+  {{ end }}
+  {{ if in (slice "services" "find-your-fix" "cart" "track") .Section }}
+  <link rel="stylesheet" href="{{ partial "asset.html" "css/studio-flow.css" }}">
+  {{ end }}
+  <link rel="stylesheet" href="{{ partial "asset.html" "css/effects.css" }}">
+  <link rel="stylesheet" href="{{ partial "asset.html" "css/soft-ui.css" }}">
+  {{ if eq .Section "about" }}<link rel="stylesheet" href="{{ partial "asset.html" "css/about.css" }}">{{ end }}
   <script>
     document.documentElement.classList.add('js');
     (function () {
@@ -18,7 +28,6 @@
         t = (s === 'dark' || s === 'light') ? s : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       } catch (e) { /* giữ giao diện sáng */ }
       document.documentElement.setAttribute('data-theme', t);
-      document.documentElement.style.setProperty('--aurora-t', ((Date.now() / 1000) % 1440).toFixed(2));
     })();
   </script>
 </head>
@@ -39,5 +48,6 @@
   <script src="{{ partial "asset.html" "js/main.js" }}" defer></script>
   {{ block "scripts" . }}{{ end }}
   <script src="{{ partial "asset.html" "js/chatbot.js" }}" defer></script>
+  <script src="{{ partial "asset.html" "js/effects.js" }}" defer></script>
 </body>
 </html>

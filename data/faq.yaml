@@ -9,7 +9,7 @@ groups:
         a: "FixIT hỗ trợ cài đặt, sửa lỗi và tư vấn công nghệ cho sinh viên, giá từ 9.000đ."
         keywords: ["fixit la gi", "fixit student", "gioi thieu", "dich vu gi", "lam gi", "la gi", "ve fixit"]
       - q: "Mình chưa biết tên lỗi thì làm sao?"
-        a: "Dùng công cụ Find your fix: chọn vấn đề bạn đang gặp, FixIT sẽ gợi ý đúng dịch vụ. Nếu vẫn không chắc, nhắn Zalo mô tả triệu chứng."
+        a: "Dùng công cụ Find your fix: chọn vấn đề bạn đang gặp, FixIT sẽ gợi ý đúng dịch vụ. Bạn có thể xem thêm mô tả và kết quả nhận được ở trang chi tiết dịch vụ."
         keywords: ["khong biet loi", "khong ro loi", "chan doan", "tim loi", "find your fix", "loi gi", "bi gi", "khong biet dich vu nao", "chon dich vu nao", "khong biet chon"]
         link: "/find-your-fix/"
         linkLabel: "Mở Find your fix"
@@ -51,10 +51,10 @@ groups:
         link: "/services/"
         linkLabel: "Xem bảng giá"
       - q: "Có bảo hành không?"
-        a: "Có. Bảo hành sửa lại miễn phí 7 ngày, FixIT không giữ máy qua đêm và chỉ thu phí khi bạn đã kiểm tra thấy máy chạy ổn."
+        a: "{warrantyText}"
         keywords: ["bao hanh", "loi lai", "hong lai", "sau khi sua", "bi lai", "cam ket", "giu may", "qua dem"]
       - q: "Đặt lịch như thế nào?"
-        a: "Chọn dịch vụ, thêm vào giỏ, điền thông tin và khung giờ, hoặc gửi yêu cầu ở trang Liên hệ. Lưu ý: giỏ hàng trên website này là mô phỏng."
+        a: "Chọn dịch vụ, thêm vào giỏ, điền thông tin, ngày, địa điểm và khung giờ, hoặc gửi yêu cầu ở trang Liên hệ. Lưu ý: giỏ hàng trên website này là mô phỏng."
         keywords: ["dat lich", "dat hen", "hen lich", "gio hang", "cach dat", "book", "dat dich vu", "dang ky", "order"]
         link: "/cart/"
         linkLabel: "Mở giỏ hàng"
@@ -73,7 +73,7 @@ groups:
         a: "Không. Trợ lý chạy ngay trong trình duyệt của bạn, không dùng dịch vụ AI bên ngoài, không gửi câu hỏi tới máy chủ nào và không lưu lại nội dung hội thoại."
         keywords: ["dung api", "dung ai", "api cua toi", "ai ben ngoai", "chatgpt", "openai", "gui di dau", "luu cau hoi", "luu hoi thoai", "gui cau hoi", "may chu", "api", "thong tin ca nhan", "du lieu chatbot", "bao mat chatbot", "chatbot rieng tu", "tro ly rieng tu", "co bi luu"]
       - q: "Làm sao liên hệ trực tiếp với FixIT?"
-        a: "Nhắn qua Zalo (hẹn trước) hoặc gửi email tới {email}. Giờ trực: {hours}."
+        a: "Email và liên kết Zalo thật đang được nhóm cập nhật. Giờ trực dự kiến: {hours}. Biểu mẫu liên hệ hiện là mô phỏng."
         keywords: ["lien he", "zalo", "email", "mail", "so dien thoai", "sdt", "nhan tin", "goi dien", "hotline", "ho tro", "noi chuyen voi"]
         link: "/contact/"
         linkLabel: "Trang liên hệ"

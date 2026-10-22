@@ -1,0 +1,13 @@
+status: pending
+note: "Đây là nội dung gói minh họa. Nhóm chưa xác nhận các điều kiện dưới đây; không nên hiểu gói là thuê bao hoặc được sửa không giới hạn."
+items:
+  - label: "Số lần sử dụng mỗi dịch vụ"
+    value: "Chưa xác nhận"
+  - label: "Số máy được áp dụng"
+    value: "Chưa xác nhận"
+  - label: "Ngày bắt đầu và ngày hết hạn"
+    value: "Chưa xác nhận"
+  - label: "Sử dụng dịch vụ vào các ngày khác nhau"
+    value: "Chưa xác nhận"
+  - label: "Thời lượng buổi hướng dẫn Git"
+    value: "Chưa xác nhận"

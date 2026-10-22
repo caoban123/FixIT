@@ -1,4 +1,4 @@
-baseURL = "https://fixit-student-8s3.pages.dev/"
+baseURL = "https://caoban123.github.io/FixIT/"
 languageCode = "vi"
 defaultContentLanguage = "vi"
 title = "FixIT Student"
@@ -10,10 +10,12 @@ enableRobotsTXT = true
   slogan = "Fix it fast, built to last"
   school = "Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM"
   course = "Đồ án 1 – CSC00006"
-  email = "fixit.student@example.com"
-  zalo = "Hẹn trước qua Zalo"
+  email = ""
+  zalo = "Kênh Zalo đang được nhóm cập nhật"
+  zaloUrl = ""
+  warrantyText = "Bảo hành trong 7 ngày đối với lỗi phát sinh từ phần xử lý của FixIT. Lỗi mới hoặc do thao tác của người dùng được kiểm tra và báo giá riêng trước khi làm."
   hours = "Thứ 2 – Thứ 6: 17:00 – 21:00 · Thứ 7: 08:00 – 12:00"
-  meetingPoint = "CS1: Tầng 1 tòa nhà I, 227 Nguyễn Văn Cừ, Q.5. CS2: sảnh Thư viện, Khu đô thị ĐHQG-HCM, TP. Thủ Đức (hẹn trước qua Zalo)"
+  meetingPoint = "CS1: Tầng 1 tòa nhà I, 227 Nguyễn Văn Cừ, Q.5. CS2: sảnh Thư viện, Khu đô thị ĐHQG-HCM, TP. Thủ Đức (cần xác nhận trước khi gặp)"
   # true: phủ video nền mờ lên header các trang con (đặt false để chỉ dùng gradient động)
   pageHeroVideo = true
   videoUrl = ""

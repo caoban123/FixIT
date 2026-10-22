@@ -1,5 +1,6 @@
 ---
 title: "C/C++ Development Setup"
+labelVi: "Cài môi trường lập trình C/C++"
 weight: 30
 price: 39000
 duration: "45 – 60 phút"

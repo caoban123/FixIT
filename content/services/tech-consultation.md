@@ -1,5 +1,6 @@
 ---
 title: "Tech Consultation"
+labelVi: "Tư vấn máy tính và phần mềm"
 weight: 80
 price: 99000
 duration: "60 phút"

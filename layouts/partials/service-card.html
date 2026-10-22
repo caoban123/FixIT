@@ -1,14 +1,16 @@
 {{- $slug := .File.ContentBaseName -}}
 <article class="card card--link reveal" data-service data-group="{{ .Params.group }}" data-price="{{ .Params.price }}" data-weight="{{ .Weight }}">
-  {{ partial "service-figure.html" (dict "page" . "wide" false) }}
+  {{ partial "service-art.html" . }}
   <p class="card-meta"><span class="tag">{{ .Params.groupLabel }}</span> <span>{{ .Params.duration }}</span></p>
   <h3 class="card-title"><a class="card-link" href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+  <p class="service-meaning">{{ .Params.labelVi }}</p>
   <p class="card-text">{{ .Params.summary }}</p>
   <div class="card-foot">
-    <p class="card-price">{{ partial "price.html" . }}</p>
+    <p class="card-price"><span class="price-caption">Giá dịch vụ</span><span class="price-amount">{{ partial "price-amount.html" . }}</span></p>
     <div class="card-actions">
-      <a class="btn btn--secondary btn--small" href="{{ .RelPermalink }}">Chi tiết</a>
-      <button class="btn btn--primary btn--small" type="button" data-add-to-cart data-id="{{ $slug }}" data-title="{{ .Title }}" data-price="{{ .Params.price }}">Thêm giỏ</button>
+      <a class="btn btn--secondary btn--small" href="{{ .RelPermalink }}">Xem chi tiết</a>
+      <button class="btn btn--primary btn--small" type="button" data-add-to-cart data-id="{{ $slug }}" data-title="{{ .Title }}" data-price="{{ .Params.price }}">Thêm vào giỏ</button>
+      <a class="card-cart-link" data-cart-link href="{{ "cart/" | relURL }}" hidden>Đến giỏ hàng</a>
     </div>
   </div>
 </article>

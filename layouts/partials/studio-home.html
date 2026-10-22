@@ -1,0 +1,99 @@
+{{ $services := (site.GetPage "/services").Pages.ByWeight }}
+{{ $cheapest := index (sort $services "Params.price") 0 }}
+{{ $pack := site.GetPage "/student-pack" }}
+{{ $sum := 0 }}
+{{ range $pack.Params.includes }}{{ $s := site.GetPage (printf "/services/%s" .) }}{{ $sum = add $sum $s.Params.price }}{{ end }}
+{{ $saved := sub $sum $pack.Params.price }}
+
+<div class="home-studio">
+  <section class="studio-hero" aria-labelledby="hero-title">
+    <div class="container studio-hero-grid">
+      <div class="studio-intro">
+        <p class="studio-kicker">TỪ SINH VIÊN CHO SINH VIÊN</p>
+        <h1 id="hero-title">Máy hết lỗi<br>Bạn <span class="ink-loop">hết lo<svg viewBox="0 0 330 100" fill="none" aria-hidden="true"><path d="M311 21C264-5 69-4 20 24C-23 49 11 91 157 91C287 91 348 52 312 28M21 77C104 109 252 102 308 76"/></svg></span></h1>
+        <p class="studio-description">Cài môi trường lập trình, sửa lỗi Windows và tối ưu laptop cho sinh viên. Giá từ {{ partial "vnd.html" $cheapest.Params.price }}, hỗ trợ tại CS1, CS2 hoặc từ xa tùy dịch vụ.</p>
+        <div class="studio-actions">
+          <a class="btn btn--primary" href="{{ "find-your-fix/" | relURL }}">Tìm cách sửa máy <span aria-hidden="true">↗</span></a>
+          <a class="studio-text-link" href="#home-services">Khám phá dịch vụ <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="studio-people">
+          <div class="avatar-stack" aria-hidden="true">{{ range first 3 site.Data.team.members }}<img src="{{ printf "images/team/%s.jpg" .id | relURL }}" width="38" height="38" alt="">{{ end }}</div>
+          <p><strong>Hiểu máy Hiểu sinh viên</strong><br>Hẹn gặp trực tiếp tại CS1 &amp; CS2.</p>
+        </div>
+      </div>
+
+      <div class="studio-art" aria-label="Minh họa: từ lỗi lập trình đến môi trường sẵn sàng học tập">
+        <div class="art-grid" aria-hidden="true"></div>
+        <span class="art-orbit orbit-one" aria-hidden="true"></span><span class="art-orbit orbit-two" aria-hidden="true"></span>
+        <span class="art-spark spark-one" aria-hidden="true">✳</span><span class="art-spark spark-two" aria-hidden="true">+</span>
+        <p class="art-caption">LESS BUGS<br>MORE POSSIBILITIES</p>
+        <div class="floating-label label-code" aria-hidden="true"><span class="code-glyph">&lt;/&gt;</span><span>Code chạy rồi!<small>Back to building cool things.</small></span></div>
+        <div class="studio-laptop" aria-hidden="true">
+          <div class="laptop-lid">
+            <div class="laptop-camera"></div>
+            <div class="laptop-screen">
+              <div class="screen-topbar"><span class="screen-brand">Fi<span>care</span></span><span class="screen-session"><i></i> fixit.workspace</span><span>•••</span></div>
+              <div class="screen-content">
+                <div class="screen-greeting"><span>HELLO, STUDENT</span><strong>Ready for your next big idea</strong></div>
+                <div class="screen-health"><span class="health-check">✓</span><div><strong>All systems, let's go</strong><span>Môi trường học tập đã sẵn sàng</span></div><span class="health-badge">READY</span></div>
+                <div class="screen-tiles"><div><span class="app-symbol symbol-python">Py</span><strong>Python</strong><small>Environment ready</small></div><div><span class="app-symbol symbol-code">&lt;/&gt;</span><strong>VS Code</strong><small>Extensions synced</small></div><div><span class="app-symbol symbol-git">git</span><strong>GitHub</strong><small>You're connected</small></div></div>
+                <div class="screen-terminal"><span>~/your-next-project</span><code><b>❯</b> python hello_world.py<br><em>Hello, possibilities.</em><i class="terminal-cursor"></i></code></div>
+              </div>
+              <div class="screen-bottom"><span>● FIXED WITH CARE</span><span>by FixIT Student ↗</span></div>
+            </div>
+          </div>
+          <div class="laptop-base"><span></span></div>
+          <div class="laptop-shadow"></div>
+        </div>
+        <div class="floating-label label-care" aria-hidden="true"><span class="care-seal">✓</span><span><strong>7 ngày an tâm</strong><small>Bảo hành sau mỗi lần sửa.</small></span><span class="label-arrow">↗</span></div>
+      </div>
+    </div>
+    <div class="container studio-stats">
+      <p class="stats-note">Một người bạn IT.<br><strong>Suốt hành trình đại học</strong></p>
+      <div><strong>{{ len $services }}<span> / dịch vụ</span></strong><p>Từ cài đặt đến cứu dữ liệu</p></div>
+      <div><strong>7<span> / ngày</span></strong><p>Bảo hành sau khi xử lý</p></div>
+      <div><strong>2<span> / cơ sở</span></strong><p>Hẹn gặp ngay tại trường</p></div>
+      <a href="{{ "services/" | relURL }}" class="stats-price"><span>GIÁ SINH VIÊN, TỪ</span><strong>{{ partial "vnd.html" $cheapest.Params.price }} <span aria-hidden="true">↗</span></strong></a>
+    </div>
+  </section>
+
+  <section class="studio-section" aria-labelledby="care-title">
+    <div class="container">
+      <div class="studio-section-head reveal"><div><p class="studio-kicker">01 / YOUR CAMPUS TECH COMPANION</p><h2 id="care-title">Lỗi nhỏ hay to,<br>đều có cách <span class="violet-text">gỡ</span></h2></div><p>Cài mãi không xong. Máy chậm đúng lúc cần.<br>Chúng mình hiểu, vì cũng từng như bạn.</p></div>
+      <div class="care-bento">
+        <article class="bento-diagnose reveal">
+          <div class="bento-top"><span class="mini-label">FIND YOUR FIX</span><span class="round-arrow" aria-hidden="true">↗</span></div>
+          <h3>Chưa biết máy bị gì?<br>Bắt đầu từ đây</h3><p>Chọn dấu hiệu bạn đang gặp.<br>Chúng mình giúp bạn tìm đúng dịch vụ.</p>
+          <div class="symptom-links"><a href="{{ "find-your-fix/" | relURL }}">Máy chậm, hay đơ <span aria-hidden="true">↗</span></a><a href="{{ "find-your-fix/" | relURL }}">Code không chạy <span aria-hidden="true">↗</span></a><a href="{{ "find-your-fix/" | relURL }}">Windows gặp lỗi <span aria-hidden="true">↗</span></a></div>
+          <a class="bento-main-link" href="{{ "find-your-fix/" | relURL }}">Mở công cụ chẩn đoán <span aria-hidden="true">→</span></a>
+        </article>
+        <article class="bento-clear reveal"><span class="mini-label">NO SURPRISES</span><div class="receipt-art" aria-hidden="true"><span>fixit / receipt</span><div>Dịch vụ IT <b>✓</b></div><div>Báo giá trước <b>✓</b></div><div>Phí ẩn <b>0đ</b></div><strong>Rõ từ đầu</strong><span>THANK YOU, STUDENT.</span></div><h3>Giá rõ ràng<br>Túi tiền nhẹ nhàng</h3><p>Báo giá trước khi làm.<br>Chỉ thanh toán khi máy ổn.</p></article>
+        <article class="bento-human reveal"><span class="mini-label">REAL PEOPLE. REAL CARE.</span><div class="human-art" aria-hidden="true"><span class="human-orbit"></span><img src="{{ "images/logo.svg" | relURL }}" alt="" width="82" height="82"><span class="human-note">Bạn cứ hỏi nhé! <span>✳</span></span></div><h3>Sửa ngay trước mặt<br>An tâm ngay từ đầu</h3><p>Gặp trực tiếp tại trường.<br>Được giải thích, được hướng dẫn.</p><a class="bento-main-link" href="{{ "about/" | relURL }}">Gặp đội ngũ FixIT <span aria-hidden="true">→</span></a></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="studio-section studio-services" id="home-services" aria-labelledby="services-title">
+    <div class="container">
+      <div class="studio-section-head reveal"><div><p class="studio-kicker">02 / A FIX FOR EVERY SITUATION</p><h2 id="services-title">Bạn cần gì,<br>FixIT có <span class="violet-text">đó</span></h2></div><p>Đúng dịch vụ. Đúng nhu cầu. Đúng giá sinh viên.<br>Chọn một dịch vụ để xem chi tiết và đặt lịch.</p></div>
+      <div class="grid-cards studio-service-grid" data-home-grid>{{ range slice "windows-rescue" "python-setup" "laptop-health" "vscode-setup" }}{{ partial "service-card.html" (site.GetPage (printf "/services/%s" .)) }}{{ end }}</div>
+      <div class="services-end"><span>4 dịch vụ tiêu biểu dành cho bạn</span><a class="btn btn--secondary" href="{{ "services/" | relURL }}">Xem toàn bộ {{ len $services }} dịch vụ</a></div>
+    </div>
+  </section>
+
+  <section class="studio-section studio-pack-wrap" aria-labelledby="pack-title">
+    <div class="container"><div class="studio-pack">
+      <div class="pack-copy reveal"><p class="studio-kicker">THE SEMESTER STARTER KIT</p><h2 id="pack-title">Một gói gọn<br>Cả kỳ <span>ngon</span></h2><p>Để ý tưởng không dừng lại ở bước cài đặt.<br>6 dịch vụ thiết yếu, sẵn sàng cho kỳ đồ án.</p><div class="studio-pack-price"><strong>{{ partial "vnd.html" $pack.Params.price }}</strong><del>{{ partial "vnd.html" $sum }}</del><span>Tiết kiệm {{ math.Round (div (mul $saved 100.0) $sum) | int }}%</span></div><a class="btn pack-button" href="{{ "student-pack/" | relURL }}">Khám phá Student Pack <span aria-hidden="true">↗</span></a><p class="pack-fine">+ Tặng một buổi hướng dẫn Git cơ bản.</p></div>
+      <div class="pack-art reveal"><span class="pack-art-label">STUDENT PACK / 6 IN 1</span><div class="pack-apps">{{ range $i, $slug := $pack.Params.includes }}{{ $s := site.GetPage (printf "/services/%s" $slug) }}{{ $labels := slice "VS" "Py" "C++" "git" "↗" "↳" }}<a href="{{ $s.RelPermalink }}" class="pack-app pack-app-{{ $i }}"><span>{{ index $labels $i }}</span><strong>{{ $s.Title }}</strong><small>Đã bao gồm <span aria-hidden="true">↗</span></small></a>{{ end }}</div><div class="pack-art-bottom"><span>SET UP. SHOW UP. STAND OUT.</span><span aria-hidden="true">✳</span></div></div>
+    </div></div>
+  </section>
+
+  <section class="studio-section studio-process" aria-labelledby="steps-title"><div class="container">
+    <div class="studio-section-head reveal"><div><p class="studio-kicker">03 / SIMPLE FROM THE START</p><h2 id="steps-title">Từ “máy lỗi” đến<br>“xong rồi!” trong <span class="violet-text">4 bước</span></h2></div><a class="studio-text-link" href="{{ "contact/" | relURL }}">Bắt đầu ngay <span aria-hidden="true">↗</span></a></div>
+    <ol class="studio-step-grid"><li class="reveal"><span class="step-number">01<span aria-hidden="true">↗</span></span><h3>Kể chuyện máy bạn</h3><p>Chọn triệu chứng qua Find Your Fix hoặc mô tả lỗi cho chúng mình.</p></li><li class="reveal"><span class="step-number">02<span aria-hidden="true">↗</span></span><h3>Chốt giá, hẹn gặp</h3><p>Biết rõ chi phí trước khi làm. Hẹn tại CS1 hoặc CS2, theo lịch của bạn.</p></li><li class="reveal"><span class="step-number">03<span aria-hidden="true">↗</span></span><h3>Cùng nhau xử lý</h3><p>Quan sát quá trình sửa, hỏi thoải mái và kiểm tra máy ngay tại chỗ.</p></li><li class="reveal"><span class="step-number">04<span aria-hidden="true">✓</span></span><h3>Máy ổn, bạn an tâm</h3><p>Nghiệm thu rồi mới thanh toán. Có 7 ngày bảo hành sau xử lý.</p></li></ol>
+  </div></section>
+
+  <section class="studio-section studio-faq" aria-labelledby="faq-title"><div class="container studio-faq-grid"><div class="reveal"><p class="studio-kicker">A FEW THINGS TO KNOW</p><h2 id="faq-title">Hỏi chút,<br><span class="violet-text">hiểu thêm</span></h2><p>Còn điều gì băn khoăn?<br>Chúng mình luôn sẵn sàng giải thích.</p><a class="studio-text-link" href="{{ "faq/" | relURL }}">Tất cả câu hỏi <span aria-hidden="true">↗</span></a></div><div class="faq-list reveal">{{ $groups := site.Data.faq.groups }}{{ range first 4 (index $groups 0).items }}<details class="faq-item"><summary>{{ .q }}</summary><div class="faq-body"><p>{{ partial "fill.html" .a }}</p></div></details>{{ end }}</div></div></section>
+
+  <section class="studio-final" aria-labelledby="cta-title"><div class="container"><div class="studio-final-inner"><div><p class="studio-kicker">LESS TECH STRESS MORE STUDENT LIFE</p><h2 id="cta-title">Việc khó để FixIT<br>Việc hay <span>để bạn</span></h2><a class="btn btn--primary" href="{{ "find-your-fix/" | relURL }}">Tìm cách sửa máy <span aria-hidden="true">↗</span></a><a class="studio-text-link" href="{{ "contact/" | relURL }}">Hoặc trò chuyện với chúng mình →</a></div><div class="final-flower" aria-hidden="true">✳<span>fix it fast<br>built to last</span></div></div></div></section>
+</div>

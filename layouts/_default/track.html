@@ -1,25 +1,5 @@
 {{ define "main" }}
-{{ partial "page-hero.html" (dict "title" .Title "lead" .Params.lead "eyebrow" "Bản mô phỏng") }}
-<section class="section section--tight">
-  <div class="container narrow">
-    <form class="form form--inline" data-track-form novalidate>
-      <div class="field">
-        <label for="t-code">Mã đơn</label>
-        <input class="input" id="t-code" name="code" type="text" autocomplete="off" placeholder="FIX-DEMO" maxlength="9" aria-describedby="t-err">
-        <p class="field-error" id="t-err" hidden></p>
-      </div>
-      <button class="btn btn--primary" type="submit">Tra cứu</button>
-    </form>
-
-    <div class="track-result" data-track-result hidden>
-      <h2 class="h2-sm">Đơn <span data-t-code></span></h2>
-      <ul class="cart-list" data-t-items></ul>
-      <p class="muted" data-t-meta></p>
-      <ol class="progress" data-t-steps aria-label="Tiến trình xử lý đơn"></ol>
-      <p class="muted">Trạng thái tự động thay đổi theo thời gian để minh họa luồng xử lý. Đây không phải đơn hàng thật.</p>
-    </div>
-  </div>
-</section>
+{{ partial "studio-track.html" . }}
 {{ end }}
 
 {{ define "scripts" }}

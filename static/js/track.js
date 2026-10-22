@@ -16,6 +16,10 @@
   var input = document.getElementById('t-code');
   var err = document.getElementById('t-err');
   var result = document.querySelector('[data-track-result]');
+  document.querySelector('[data-track-demo]').addEventListener('click', function () {
+    input.value = 'FIX-DEMO';
+    form.requestSubmit();
+  });
 
   function orders() {
     try { return JSON.parse(window.FixStore.get(ORDERS_KEY) || '{}') || {}; } catch (e) { return {}; }
@@ -51,9 +55,12 @@
       var p = document.createElement('span'); p.className = 'cart-item-price'; p.textContent = vnd(it.price);
       li.appendChild(t); li.appendChild(p); list.appendChild(li);
     });
-    document.querySelector('[data-t-meta]').textContent =
-      'Khung giờ mong muốn: ' + o.slot + ' · Tổng: ' + vnd(o.total) +
-      (o.paidAt ? '' : ' · Chưa xác nhận thanh toán (mô phỏng)');
+    var metadata = [];
+    if (o.date) metadata.push('Ngày hẹn: ' + o.date.split('-').reverse().join('/'));
+    if (o.place) metadata.push('Địa điểm: ' + o.place);
+    metadata.push('Khung giờ: ' + o.slot, 'Tổng tiền mẫu: ' + vnd(o.total));
+    if (!o.paidAt) metadata.push('Chưa xác nhận thanh toán (mô phỏng)');
+    document.querySelector('[data-t-meta]').textContent = metadata.join('\n');
 
     var stage = -1;
     if (o.paidAt) {

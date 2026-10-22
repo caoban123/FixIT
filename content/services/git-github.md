@@ -1,5 +1,6 @@
 ---
 title: "Git & GitHub Setup"
+labelVi: "Cài Git và kết nối GitHub"
 weight: 40
 price: 19000
 duration: "20 – 30 phút"

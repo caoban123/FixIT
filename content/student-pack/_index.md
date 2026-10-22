@@ -13,9 +13,9 @@ includes:
   - laptop-health
   - data-backup
 conditions:
-  - "Sử dụng linh hoạt trong cả kỳ"
+  - "Số lần sử dụng, số máy và thời hạn gói đang được nhóm xác nhận"
   - "Bảo hành 7 ngày cho mỗi lần sửa"
-  - "Hẹn gặp trực tiếp tại CS1 hoặc CS2 (hẹn trước qua Zalo)"
+  - "Địa điểm và lịch hỗ trợ cần được xác nhận trước khi triển khai thực tế"
 ---
 
 Tặng kèm một buổi hướng dẫn Git cơ bản. Nội dung gói có thể thay đổi ở bản chính thức.

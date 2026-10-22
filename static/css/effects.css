@@ -1,0 +1,49 @@
+/* Small moments of motion, with no animation library. */
+.fx-glow { position: relative; }
+.fx-glow::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 1; opacity: 0; background: radial-gradient(230px circle at var(--fx-x, 50%) var(--fx-y, 50%), color-mix(in srgb, var(--color-accent) 9%, transparent), transparent 75%); transition: opacity .25s ease; }
+.fx-glow.fx-lit::before { opacity: 1; }
+.fx-animated { animation-play-state: paused !important; }
+.fx-animated.fx-in-view { animation-play-state: running !important; }
+.fx-paused .fx-animated, .video-playing .fx-animated { animation-play-state: paused !important; }
+@media (prefers-reduced-motion: no-preference) {
+  .studio-laptop.fx-animated { animation: fx-laptop-float 7s ease-in-out infinite; }
+  .membership-card.fx-animated { animation: fx-pass-float 7.5s ease-in-out infinite; }
+  .radar-ring.fx-animated { animation: fx-radar-breathe 4.5s ease-in-out infinite; }
+  .radar-ring-two.fx-animated { animation-delay: -2.2s; }
+  .quiz-options > .quiz-option { animation: fx-choice-in .35s both; }
+  .quiz-options > .quiz-option:nth-child(2) { animation-delay: 45ms; }
+  .quiz-options > .quiz-option:nth-child(3) { animation-delay: 90ms; }
+  .quiz-options > .quiz-option:nth-child(4) { animation-delay: 135ms; }
+  .result-found-mark, .confirmation-check { animation: fx-check-pop .55s cubic-bezier(.2, 1.35, .4, 1) both; }
+  .booking-ticket { animation: fx-ticket-in .6s .12s both; }
+  .payment-methods label:has(input:checked) .payment-symbol { animation: fx-check-pop .32s ease-out; }
+  .btn > span[aria-hidden="true"] { transition: transform .2s ease; }
+  .btn:hover > span[aria-hidden="true"] { transform: translate(2px, -2px); }
+  .coupon-presets > button { transition: transform .2s, box-shadow .2s; }
+  .coupon-presets > button:hover { transform: translateY(-2px); }
+}
+@keyframes fx-laptop-float {
+  0%, 100% { transform: translateY(0) rotate(-5deg) rotateY(-10deg) rotateX(7deg); }
+  50% { transform: translateY(-7px) rotate(-4deg) rotateY(-10deg) rotateX(7deg); }
+}
+@keyframes fx-pass-float {
+  0%, 100% { transform: translateY(0) rotate(-8deg); }
+  50% { transform: translateY(-7px) rotate(-6.5deg); }
+}
+@keyframes fx-radar-breathe { 0%, 100% { opacity: .4; } 50% { opacity: 1; } }
+@keyframes fx-choice-in { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fx-check-pop { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: scale(1); } }
+@keyframes fx-ticket-in { from { opacity: 0; transform: translateY(15px) rotate(-1deg); } to { opacity: 1; transform: translateY(0) rotate(0); } }
+.fx-confetti { position: fixed; inset: 0; z-index: 85; pointer-events: none; overflow: hidden; }
+.fx-confetti-piece { position: absolute; top: var(--fx-top); left: var(--fx-left); width: 6px; height: 9px; border-radius: 2px; background: var(--fx-color); animation: fx-confetti-fall 1.2s ease-out both; animation-delay: var(--fx-delay); }
+@keyframes fx-confetti-fall {
+  0% { opacity: 0; transform: translate3d(0, -20px, 0) rotate(0); }
+  15% { opacity: 1; }
+  100% { opacity: 0; transform: translate3d(var(--fx-dx), var(--fx-dy), 0) rotate(var(--fx-rotation)); }
+}
+@media (pointer: coarse) { .fx-glow::before { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .fx-glow::before, .fx-confetti { display: none; }
+  .fx-animated, .quiz-options > .quiz-option, .result-found-mark, .confirmation-check, .booking-ticket { animation: none !important; }
+}
+@media print { .fx-confetti, .fx-glow::before { display: none; } .fx-animated { animation: none !important; } }

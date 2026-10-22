@@ -1,5 +1,6 @@
 ---
 title: "Data Backup"
+labelVi: "Sao lưu dữ liệu quan trọng"
 weight: 70
 price: 59000
 duration: "45 – 60 phút"

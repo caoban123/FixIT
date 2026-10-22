@@ -1,0 +1,16 @@
+{{ $services := .Pages.ByWeight }}
+{{ $cheapest := index (sort $services "Params.price") 0 }}
+{{ $pack := site.GetPage "/student-pack" }}
+<div class="studio-page catalogue-page">
+  <section class="subpage-hero catalogue-compact-hero"><div class="container"><div><h1>Dịch vụ và bảng giá</h1><p>Cài đặt, sửa lỗi và tối ưu máy. Giá trọn gói từ {{ partial "vnd.html" $cheapest.Params.price }}.</p></div><a class="studio-text-link" href="{{ "find-your-fix/" | relURL }}">Chưa rõ máy bị gì? Dùng Find Your Fix</a></div></section>
+  <section class="page-section" id="service-menu" aria-labelledby="menu-title"><div class="container">
+<h2 id="menu-title" class="sr-only">Danh sách dịch vụ</h2>
+    <div class="catalogue-controls reveal" data-svc-filters>
+      <div class="chips" role="group" aria-label="Lọc theo nhóm dịch vụ"><button class="chip is-active" type="button" data-chip="all" aria-pressed="true">Tất cả <span>{{ len $services }}</span></button><button class="chip" type="button" data-chip="dev" aria-pressed="false">Lập trình</button><button class="chip" type="button" data-chip="software" aria-pressed="false">Phần mềm</button><button class="chip" type="button" data-chip="hardware" aria-pressed="false">Máy tính</button></div>
+      <div class="filter-row"><div class="field catalogue-search"><label for="f-search">Tìm dịch vụ</label><input class="input" id="f-search" type="search" placeholder="Python, Windows, sao lưu…" data-f-search></div><div class="field"><label for="f-price">Ngân sách của bạn</label><select class="input" id="f-price" data-f-price><option value="all">Tất cả mức giá</option><option value="low">Dưới 30.000đ</option><option value="mid">30.000 – 59.999đ</option><option value="high">Từ 60.000đ trở lên</option></select></div><div class="field"><label for="f-sort">Sắp xếp theo</label><select class="input" id="f-sort" data-f-sort><option value="default">Gợi ý của FixIT</option><option value="asc">Giá tăng dần</option><option value="desc">Giá giảm dần</option></select></div></div><p class="filter-count" aria-live="polite"><span data-f-shown>{{ len $services }}</span> / {{ len $services }} dịch vụ phù hợp</p>
+    </div>
+    <div class="grid-cards catalogue-grid" data-svc-grid>{{ range $services }}{{ partial "service-card.html" . }}{{ end }}</div>
+    <div class="catalogue-empty" data-f-empty hidden><span aria-hidden="true">↳</span><h3>Chưa tìm thấy một dịch vụ phù hợp</h3><p>Thử đổi từ khóa, nhóm dịch vụ hoặc ngân sách nhé.</p><a class="studio-text-link" href="{{ "find-your-fix/" | relURL }}">Để Find Your Fix gợi ý giúp bạn ↗</a></div>
+  </div></section>
+  <section class="page-section page-section-last"><div class="container"><div class="page-cta-banner"><div><p class="studio-kicker">THE SEMESTER STARTER KIT</p><h2>Cần nhiều hơn một lần fix?</h2><p>Student Pack gói gọn 6 dịch vụ thiết yếu, chỉ {{ partial "vnd.html" $pack.Params.price }}.</p></div><a class="btn btn--primary" href="{{ $pack.RelPermalink }}">Khám phá Student Pack <span aria-hidden="true">↗</span></a></div></div></section>
+</div>

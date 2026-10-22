@@ -1,0 +1,1 @@
+{{- if .Params.priceFrom -}}<span class="price-from">Từ</span> {{ end -}}<span class="price-number">{{ replace (partial "vnd.html" .Params.price) "đ" "" }}</span><span class="price-currency">đ</span>

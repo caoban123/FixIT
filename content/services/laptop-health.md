@@ -1,5 +1,6 @@
 ---
 title: "Laptop Health Check"
+labelVi: "Kiểm tra và tối ưu laptop"
 weight: 60
 price: 49000
 duration: "30 – 40 phút"

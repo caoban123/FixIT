@@ -1,5 +1,6 @@
 ---
 title: "VS Code Setup"
+labelVi: "Cài đặt và cấu hình VS Code"
 weight: 50
 price: 9000
 duration: "15 – 20 phút"

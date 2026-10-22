@@ -93,8 +93,10 @@
     function syncAddBtn(btn) {
       var inCart = Cart.has(btn.getAttribute('data-id'));
       if (!btn.hasAttribute('data-label')) btn.setAttribute('data-label', btn.textContent);
-      btn.textContent = inCart ? 'Đã có trong giỏ' : btn.getAttribute('data-label');
+      btn.textContent = inCart ? 'Đã thêm' : btn.getAttribute('data-label');
       btn.setAttribute('aria-disabled', inCart ? 'true' : 'false');
+      var card = btn.closest('[data-service]');
+      if (card) card.querySelector('[data-cart-link]').hidden = !inCart;
     }
     Array.prototype.forEach.call(addBtns, function (btn) {
       syncAddBtn(btn);
@@ -223,6 +225,9 @@
       Array.prototype.forEach.call(themeBtns, function (b) {
         b.setAttribute('aria-pressed', b.getAttribute('data-theme-set') === cur ? 'true' : 'false');
       });
+      var quick = document.querySelector('[data-theme-toggle]');
+      quick.setAttribute('aria-pressed', cur === 'dark' ? 'true' : 'false');
+      quick.setAttribute('aria-label', cur === 'dark' ? 'Bật giao diện sáng' : 'Bật giao diện tối');
     }
     Array.prototype.forEach.call(themeBtns, function (b) {
       b.addEventListener('click', function () {
@@ -237,6 +242,10 @@
       });
     });
     syncThemeBtns();
+    document.querySelector('[data-theme-toggle]').addEventListener('click', function () {
+      var next = currentTheme() === 'dark' ? 'light' : 'dark';
+      document.querySelector('[data-theme-set="' + next + '"]').click();
+    });
 
     /* ---------- Tiêu đề tách từ ---------- */
     Array.prototype.forEach.call(document.querySelectorAll('[data-split]'), function (h) {
@@ -260,7 +269,6 @@
         window.requestAnimationFrame(function () {
           var y = Math.min(window.pageYOffset * 0.18, 60);
           document.documentElement.style.setProperty('--py', String(y));
-          document.documentElement.style.setProperty('--by', String(Math.min(window.pageYOffset * 0.08, 140)));
           ticking = false;
         });
       };
@@ -316,16 +324,22 @@
       var chips = fwrap.querySelectorAll('[data-chip]');
       var selPrice = fwrap.querySelector('[data-f-price]');
       var selSort = fwrap.querySelector('[data-f-sort]');
+      var search = fwrap.querySelector('[data-f-search]');
       var shown = fwrap.querySelector('[data-f-shown]');
       var none = document.querySelector('[data-f-empty]');
       var group = 'all';
       var apply = function () {
         var pr = selPrice.value, n = 0;
+        var normalize = function (value) {
+          return value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
+        };
+        var query = search ? normalize(search.value.trim()) : '';
         cards.forEach(function (c) {
           var price = Number(c.getAttribute('data-price'));
           var okG = group === 'all' || c.getAttribute('data-group') === group;
           var okP = pr === 'all' || (pr === 'low' && price < 30000) || (pr === 'mid' && price >= 30000 && price < 60000) || (pr === 'high' && price >= 60000);
-          var ok = okG && okP;
+          var okText = !query || normalize(c.querySelector('.card-title').textContent + ' ' + c.querySelector('.service-meaning').textContent + ' ' + c.querySelector('.card-text').textContent).indexOf(query) !== -1;
+          var ok = okG && okP && okText;
           c.hidden = !ok;
           if (ok) { n++; c.classList.add('is-visible'); }
         });
@@ -349,6 +363,7 @@
       });
       selPrice.addEventListener('change', apply);
       selSort.addEventListener('change', apply);
+      if (search) search.addEventListener('input', apply);
     }
 
     /* Lọc FAQ */
@@ -376,6 +391,16 @@
     }
 
     /* Biểu mẫu liên hệ (demo): chỉ hiện mã yêu cầu mẫu, không gửi dữ liệu đi đâu */
+    document.querySelectorAll('[data-campus-choice]').forEach(function (link) {
+      link.addEventListener('click', function (event) {
+        event.preventDefault();
+        var place = document.getElementById('c-place');
+        place.selectedIndex = Number(link.getAttribute('data-campus-choice'));
+        place.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+        place.focus({ preventScroll: true });
+        announce('Đã chọn ' + place.value + '.');
+      });
+    });
     var cform = document.querySelector('[data-request-form]');
     if (cform) {
       cform.addEventListener('submit', function (e) {

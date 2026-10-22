@@ -22,8 +22,8 @@
     <div>
       <h2 class="footer-heading">Liên hệ</h2>
       <ul class="footer-list footer-list--plain">
-        <li><a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a></li>
-        <li>{{ site.Params.zalo }}</li>
+        <li>{{ with site.Params.email }}<a href="mailto:{{ . }}">{{ . }}</a>{{ else }}Email liên hệ đang được nhóm cập nhật{{ end }}</li>
+        <li>{{ with site.Params.zaloUrl }}<a href="{{ . }}">Nhắn Zalo</a>{{ else }}{{ site.Params.zalo }}{{ end }}</li>
         <li>{{ site.Params.hours }}</li>
         <li>Điểm hẹn: {{ site.Params.meetingPoint }}</li>
       </ul>

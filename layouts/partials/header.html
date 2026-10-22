@@ -1,24 +1,25 @@
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="{{ "/" | relURL }}" aria-label="FixIT Student, về trang chủ"><img class="brand-mark" src="{{ "images/logo.svg" | relURL }}" alt="" width="36" height="36"><span>FixIT<span class="brand-sub"> Student</span></span></a>
+    <a class="brand" href="{{ "/" | relURL }}" aria-label="FixIT Student, về trang chủ"><img class="brand-mark" src="{{ "images/logo.svg" | relURL }}" alt="" width="36" height="36"><span class="brand-wordmark">FixIT<span class="brand-sub"> Student</span><small>Chăm máy, nhẹ việc học</small></span></a>
 
     <nav class="nav" id="site-nav" aria-label="Điều hướng chính">
       <ul class="nav-list" data-nav-list>
         {{- $page := . -}}
         {{- range site.Menus.main -}}
-          {{- $active := and (ne .URL "/") (hasPrefix $page.RelPermalink .URL) -}}
+          {{- $active := or (and (eq .URL "/") $page.IsHome) (and (ne .URL "/") (hasPrefix $page.RelPermalink .URL)) -}}
           <li><a class="nav-link" href="{{ .URL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a></li>
         {{- end -}}
       </ul>
     </nav>
 
     <div class="header-actions">
+      <button class="btn btn--ghost theme-quick-toggle" type="button" data-theme-toggle aria-label="Bật giao diện tối" aria-pressed="false"><span aria-hidden="true">◐</span></button>
       <div class="theme-switch" role="group" aria-label="Giao diện sáng hoặc tối">
         <button type="button" data-theme-set="light" aria-pressed="true">Sáng</button>
         <button type="button" data-theme-set="dark" aria-pressed="false">Tối</button>
       </div>
-      <a class="btn btn--secondary btn--small cart-btn" href="{{ "cart/" | relURL }}">Giỏ hàng <span data-cart-count>0</span></a>
-      <a class="btn btn--primary btn--small header-cta" href="{{ "services/" | relURL }}">Đặt lịch</a>
+      <a class="btn btn--secondary btn--small cart-btn" href="{{ "cart/" | relURL }}"><svg class="toolbar-bag" width="17" height="19" viewBox="0 0 20 22" fill="none" aria-hidden="true"><path d="M3 7h14l1 13H2L3 7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M6 8V5a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Giỏ hàng <span data-cart-count>0</span></a>
+      <a class="btn btn--primary btn--small header-cta" href="{{ "services/" | relURL }}">Chọn dịch vụ <span aria-hidden="true">↗</span></a>
       <button class="btn btn--ghost btn--small nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>Menu</button>
     </div>
   </div>

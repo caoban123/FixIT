@@ -100,6 +100,10 @@
 
   /* Token ngữ nghĩa: đổi theo giao diện Sáng / Tối */
   --color-bg: #FFFFFF;
+  --page-bg: #F6F7FC;
+  --page-glow: rgba(115, 3, 148, 0.055);
+  --page-glow-blue: rgba(55, 90, 220, 0.045);
+  --hero-bg: #0B1022;
   --color-text: #000000;
   --color-text-2: #444444;
   --color-accent: #730394;    /* màu nhấn dùng cho chữ / viền trên nền trang */
@@ -627,14 +631,17 @@ body[data-tone="dark"] { --tone-a: var(--black); --tone-b: var(--c-purple); --to
    ========================================================================== */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --color-bg: #000000;
+  --color-bg: #11192B;
+  --page-bg: #0B1020;
+  --page-glow: rgba(153, 92, 225, 0.065);
+  --page-glow-blue: rgba(72, 112, 225, 0.055);
   --color-text: #FFFFFF;
   --color-text-2: #C9C9C9;
   --color-accent: color-mix(in srgb, #730394 45%, #FFFFFF);
   --color-link: color-mix(in srgb, #0000EE 40%, #FFFFFF);
-  --color-muted: #757575;
-  --color-border: #444444;
-  --surface-2: color-mix(in srgb, #444444 28%, #000000);
+  --color-muted: #A0AABE;
+  --color-border: #2D364B;
+  --surface-2: #161F33;
   --footer-line: #444444;
   --lift: 0 14px 34px -14px rgba(0, 0, 0, 0.9);
 }
@@ -644,10 +651,14 @@ body[data-tone="dark"] { --tone-a: var(--black); --tone-b: var(--c-purple); --to
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     color-scheme: dark;
-    --color-bg: #000000; --color-text: #FFFFFF; --color-text-2: #C9C9C9;
+    --color-bg: #11192B; --color-text: #FFFFFF; --color-text-2: #C9C9C9;
+    --page-bg: #0B1020;
+    --page-glow: rgba(153, 92, 225, 0.065);
+    --page-glow-blue: rgba(72, 112, 225, 0.055);
     --color-accent: color-mix(in srgb, #730394 45%, #FFFFFF);
     --color-link: color-mix(in srgb, #0000EE 40%, #FFFFFF);
-    --color-border: #444444; --surface-2: color-mix(in srgb, #444444 28%, #000000); --footer-line: #444444;
+    --color-muted: #A0AABE;
+    --color-border: #2D364B; --surface-2: #161F33; --footer-line: #444444;
   }
 }
 
@@ -908,87 +919,54 @@ html.theme-fade, html.theme-fade *, html.theme-fade *::before, html.theme-fade *
 .card-actions .btn { white-space: nowrap; }
 .card-foot { row-gap: var(--space-3); }
 
-/* ==========================================================
-   Nền lót parallax (backdrop): ảnh mờ, mờ nhạt, cố định phía sau nội dung
-   Chỉ dùng tông tím và xanh trong palette. Ảnh có kênh trong suốt.
-   ========================================================== */
-html { background: var(--color-bg); }
-body { background: transparent; }
+/* Calm page surfaces and a focused purple-blue hero. */
+html { background: var(--page-bg); }
+body { background: transparent; isolation: isolate; }
 .backdrop {
-  position: fixed; inset: -6vh -4vw; z-index: -1; pointer-events: none;
-  background: url("../images/backdrop.webp") center 40% / cover no-repeat;
-  opacity: .26;
-  transform: translate3d(0, calc(var(--by, 0) * -1px), 0) scale(1.08);
-  will-change: transform;
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(ellipse 65% 45% at 0% 15%, var(--page-glow), transparent 75%),
+    radial-gradient(ellipse 60% 50% at 100% 75%, var(--page-glow-blue), transparent 75%),
+    var(--page-bg);
 }
-:root[data-theme="dark"] .backdrop { opacity: .34; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .backdrop { opacity: .34; } }
-/* Mờ dần về nền ở mép dưới để chữ luôn dễ đọc */
-.backdrop::after {
-  content: ""; position: absolute; inset: 0;
-  background: linear-gradient(to bottom, transparent 55%, var(--color-bg) 100%);
-}
-@media (max-width: 720px) { .backdrop { opacity: .2; } }
 @media print { .backdrop { display: none; } }
-@media (prefers-reduced-motion: reduce) { .backdrop { transform: scale(1.08); } }
 
-/* ==========================================================================
-   Nền động .aurora (bản chính thức, thay cho các bản thử trước)
-   - Dải lụa (ribbons.svg) nằm trên một lớp riêng ::after và chỉ dịch chuyển bằng transform,
-     nên chạy mượt trên GPU, không bị giật và không lộ mép ảnh (lớp này rộng hơn khung 18%).
-   - Hai quầng sáng tím và xanh nằm ở nền của chính khối, đi chậm phía dưới lớp dải lụa.
-   - Pha chuyển động lấy theo đồng hồ chung (--aurora-t do script ở <head> đặt), nên khi
-     chuyển trang nền không bị nhảy về đầu chu kỳ.
-   ========================================================================== */
-@property --gx1 { syntax: "<percentage>"; inherits: false; initial-value: 18%; }
-@property --gy1 { syntax: "<percentage>"; inherits: false; initial-value: 35%; }
-@property --gx2 { syntax: "<percentage>"; inherits: false; initial-value: 85%; }
-@property --gy2 { syntax: "<percentage>"; inherits: false; initial-value: 70%; }
 .aurora {
   position: relative; isolation: isolate; overflow: hidden;
-  background-color: var(--black);
+  background-color: var(--hero-bg);
   background-image:
-    radial-gradient(46% 90% at var(--gx1) var(--gy1), color-mix(in srgb, var(--c-purple) 78%, transparent) 0%, transparent 70%),
-    radial-gradient(42% 80% at var(--gx2) var(--gy2), color-mix(in srgb, var(--c-blue) 62%, transparent) 0%, transparent 70%);
+    radial-gradient(ellipse 65% 100% at 90% 15%, rgba(113, 58, 185, 0.38), transparent 72%),
+    radial-gradient(ellipse 55% 85% at 65% 85%, rgba(48, 83, 178, 0.28), transparent 75%);
   background-repeat: no-repeat;
-  animation: glow-drift 16s ease-in-out infinite alternate;
-  animation-delay: calc(var(--aurora-t, 0) * -1s);
 }
 .aurora::after {
-  content: ""; position: absolute; inset: -18%; z-index: -2; pointer-events: none;
-  background: url("../images/ribbons.svg") center / cover no-repeat;
-  mix-blend-mode: screen;
-  animation: ribbon-flow 30s ease-in-out infinite alternate;
-  animation-delay: calc(var(--aurora-t, 0) * -1s);
-  will-change: transform;
+  content: ""; position: absolute; inset: 0; z-index: -2; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(205, 215, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(205, 215, 255, 0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse at 80% 35%, #000, transparent 75%);
+  mask-image: radial-gradient(ellipse at 80% 35%, #000, transparent 75%);
 }
-@keyframes glow-drift {
-  0%   { --gx1: 10%; --gy1: 25%; --gx2: 92%; --gy2: 82%; }
-  50%  { --gx1: 46%; --gy1: 68%; --gx2: 58%; --gy2: 28%; }
-  100% { --gx1: 84%; --gy1: 30%; --gx2: 16%; --gy2: 76%; }
-}
-@keyframes ribbon-flow {
-  0%   { transform: translate3d(-6%, -4%, 0) scale(1.02) rotate(-2deg); }
-  100% { transform: translate3d(6%, 4%, 0) scale(1.2) rotate(2deg); }
-}
-/* Người dùng bật "giảm chuyển động": vẫn trôi nhưng chậm gấp 3 lần, không tắt hẳn */
-@media (prefers-reduced-motion: reduce) {
-  .aurora { animation-duration: 48s; }
-  .aurora::after { animation-duration: 90s; }
+.hero.aurora { border-bottom: 1px solid rgba(183, 170, 235, 0.18); }
+.site-footer { background-color: var(--hero-bg); }
+@media (max-width: 720px) {
+  .aurora {
+    background-image:
+      radial-gradient(ellipse 100% 55% at 100% 0%, rgba(113, 58, 185, 0.3), transparent 80%),
+      radial-gradient(ellipse 100% 60% at 0% 100%, rgba(48, 83, 178, 0.2), transparent 80%);
+  }
+  .aurora::after { background-size: 48px 48px; }
 }
 /* Khung video và ảnh bìa dịch vụ luôn 16:9 để không bị cắt chữ */
 .media.media--video, .media.media--poster { aspect-ratio: 16 / 9; }
 
-/* Video đang phát: dừng các hiệu ứng nền nặng để không giật */
-.video-playing .aurora, .video-playing .aurora::after { animation-play-state: paused; }
-.video-playing .backdrop { will-change: auto; }
-
 /* Student Pack: hero và khối giá dùng chung một nền, không còn hai dải gradient cạnh nhau */
 .page-hero:has(+ .showcase--flat)::before {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, var(--black) 100%), linear-gradient(90deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0) 75%);
+  background: linear-gradient(180deg, rgba(11, 16, 34, 0) 45%, var(--hero-bg) 100%), linear-gradient(90deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0) 75%);
 }
 .showcase--flat {
-  background-color: var(--black);
+  background-color: var(--hero-bg);
   background-image: radial-gradient(55% 90% at 88% 55%, color-mix(in srgb, var(--c-purple) 34%, transparent) 0%, transparent 72%);
 }
 .stat-list { margin: 0; }
@@ -1066,10 +1044,10 @@ body { background: transparent; }
 .logo-panel:hover img { transform: none; }
 .split-even .display-sm { margin-bottom: var(--space-5); }
 
-/* Mép dưới của dải lụa có một dải màu cạnh sắc ở góc trái: phủ một lớp tối mờ dần lên trên dải lụa để không còn thấy mép */
+/* Keep the lower hero edge calm behind text and controls. */
 .hero::before {
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.7) 72%, var(--black) 92%);
+  background: linear-gradient(180deg, rgba(11, 16, 34, 0) 35%, rgba(11, 16, 34, 0.55) 100%);
 }
 .page-hero::after { z-index: -2; }
 .page-hero::before { background: linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.7) 100%), linear-gradient(90deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0) 75%); }

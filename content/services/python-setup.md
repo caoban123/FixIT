@@ -1,5 +1,6 @@
 ---
 title: "Python Environment Setup"
+labelVi: "Cài môi trường Python"
 weight: 20
 price: 29000
 duration: "30 – 45 phút"
